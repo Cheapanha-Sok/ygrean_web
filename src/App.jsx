@@ -1,9 +1,10 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Homepage from "./page/Homepage";
+import Homepage from "./page/user/Homepage";
 import AppLayout from "./components/user/AppLayout";
-import Ranking from "./page/Ranking";
-import Scholarship from "./page/Scholarship";
-import Quiz from "./page/Quiz";
+import Ranking from "./page/user/Ranking";
+import Scholarship from "./page/user/Scholarship";
+import Quiz from "./page/user/Quiz";
+import Authentication from "./page/user/auth/Authentication";
 
 export default function App() {
   return (
@@ -14,6 +15,7 @@ export default function App() {
           <Route path="/ranking" element={<Ranking />} />
           <Route path="/scholarship" element={<Scholarship />} />
           <Route path="/quiz" element={<Quiz />} />
+          <Route path="/authentication" element={<Authentication />} />
         </Route>
       </Routes>
     </Router>
