@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { signup } from "../../../../context/user/UserAction";
-import Input from "../../../../ui/shared/Input";
-import Button from "../../../../ui/shared/Button";
+import Logo from "../../assets/Logo.png"
+import { signup } from "../../context/user/UserAction";
+import Input from "../../ui/shared/Input"
+import Button from "../../ui/shared/Button"
 
 export default function SignUp({ setAuthOption }) {
   const navigate = useNavigate();
@@ -34,8 +35,8 @@ export default function SignUp({ setAuthOption }) {
 
   return (
     <>
-      <div className="w-1/2 p-5 md:flex hidden justify-center items-center">
-        <img src={""} alt="Reading a Book" className="rounded-xl" />
+      <div className="w-1/2 md:flex hidden justify-center items-center">
+        <img src={Logo} alt="Reading a Book" className="rounded-xl" />
       </div>
       <div className="w-full md:w-1/2 p-5">
         <h1 className="text-xl md:text-3xl font-semibold">Sign Up</h1>

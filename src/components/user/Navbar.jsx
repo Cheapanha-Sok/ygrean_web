@@ -12,7 +12,7 @@ export default function Navbar() {
     <nav className="bg-slate-500 p-6 text-white">
       <div className="flex flex-row justify-between">
         <div className="flex flex-row gap-5">
-          <h1 className="text_sm md:text-xl">WeLearn</h1>
+          <Link to="/" className="text_sm md:text-xl">WeLearn</Link>
         </div>
         <ul className="hidden md:flex flex-row gap-5">
           {links.map((item) => (

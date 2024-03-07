@@ -4,7 +4,7 @@ import AppLayout from "./components/user/AppLayout";
 import Ranking from "./page/user/Ranking";
 import Scholarship from "./page/user/Scholarship";
 import Quiz from "./page/user/Quiz";
-import Authentication from "./page/user/auth/Authentication";
+import Authentication from "./page/user/Authentication";
 
 export default function App() {
   return (

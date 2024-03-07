@@ -1,6 +1,6 @@
 import  { useState } from 'react'
-import SignIn from './components/SignIn.jsx';
-import SignUp from "./components/SignUp.jsx"
+import SignIn from "../../components/user/SignIn"
+import SignUp from "../../components/user/SignUp"
 import { Navigate } from 'react-router-dom';
 
 export default function Authentication() {
