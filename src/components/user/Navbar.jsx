@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import Logo from "../../assets/Logo.png"
 
 export default function Navbar() {
 
@@ -12,7 +13,9 @@ export default function Navbar() {
     <nav className="bg-slate-500 p-6 text-white">
       <div className="flex flex-row justify-between">
         <div className="flex flex-row gap-5">
-          <Link to="/" className="text_sm md:text-xl">WeLearn</Link>
+        <Link to="/" className="flex items-center justify-center">
+          <img src={Logo} alt="Logo" className="w-[30px] md:w-[50px]" />
+        </Link>
         </div>
         <ul className="hidden md:flex flex-row gap-5">
           {links.map((item) => (
