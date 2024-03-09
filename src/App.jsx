@@ -6,6 +6,7 @@ import Scholarship from "./page/user/Scholarship";
 import Quiz from "./page/user/Quiz";
 import Authentication from "./page/user/Authentication";
 import Account from "./page/user/Account";
+import BakDoub from "./page/user/BakDoub";
 
 export default function App() {
   return (
@@ -18,6 +19,7 @@ export default function App() {
           <Route path="/quiz" element={<Quiz />} />
           <Route path="/account" element={<Account />} />
           <Route path="/authentication" element={<Authentication />} />
+          <Route path="/bakDoubAnswer" element={<BakDoub />} />
         </Route>
       </Routes>
     </Router>

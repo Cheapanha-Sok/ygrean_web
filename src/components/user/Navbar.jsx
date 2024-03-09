@@ -6,6 +6,7 @@ export default function Navbar() {
   const links = [
     { name: "quiz", link: "/quiz", image: "" },
     { name: "ranking", link: "/ranking", image: "" },
+    {name: "bakdoubAnswer", link: "/bakDoubAnswer", image: ""},
     { name: "scholarship", link: "/scholarship", image: "" },
     { name: "account", link: "/account", image: "" }
   ];
