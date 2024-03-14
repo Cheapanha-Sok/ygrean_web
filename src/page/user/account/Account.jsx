@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
-import { logout } from '../../context/user/UserAction';
-import Button from '../../ui/shared/Button';
-import Input from '../../ui/shared/Input';
-import Logo from '../../assets/Logo.png'
+import { logout } from '../../../context/user/UserAction';
+import Button from '../../../ui/shared/Button';
+import Input from '../../../ui/shared/Input';
+import Logo from '../../../assets/Logo.png'
 
 export default function Account() {
     const navigate = useNavigate()

@@ -1,12 +1,12 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Homepage from "./page/user/Homepage";
-import AppLayout from "./components/user/AppLayout";
-import Ranking from "./page/user/Ranking";
-import Scholarship from "./page/user/Scholarship";
-import Quiz from "./page/user/Quiz";
-import Authentication from "./page/user/Authentication";
-import Account from "./page/user/Account";
-import BakDoub from "./page/user/BakDoub";
+import Homepage from "./page/user/home/Homepage";
+import AppLayout from "./ui/user/AppLayout";
+import Ranking from "./page/user/ranking/Ranking";
+import Scholarship from "./page/user/scholarship/Scholarship";
+import Quiz from "./page/user/quiz/Quiz";
+import Authentication from "./page/user/auth/Authentication";
+import Account from "./page/user/account/Account";
+import BakDoub from "./page/user/bakDoub/BakDoub";
 
 export default function App() {
   return (

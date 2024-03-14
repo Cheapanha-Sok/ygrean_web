@@ -1,8 +1,8 @@
 // Science.jsx
 import React, { useState } from "react";
-import ItemList from "../../components/user/ItemList";
-import { science, socialScience } from "../../data/dummyData";
-import SelectOption from "../../ui/shared/SelectOption";
+import ItemList from "../../../ui/user/ItemList";
+import { science, socialScience } from "../../../data/dummyData";
+import SelectOption from "../../../ui/shared/SelectOption";
 
 export default function BakDoub() {
   const [option, setOption] = useState("science");

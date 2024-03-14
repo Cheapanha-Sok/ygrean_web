@@ -1,7 +1,6 @@
 import  { useState } from 'react'
-import SignIn from "../../components/user/SignIn"
-import SignUp from "../../components/user/SignUp"
-import { Navigate } from 'react-router-dom';
+import SignIn from "./components/SignIn"
+import SignUp from "./components/SignUp"
 
 export default function Authentication() {
     const [authOption, setAuthOption] = useState("Sign In");

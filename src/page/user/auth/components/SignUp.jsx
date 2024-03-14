@@ -1,9 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Logo from "../../assets/Logo.png"
-import { signup } from "../../context/user/UserAction";
-import Input from "../../ui/shared/Input"
-import Button from "../../ui/shared/Button"
+import Logo from "../../../../assets/Logo.png"
+import { signup } from "../../../../context/user/UserAction";
+import Input from "../../../../ui/shared/Input"
 
 export default function SignUp({ setAuthOption }) {
   const navigate = useNavigate();
