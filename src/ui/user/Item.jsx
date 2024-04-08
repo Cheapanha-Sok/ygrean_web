@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Modal from "../../ui/shared/Modal";
+import { examDate } from "../../data/dummyData";
 
 export default function Item({ data }) {
   const { image, description, categoryName } = data;
@@ -17,7 +18,15 @@ export default function Item({ data }) {
         <p className="text-base">{description}</p>
       </div>
       {isOpen && (
-        <Modal title="Select a year" onClose={() => setOpen(!isOpen)}></Modal>
+        <Modal title="Select a year" onClose={() => setOpen(!isOpen)}>
+          <ul className="grid grid-cols-3 md:grid-cols-5 gap-5 p-5">
+            {examDate.map((item) => (
+              <li key={item.id} className="p-5 text-white border border-white-2 rounded-md">
+                <p>{item.examDate}</p>
+              </li>
+            ))}
+          </ul>
+        </Modal>
       )}
     </>
   );

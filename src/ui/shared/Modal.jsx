@@ -1,5 +1,6 @@
 import React from "react";
 import Button from "./Button";
+import closeModal from "../../assets/svg/close.svg";
 
 export default function Modal({ children, onClose, title, content }) {
   return (
@@ -16,7 +17,7 @@ export default function Modal({ children, onClose, title, content }) {
               {content ? <div>{content}</div> : null}
             </div>
             <Button type="button" onClick={onClose}>
-              <img src={""} alt="iconClose" className="w-5" />
+              <img src={closeModal} alt="iconClose" className="w-5" />
             </Button>
           </div>
           {children}

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { logout } from '../../../context/user/UserAction';
 import Button from '../../../ui/shared/Button';
@@ -54,7 +54,6 @@ export default function Account() {
             </div>
             <hr className="h-px my-5 bg-gray-500" />
             <form
-            //   onSubmit={handleEdit}
               className="flex gap-5 flex-col justify-evenly items-center md:flex-row"
             >
               <div className="flex flex-col items-center gap-2">
