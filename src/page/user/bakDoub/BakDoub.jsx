@@ -1,45 +1,35 @@
-// Science.jsx
-import React, { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import ItemList from "../../../ui/user/ItemList";
-import { science, socialScience ,examDate } from "../../../data/dummyData";
 import SelectOption from "../../../ui/shared/SelectOption";
+import { getType } from "../../../context/bakDoub/BakDoubAction";
+import { types } from "../../../data/dummyData";
+import BakDoubDataContext from "../../../context/bakDoub/BakDoubContext";
 
 export default function BakDoub() {
-  const [option, setOption] = useState("science");
-  const [categories, setCategories] = useState([]);
+  const [option, setOption] = useState(1);
 
   const handleSelectChange = (event) => {
-    setOption(event.target.value);
+    const selectedOption = parseInt(event.target.value);
+    setOption(selectedOption);
   };
 
-  useEffect(() => {
-    const getCategories = async() => {
-      const data = await fetch("")
-    };
-    getCategories();
-  }, []);
+  const { listCategories, dispatch } = useContext(BakDoubDataContext);
 
-  const options = [
-    {
-      id: 1,
-      name: "science",
-    },
-    {
-      id: 2,
-      name: "socialscience",
-    },
-  ];
-
-  const data = option === "science" ? science : socialScience;
+  useEffect(()=>{
+    const getCategory = async(option)=>{
+      const data = await getType(option)
+      dispatch({ type: "SET_CATEGORIES", payload: data });
+    }
+    getCategory(option)
+  },[option , dispatch])
 
   return (
     <div className="flex flex-col gap-5">
       <h1 className="text-xl font-semibold">BakDoub Answer</h1>
       <div>
-        <SelectOption options={options} onSelectChange={handleSelectChange} />
+        <SelectOption options={types} onSelectChange={handleSelectChange} />
       </div>
-
-      <ItemList data={data} />
+      <ItemList data={listCategories} on />
     </div>
   );
 }

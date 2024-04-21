@@ -30,6 +30,18 @@ export const examDate = [
     examDate: "2022",
   },
 ];
+
+export const types = [
+  {
+    id : 1,
+    name : "socialscience"
+  },
+  {
+    id : 2,
+    name : "science"
+  }
+]
+
 export const science = [
   {
     id: 1,

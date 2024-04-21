@@ -1,0 +1,107 @@
+import { Link, useNavigate } from "react-router-dom";
+import { useState, useEffect, useRef } from "react";
+
+function SideBar() {
+  const [isOpen, setIsOpen] = useState(false);
+  const sidebarRef = useRef(null);
+
+  useEffect(() => {
+    const handleOutsideClick = (event) => {
+      if (sidebarRef.current && !sidebarRef.current.contains(event.target)) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleOutsideClick);
+
+    return () => {
+      document.removeEventListener("mousedown", handleOutsideClick);
+    };
+  }, []);
+
+  const handleToggle = () => {
+    setIsOpen(!isOpen);
+  };
+
+  return (
+    <>
+      <button
+        onClick={handleToggle}
+        className="inline-flex items-center p-2 mt-2 ms-3 text-sm rounded-lg
+        sm:hidden"
+      >
+        <span className="sr-only">Toggle sidebar</span>
+        <img src={""} alt="sideBarIcon" className="w-5" />
+      </button>
+
+      <aside
+        ref={sidebarRef}
+        className={`fixed md:sticky h-screen top-0 left-0 z-20 w-40 md:w-64 transition-transform text-xs md:text-lg ${
+          isOpen ? "md:block" : "hidden md:block"
+        }`}
+        aria-label="Sidebar"
+      >
+        <div className="h-full px-3 py-4 overflow-y-auto bg-[#283d50]">
+          <div className="flex justify-center md:py-5">
+            <Link to="/">
+              <img src={""} alt="logo" className="w-[50px] md:w-[100px]" />
+            </Link>
+          </div>
+
+          <ul className="space-y-2 font-medium">
+            <li>
+              <Link
+                to="/"
+                className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+              >
+                {/* <img src={""} alt="chartIcon" className="w-5 h-5" /> */}
+                <span className="ms-3">Dashboard</span>
+              </Link>
+            </li>
+
+            <li>
+              <Link
+                to="/teacher"
+                className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+              >
+                {/* <img src={""} alt="bookIcon" className="w-5 h-5" /> */}
+                <span className="flex-1 ms-3 whitespace-nowrap">Teacher</span>
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/student"
+                className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+              >
+                {/* <img src={""} alt="bookIcon" className="w-5 h-5" /> */}
+                <span className="flex-1 ms-3 whitespace-nowrap">Student</span>
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/orders"
+                className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+              >
+                {/* <img src={""} alt="bookIcon" className="w-5 h-5" /> */}
+                <span className="flex-1 ms-3 whitespace-nowrap">Orders</span>
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/backUpData"
+                className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+              >
+                {/* <img src={""} alt="RestoreIcon" className="w-5 h-5" /> */}
+                <span className="flex-1 ms-3 whitespace-nowrap">
+                  Back Up Data
+                </span>
+              </Link>
+            </li>
+          </ul>
+        </div>
+      </aside>
+    </>
+  );
+}
+
+export default SideBar;

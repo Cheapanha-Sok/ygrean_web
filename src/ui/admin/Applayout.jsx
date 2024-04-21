@@ -1,7 +1,13 @@
-import React from 'react'
+import SideBar from './Sidebar'
+import { Outlet } from 'react-router-dom'
 
-export default function Applayout() {
+export default function AppLayout() {
   return (
-    <div>Applayout</div>
+    <div className="flex flex-col md:flex-row">
+      <SideBar />
+      <main className="w-full">
+        <Outlet />
+      </main>
+    </div>
   )
 }
