@@ -8,9 +8,6 @@ export default function ViewPdf() {
   const { listBakDoubs, dispatch, loading } = useContext(BakDoubDataContext);
   const { pdfUrl, categoryName, examDate, type } = listBakDoubs;
 
-  console.log("exam" , examDateId)
-  console.log("cate" , categoryId)
-
   useEffect(() => {
     const fetchData = async (examDateId, categoryId) => {
       const data = await getBakDoubAnswer(examDateId, categoryId);
