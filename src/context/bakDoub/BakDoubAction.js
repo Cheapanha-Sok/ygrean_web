@@ -1,6 +1,6 @@
 import { BASE_URL } from "../../utils/constant/Constant";
 
-export const getBakDoubAnswer = async (examDateId,categoriesId) => {
+export const getBakDoubAnswer = async (examDateId, categoriesId) => {
   try {
     const res = await fetch(`${BASE_URL}pdf/${examDateId}/${categoriesId}`, {
       method: "GET",
@@ -47,6 +47,46 @@ export const getAllBakDoubAnswer = async () => {
     console.log(error);
   }
 };
+
+export const getAllBakDoubAnswerByType = async (typeId) => {
+  try {
+    const res = await fetch(`${BASE_URL}pdfType/${typeId}`, {
+      method: "GET",
+    });
+    if (res.status === 200) {
+      const data = await res.json();
+      return data;
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const updateSubject = async (
+  file,
+  selectedCategory,
+  selectedExamDate,
+  id
+) => {
+  try {
+    const formData = new FormData();
+    formData.append("categoryId", parseInt(selectedCategory));
+    formData.append("subjectId", parseInt(id));
+    formData.append("examDateId", parseInt(selectedExamDate));
+    formData.append("file", file);
+    const res = await fetch(`${BASE_URL}pdf`, {
+      method: "PUT",
+      body: formData,
+    });
+
+    if (res === 200) {
+      return true;
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export const removeBakDoubAnswer = async (id) => {
   try {
     const res = await fetch(`${BASE_URL}pdf/${id}`, {
