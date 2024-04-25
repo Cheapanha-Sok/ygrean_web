@@ -11,9 +11,10 @@ import BakDoub from "./page/user/bakDoub/BakDoub";
 import { UserDataProvider } from "./context/user/UserContext";
 import { ScholarshipDataProvider } from "./context/scholarship/ScholarshipContext";
 import { BakDoubDataProvider } from "./context/bakDoub/BakDoubContext";
-import ManageSubject from "./page/admin/ManageSubject";
 import PrivateRoute from "./ui/shared/PrivateRoute";
 import ViewPdf from "./page/user/bakDoub/ViewPdf";
+import ManageQuiz from "./page/admin/manageQuiz/ManageQuiz";
+import BakDoubList from "./page/admin/manageBakDoub/BakDoubList";
 
 export default function App() {
 
@@ -30,8 +31,8 @@ export default function App() {
             <Routes>
               {storedUser?.role === "admin" ? (
                 <Route element={<AdminAppLayout />}>
-                  <Route index element={<ManageSubject />} />
-                  <Route path="/manageSubject" element={<ManageSubject />} />
+                  <Route index element={<BakDoubList />} />
+                  <Route path="/manageSubject" element={<ManageQuiz />} />
                 </Route>
               ) : (
                 <Route element={<UserAppLayout />}>

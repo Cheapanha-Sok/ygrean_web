@@ -34,11 +34,11 @@ export const examDate = [
 export const types = [
   {
     id : 1,
-    name : "socialscience"
+    name : "science"
   },
   {
     id : 2,
-    name : "science"
+    name : "socialscience"
   }
 ]
 

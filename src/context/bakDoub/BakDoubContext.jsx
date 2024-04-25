@@ -5,8 +5,9 @@ import { BakDoubReducer } from "./BakDoubReducer";
 const BakDoubDataContext = createContext();
 export const BakDoubDataProvider =({ children })=> {
   const initialState = {
-    listBakdoub: [],
+    listBakDoubs: [],
     listCategories : [],
+    listExamDates : [],
     loading: false,
   };
   const [state, dispatch] = useReducer(BakDoubReducer, initialState);

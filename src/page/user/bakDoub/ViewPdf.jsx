@@ -5,13 +5,16 @@ import BakDoubDataContext from "../../../context/bakDoub/BakDoubContext";
 
 export default function ViewPdf() {
   const { categoryId, examDateId } = useParams();
-  const { listBakdoub, dispatch, loading } = useContext(BakDoubDataContext);
-  const { pdfUrl, categoryName, examDate, type } = listBakdoub;
+  const { listBakDoubs, dispatch, loading } = useContext(BakDoubDataContext);
+  const { pdfUrl, categoryName, examDate, type } = listBakDoubs;
+
+  console.log("exam" , examDateId)
+  console.log("cate" , categoryId)
 
   useEffect(() => {
     const fetchData = async (examDateId, categoryId) => {
       const data = await getBakDoubAnswer(examDateId, categoryId);
-      dispatch({ type: "SET_BAKDOUB", payload: data });
+      dispatch({ type: "SET_BAKDOUBS", payload: data });
     };
     fetchData(examDateId, categoryId);
   }, [categoryId, examDateId, dispatch]);

@@ -5,10 +5,10 @@ export const BakDoubReducer = (state, action) => {
           ...state,
           loading: true,
         };
-      case "SET_BAKDOUB":
+      case "SET_BAKDOUBS":
         return {
           ...state,
-          listBakdoub: action.payload,
+          listBakDoubs: action.payload,
           loading: false,
         };
       case "SET_CATEGORIES":
@@ -16,6 +16,12 @@ export const BakDoubReducer = (state, action) => {
           ...state,
           listCategories : action.payload,
           loading : false,
+        }
+      case "SET_EXAMDATES":
+        return {
+          ...state,
+          listExamDates : action.payload,
+          loading : false
         }
     }
   };

@@ -1,60 +1,89 @@
 import { BASE_URL } from "../../utils/constant/Constant";
 
-export const getBakDoubAnswer = async (categoriesId , examDateId) => {
+export const getBakDoubAnswer = async (examDateId,categoriesId) => {
   try {
-    const res = await fetch(
-      `${BASE_URL}pdf/${examDateId}/${categoriesId}`,
-      {
-        method: "GET",
-      }
-    );
+    const res = await fetch(`${BASE_URL}pdf/${examDateId}/${categoriesId}`, {
+      method: "GET",
+    });
     if (res.ok) {
-      return res.json();
+      const data = await res.json();
+      return data;
     }
   } catch (error) {
     console.log(error);
   }
 };
-export const removeBakDoubAnswer = async(id)=>{
-  try{
-    const res = await fetch(
-      `${BASE_URL}bakDoub/${id}`,
-      {
-        method: "DELETE",
-      }
-    );
-    if(res.ok){
-      return true
-    }
-  }catch(error){
-    console.log(error)
-  }
-}
-export const getType = async(typeId)=>{
-  try{
-    const res = await fetch(`${BASE_URL}type/${typeId}`,{
-      method : "GET"
-    })
-    if(res.status === 200){
-      const data = await res.json()
-      return data.categories
-    }
-  }catch(error){
-    console.log(error)
-  }
-}
+export const createNewBakDoub = async (categoryId, examDateId, file) => {
+  try {
+    const formData = new FormData();
+    formData.append("categoryId", parseInt(categoryId));
+    formData.append("examDateId", parseInt(examDateId));
+    formData.append("file", file);
 
-export const getExamDate = async()=>{
-  try{
-    const res = await fetch(`${BASE_URL}examDate`,{
-      method : "GET"
-    })
-    if(res.status === 200){
-      const data = await res.json()
-      console.log(data)
-      return data
+    const res = await fetch(`${BASE_URL}pdf`, {
+      method: "POST",
+      body: formData,
+    });
+
+    if (res.status === 200) {
+      const responseData = await res.json();
+      console.log(responseData);
+      return true;
     }
-  }catch(error){
-    console.log(error)
+  } catch (error) {
+    console.error("Error:", error);
   }
-}
+};
+export const getAllBakDoubAnswer = async () => {
+  try {
+    const res = await fetch(`${BASE_URL}pdf`, {
+      method: "GET",
+    });
+    if (res.status === 200) {
+      const data = await res.json();
+      return data;
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+export const removeBakDoubAnswer = async (id) => {
+  try {
+    const res = await fetch(`${BASE_URL}pdf/${id}`, {
+      method: "DELETE",
+    });
+    if (res.ok) {
+      return true;
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+export const getType = async (typeId) => {
+  try {
+    const res = await fetch(`${BASE_URL}type/${typeId}`, {
+      method: "GET",
+    });
+    if (res.status === 200) {
+      const data = await res.json();
+      return data.categories;
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getExamDate = async () => {
+  try {
+    const res = await fetch(`${BASE_URL}examDate`, {
+      method: "GET",
+    });
+    if (res.status === 200) {
+      const data = await res.json();
+      console.log(data);
+      return data;
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
