@@ -1,5 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
+import Logo from "../../assets/Logo.png";
 
 function SideBar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -44,7 +45,7 @@ function SideBar() {
         <div className="h-full px-3 py-4 overflow-y-auto bg-[#283d50]">
           <div className="flex justify-center md:py-5">
             <Link to="/">
-              <img src={""} alt="logo" className="w-[50px] md:w-[100px]" />
+              <img src={Logo} alt="logo" className="w-[50px] md:w-[100px]" />
             </Link>
           </div>
 
@@ -54,49 +55,30 @@ function SideBar() {
                 to="/"
                 className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
               >
-                {/* <img src={""} alt="chartIcon" className="w-5 h-5" /> */}
-                <span className="ms-3">Dashboard</span>
+                {/* <img src={} alt="chartIcon" className="w-5 h-5" /> */}
+                <span className="ms-3">Subject</span>
               </Link>
             </li>
 
             <li>
               <Link
-                to="/teacher"
+                to="/"
                 className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
               >
                 {/* <img src={""} alt="bookIcon" className="w-5 h-5" /> */}
-                <span className="flex-1 ms-3 whitespace-nowrap">Teacher</span>
+                <span className="flex-1 ms-3 whitespace-nowrap">Question</span>
               </Link>
             </li>
             <li>
               <Link
-                to="/student"
+                to="/"
                 className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
               >
                 {/* <img src={""} alt="bookIcon" className="w-5 h-5" /> */}
-                <span className="flex-1 ms-3 whitespace-nowrap">Student</span>
+                <span className="flex-1 ms-3 whitespace-nowrap">Scholorship</span>
               </Link>
             </li>
-            <li>
-              <Link
-                to="/orders"
-                className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
-              >
-                {/* <img src={""} alt="bookIcon" className="w-5 h-5" /> */}
-                <span className="flex-1 ms-3 whitespace-nowrap">Orders</span>
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/backUpData"
-                className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
-              >
-                {/* <img src={""} alt="RestoreIcon" className="w-5 h-5" /> */}
-                <span className="flex-1 ms-3 whitespace-nowrap">
-                  Back Up Data
-                </span>
-              </Link>
-            </li>
+        
           </ul>
         </div>
       </aside>

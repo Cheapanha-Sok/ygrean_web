@@ -1,4 +1,3 @@
-import React from "react";
 import dog from "../../../../assets/img/Hero.png";
 
 export default function TeamWork() {
@@ -13,14 +12,14 @@ export default function TeamWork() {
           <div className="w-20 h-20 md:w-32 md:h-32 rounded-full overflow-hidden">
             <img src={dog} alt="" className="object-cover w-full h-full" />
           </div>
-          <p>Sok Cheapanha</p>
+          <p>Som lyhuy</p>
         </div>
         <div className="flex flex-col gap-5 items-center p-5">
           <div className="w-20 h-20 md:w-32 md:h-32 rounded-full overflow-hidden">
             <img src={dog} alt="" className="object-cover w-full h-full" />
           </div>
-          <p>Sok Cheapanha</p>
-        </div>
+          <p>Sok Reaksa</p>
+        </div>type_id
         <div className="flex flex-col gap-5 items-center p-5">
           <div className="w-20 h-20 md:w-32 md:h-32 rounded-full overflow-hidden">
             <img src={dog} alt="" className="object-cover w-full h-full" />
@@ -31,13 +30,13 @@ export default function TeamWork() {
           <div className="w-20 h-20 md:w-32 md:h-32 rounded-full overflow-hidden">
             <img src={dog} alt="" className="object-cover w-full h-full" />
           </div>
-          <p>Sok Cheapanha</p>
+          <p>Suong khonMarady</p>
         </div>
         <div className="flex flex-col gap-5 items-center p-5">
           <div className="w-20 h-20 md:w-32 md:h-32 rounded-full overflow-hidden">
             <img src={dog} alt="" className="object-cover w-full h-full" />
           </div>
-          <p>Sok Cheapanha</p>
+          <p>NHOEB KONGHUY</p>
         </div>
       </div>
     </div>
