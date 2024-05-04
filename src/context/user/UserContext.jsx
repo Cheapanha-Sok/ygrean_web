@@ -6,6 +6,7 @@ const UserDataContext = createContext();
 export const UserDataProvider =({ children })=> {
   const initialState = {
     listUser: [],
+    user : {},
     loading: false,
   };
   const [state, dispatch] = useReducer(UserReducer, initialState);

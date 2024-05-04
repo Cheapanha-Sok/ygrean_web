@@ -1,11 +1,11 @@
-import { useState } from 'react'
-import { useNavigate } from 'react-router-dom';
-import Logo from "../../../../assets/Logo.png"
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import Logo from "../../../../assets/Logo.png";
 import { signin } from "../../../../context/user/UserAction";
-import Input from "../../../../ui/shared/Input"
-import Button from '../../../../ui/shared/Button';
+import Input from "../../../../ui/shared/Input";
+import Button from "../../../../ui/shared/Button";
 
-export default function SignIn({setAuthOption}) {
+export default function SignIn({ setAuthOption }) {
   const navigate = useNavigate();
   const [inputData, setInputData] = useState({
     email: "",
@@ -20,6 +20,8 @@ export default function SignIn({setAuthOption}) {
   };
   const onSubmit = async (e) => {
     e.preventDefault();
+    console.log("email", inputData.email);
+    console.log("password", inputData.password);
     const { email, password } = inputData;
     const singInStatus = await signin(email, password);
     if (singInStatus) {
@@ -64,7 +66,11 @@ export default function SignIn({setAuthOption}) {
 
         <div className="mt-6 text-black flex justify-between gap-2 items-center">
           <p>Create an account</p>
-          <Button customClass="bg-[#283d50] text-white" type="button" onClick={() => setAuthOption("Sign Up")}>
+          <Button
+            customClass="bg-[#283d50] text-white"
+            type="button"
+            onClick={() => setAuthOption("Sign Up")}
+          >
             Sign up
           </Button>
         </div>
@@ -74,5 +80,5 @@ export default function SignIn({setAuthOption}) {
         <img src={Logo} alt="Reading a Book" className="rounded-xl" />
       </div>
     </>
-  )
+  );
 }

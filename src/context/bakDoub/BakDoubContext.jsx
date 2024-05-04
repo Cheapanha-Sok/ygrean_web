@@ -8,6 +8,7 @@ export const BakDoubDataProvider =({ children })=> {
     listBakDoubs: [],
     listCategories : [],
     listExamDates : [],
+    listQuestons : [],
     loading: false,
   };
   const [state, dispatch] = useReducer(BakDoubReducer, initialState);

@@ -1,23 +1,7 @@
-import { useEffect, useState } from "react";
-import { Navigate } from "react-router-dom";
-import { token } from "../../utils/token";
+import { Outlet, Navigate } from "react-router-dom";
+import { UseAuth } from "../../utils/constant/UseAuth";
 
-export default function PrivateRoute({ children }) {
-  const [authenticated, setAuthenticated] = useState(false);
-  console.log(token);
-
-  console.log(authenticated);
-
-  useEffect(() => {
-    const checkAuthentication = async () => {
-      if (token !== undefined) {
-        setAuthenticated(true);
-      } else {
-        setAuthenticated(false);
-      }
-    };
-    checkAuthentication();
-  }, []);
-
-  return authenticated ? children : <Navigate to="/authentication" />;
+export default function PrivateRoutes() {
+  const token = UseAuth();
+  return token ? <Outlet /> : <Navigate to="/authentication" />;
 }

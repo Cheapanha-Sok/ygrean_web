@@ -9,16 +9,15 @@ import Account from "./page/user/account/Account";
 import { UserDataProvider } from "./context/user/UserContext";
 import { ScholarshipDataProvider } from "./context/scholarship/ScholarshipContext";
 import { BakDoubDataProvider } from "./context/bakDoub/BakDoubContext";
-import PrivateRoute from "./ui/shared/PrivateRoute";
-import ViewPdf from "./page/user/bakDoub/ViewPdf";
 import ManageQuiz from "./page/admin/manageQuiz/ManageQuiz";
 import BakDoubListAdmin from "./page/admin/manageBakDoub/BakDoubList";
 import QuizList from "./page/user/quiz/QuizList";
 import { QuizDataProvider } from "./context/quiz/QuizContext";
 import BakDoubListUser from "./page/user/bakDoub/BakDoubList";
+import DoQuiz from "./page/user/quiz/components/DoQuiz";
+import PrivateRoutes from "./ui/shared/PrivateRoute";
 
 export default function App() {
-
   const storedUserJSON = localStorage.getItem("user");
   const storedUser = JSON.parse(storedUserJSON);
 
@@ -30,32 +29,39 @@ export default function App() {
         <ScholarshipDataProvider>
           <BakDoubDataProvider>
             <QuizDataProvider>
-            <Routes>
-              {storedUser?.role === "admin" ? (
-                <Route element={<AdminAppLayout />}>
-                  <Route index element={<BakDoubListAdmin />} />
-                  <Route path="/manageSubject" element={<ManageQuiz />} />
-                </Route>
-              ) : (
-                <Route element={<UserAppLayout />}>
-                  <Route index element={<Homepage />} />
-                  <Route
-                    path="/ranking"
-                    element={
-                      <PrivateRoute>
-                        <Ranking />
-                      </PrivateRoute>
-                    }
-                  />
-                  <Route path="/scholarship" element={<Scholarship />} />
-                  <Route path="/quiz" element={<QuizList />} />
-                  <Route path="/account" element={<Account />} />
-                  <Route path="/authentication" element={<Authentication />} />
-                  <Route path="/bakDoubAnswer" element={<BakDoubListUser />} />
-                  <Route path="/answer/:categoryId/:examDateId" element={<ViewPdf/>}/>
-                </Route>
-              )}
-            </Routes>
+              <Routes>
+                {storedUser?.role === "admin" ? (
+                  <Route element={<AdminAppLayout />}>
+                    <Route index element={<BakDoubListAdmin />} />
+                    <Route path="/manageSubject" element={<ManageQuiz />} />
+                    <Route path="/question" element={<ManageQuiz />} />
+                  </Route>
+                ) : (
+                  <Route element={<UserAppLayout />}>
+                    <Route index element={<Homepage />} />
+                    <Route element={<PrivateRoutes />}>
+                      <Route path="/ranking" element={<Ranking />} />
+                      <Route path="/scholarship" element={<Scholarship />} />
+                      <Route
+                        path="/quiz/:categoryId/:levelId"
+                        element={<DoQuiz />}
+                      />
+                      <Route path="/account" element={<Account />} />
+                    </Route>
+
+                    <Route path="/question" element={<QuizList />} />
+                    
+                    <Route
+                      path="/authentication"
+                      element={<Authentication />}
+                    />
+                    <Route
+                      path="/bakDoubAnswer"
+                      element={<BakDoubListUser />}
+                    />
+                  </Route>
+                )}
+              </Routes>
             </QuizDataProvider>
           </BakDoubDataProvider>
         </ScholarshipDataProvider>

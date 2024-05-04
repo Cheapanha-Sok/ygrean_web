@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Modal from "../../../../ui/shared/Modal";
 import { getLevels } from "../../../../context/quiz/QuizAction";
 import QuizDataContext from "../../../../context/quiz/QuizContext";
@@ -26,7 +26,7 @@ export default function QuizItem({ data }) {
     setCategory(id);
   };
   const handleSelectExamDate = (id) => {
-    navigate(`/answer/${category}/${id}`);
+    navigate(`/quiz/${category}/${id}`);
   };
   return (
     <>

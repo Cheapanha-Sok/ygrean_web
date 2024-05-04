@@ -12,9 +12,13 @@ export default function Input({
   defaultValue,
   required,
   accept,
+  value,
+  name,
 }) {
   return (
     <input
+    name={name}
+      value={value}
       className={style}
       type={type}
       id={id}
@@ -41,5 +45,5 @@ Input.propTypes = {
   checked: PropTypes.bool,
   defaultValue: PropTypes.any,
   required: PropTypes.bool,
-  accept : PropTypes.string,
+  accept: PropTypes.string,
 };

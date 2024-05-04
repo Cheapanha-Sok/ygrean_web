@@ -33,6 +33,7 @@ export default function SignUp({ setAuthOption }) {
     }
   };
 
+
   return (
     <>
       <div className="w-1/2 md:flex hidden justify-center items-center">

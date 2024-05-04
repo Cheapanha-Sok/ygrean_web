@@ -5,7 +5,7 @@ const QuizDataContext = createContext();
 export const QuizDataProvider = ({ children }) => {
   const initialState = {
     listLevels: [],
-    listQuizs :[],
+    listQuestions :[],
     loading: false,
   };
   const [state, dispatch] = useReducer(QuizReducer, initialState);

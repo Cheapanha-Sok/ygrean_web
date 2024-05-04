@@ -21,10 +21,9 @@ export default function QuizList() {
       const data = await getType(option);
       dispatch({ type: "SET_CATEGORIES", payload: data });
     };
-    getCategory(option).then(() => fetchLevel());
+    getCategory(option);
   }, [option, dispatch]);
 
-  const fetchLevel = async () => {};
 
   return (
     <div className="flex flex-col gap-5">
