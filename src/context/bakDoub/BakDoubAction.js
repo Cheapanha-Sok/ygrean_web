@@ -1,3 +1,5 @@
+import axios from "axios";
+import apiClient from "../../utils/apiClient/apiClient";
 import { BASE_URL } from "../../utils/constant/Constant";
 
 export const getBakDoubAnswer = async (examDateId, categoriesId) => {
@@ -101,11 +103,9 @@ export const removeBakDoubAnswer = async (id) => {
 };
 export const getType = async (typeId) => {
   try {
-    const res = await fetch(`${BASE_URL}type/${typeId}`, {
-      method: "GET",
-    });
+    const res = await apiClient.get(`api/type/${typeId}`);
     if (res.status === 200) {
-      const data = await res.json();
+      const data = await res.data
       return data.categories;
     }
   } catch (error) {
@@ -122,6 +122,19 @@ export const getExamDate = async () => {
       const data = await res.json();
       console.log(data);
       return data;
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getCategory = async () => {
+  try {
+    const res = await apiClient("api/category");
+    if (res.status === 200) {
+      const data = await res.data;
+      console.log(data);
+      return data.data;
     }
   } catch (error) {
     console.log(error);

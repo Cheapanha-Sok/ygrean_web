@@ -11,7 +11,6 @@ export default function Homepage() {
       <WhyYouChoose/>
       <WhoWeAre/>
       <TeamWork/>
-      
     </div>
   );
 }

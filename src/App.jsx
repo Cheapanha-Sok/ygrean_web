@@ -46,10 +46,12 @@ export default function App() {
                         path="/quiz/:categoryId/:levelId"
                         element={<DoQuiz />}
                       />
-                      <Route path="/account" element={<Account />} />
+                                        
                     </Route>
 
                     <Route path="/question" element={<QuizList />} />
+
+                    <Route path="/account" element={<Account />} />
                     
                     <Route
                       path="/authentication"

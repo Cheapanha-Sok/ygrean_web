@@ -19,7 +19,7 @@ export default function TeamWork() {
             <img src={dog} alt="" className="object-cover w-full h-full" />
           </div>
           <p>Sok Reaksa</p>
-        </div>type_id
+        </div>
         <div className="flex flex-col gap-5 items-center p-5">
           <div className="w-20 h-20 md:w-32 md:h-32 rounded-full overflow-hidden">
             <img src={dog} alt="" className="object-cover w-full h-full" />
