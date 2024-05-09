@@ -16,12 +16,22 @@ import { QuizDataProvider } from "./context/quiz/QuizContext";
 import BakDoubListUser from "./page/user/bakDoub/BakDoubList";
 import DoQuiz from "./page/user/quiz/components/DoQuiz";
 import PrivateRoutes from "./ui/shared/PrivateRoute";
+import { useEffect, useState } from "react";
+import { getUser } from "./context/user/UserAction";
 
 export default function App() {
-  const storedUserJSON = localStorage.getItem("user");
-  const storedUser = JSON.parse(storedUserJSON);
-
-  console.log(storedUser.role);
+  const [isAdmin, setAdmin] = useState(false);
+  useEffect(() => {
+    const fetchData = async () => {
+      const res = await getUser();
+      if (res) {
+        setAdmin(res.isAdmin);
+      } else {
+        setAdmin(false);
+      }
+    };
+    fetchData();
+  }, []);
 
   return (
     <Router>
@@ -30,7 +40,7 @@ export default function App() {
           <BakDoubDataProvider>
             <QuizDataProvider>
               <Routes>
-                {storedUser?.role === "admin" ? (
+                {isAdmin ? (
                   <Route element={<AdminAppLayout />}>
                     <Route index element={<BakDoubListAdmin />} />
                     <Route path="/manageSubject" element={<ManageQuiz />} />
@@ -46,13 +56,9 @@ export default function App() {
                         path="/quiz/:categoryId/:levelId"
                         element={<DoQuiz />}
                       />
-                                        
                     </Route>
-
                     <Route path="/question" element={<QuizList />} />
-
                     <Route path="/account" element={<Account />} />
-                    
                     <Route
                       path="/authentication"
                       element={<Authentication />}
