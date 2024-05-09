@@ -1,6 +1,7 @@
 import { Outlet, Navigate } from "react-router-dom";
 import UseAuth from "../../hook/UseAuth";
 import { useEffect, useState } from "react";
+import Spinner from "./Spinner";
 
 export default function PrivateRout() {
   const [isLogin, setLogin] = useState(null);
@@ -14,7 +15,7 @@ export default function PrivateRout() {
   }, []);
 
   if (isLogin === null) {
-    return <p>loading</p>;
+    return <Spinner isFull/>;
   }
 
   return isLogin ? <Outlet /> : <Navigate to="/authentication" />;

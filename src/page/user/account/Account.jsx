@@ -10,6 +10,8 @@ export default function Account() {
   const navigate = useNavigate();
   const { dispatch, currentUser, loading } = useContext(UserDataContext);
 
+  const [isGraduate, setGraduate] = useState(false);
+
   const handleLogout = async (e) => {
     e.preventDefault();
     const res = await logOut();
@@ -17,12 +19,12 @@ export default function Account() {
       navigate("/");
     }
   };
+  const fetchCurrentUser = async () => {
+    const data = await getUser();
+    dispatch({ type: "SET_USER", payload: data });
+  };
 
   useEffect(() => {
-    const fetchCurrentUser = async () => {
-      const data = await getUser();
-      dispatch({ type: "SET_USER", payload: data });
-    };
     fetchCurrentUser();
   }, [dispatch]);
 
@@ -42,15 +44,17 @@ export default function Account() {
 
   const handleEdit = async (e) => {
     e.preventDefault();
-    const { username, identity } = inputData;
-    const res = await editUser(currentUser.id, username, identity);
-    if(res){
-      alert("update succuessful")
+    const { username } = inputData;
+    const res = await editUser(currentUser.id, username, isGraduate);
+    if (res) {
+      fetchCurrentUser();
+      setIsEdit(false);
+      alert("update succuessful");
     }
   };
 
-  if (currentUser !== null) {
-    return <Navigate to="/" />;
+  if (currentUser === undefined) {
+    return <Navigate to="/authentication" />;
   }
 
   return (
@@ -80,15 +84,6 @@ export default function Account() {
                     className="object-cover w-full h-full"
                   />
                 </div>
-                {isEdit && (
-                  <Input
-                    type="file"
-                    id="userImage"
-                    style="rounded-md bg-slate-200"
-                    onChange={onFileChange}
-                    accept="image/*"
-                  />
-                )}
                 <Button onClick={() => setIsEdit(!isEdit)} type="button">
                   <img src={""} alt="editBtn" className="w-5 h-5" />
                 </Button>
@@ -99,16 +94,7 @@ export default function Account() {
                   <p className="font-bold tracking-tight text-gray-900">
                     Email
                   </p>
-                  {isEdit ? (
-                    <Input
-                      type="text"
-                      id="username"
-                      style="px-3 py-1 border-1 rounded-md bg-slate-200"
-                      onChange={onTextChange}
-                    />
-                  ) : (
-                    <span>{currentUser.email}</span>
-                  )}
+                  <span>{currentUser.email}</span>
                 </div>
                 <div className="flex flex-col">
                   <p className="font-bold tracking-tight text-gray-900">
@@ -131,18 +117,34 @@ export default function Account() {
                     Identity
                   </p>
                   {isEdit ? (
-                    <Input
-                      type="text"
-                      id="identity"
-                      style="px-3 py-1 border-1 rounded-md bg-slate-200"
-                      onChange={onTextChange}
-                    />
+                    currentUser.isGraduate ? (
+                      <div className="flex flex-row gap-5 items-center">
+                        <label htmlFor="notGraduate">NotGraduate</label>
+                        <Input
+                          type="checkbox"
+                          id="notGraduate"
+                          style="px-3 py-1 border-1 rounded-md bg-slate-200"
+                          onClick={() => setGraduate(false)}
+                        />
+                      </div>
+                    ) : (
+                      <div className="flex flex-row gap-5 items-center">
+                        <label htmlFor="notGraduate">Graduate</label>
+                        <Input
+                          type="checkbox"
+                          id="graduate"
+                          style="px-3 py-1 border-1 rounded-md bg-slate-200"
+                          onClick={() => setGraduate(true)}
+                        />
+                      </div>
+                    )
                   ) : (
                     <span>
                       {currentUser.isGraduate ? "Graduate" : "Under Graduate"}
                     </span>
                   )}
                 </div>
+
                 {isEdit && (
                   <Button
                     customClass="bg-[#283d50] text-white"

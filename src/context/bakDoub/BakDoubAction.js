@@ -1,4 +1,3 @@
-import axios from "axios";
 import apiClient from "../../utils/apiClient/apiClient";
 import { BASE_URL } from "../../utils/constant/Constant";
 

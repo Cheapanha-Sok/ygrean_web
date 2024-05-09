@@ -1,11 +1,13 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import Logo from "../../../../assets/Logo.png";
 import { signin } from "../../../../context/user/UserAction";
 import Input from "../../../../ui/shared/Input";
 import Button from "../../../../ui/shared/Button";
+import UseAuth from "../../../../hook/UseAuth";
 
 export default function SignIn({ setAuthOption }) {
+
   const navigate = useNavigate();
   const [inputData, setInputData] = useState({
     email: "",
@@ -20,14 +22,13 @@ export default function SignIn({ setAuthOption }) {
   };
   const onSubmit = async (e) => {
     e.preventDefault();
-    console.log("email", inputData.email);
-    console.log("password", inputData.password);
     const { email, password } = inputData;
     const singInStatus = await signin(email, password);
     if (singInStatus) {
       navigate("/");
     }
   };
+
 
   return (
     <>
