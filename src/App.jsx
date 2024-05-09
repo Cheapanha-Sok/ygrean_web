@@ -18,20 +18,30 @@ import DoQuiz from "./page/user/quiz/components/DoQuiz";
 import PrivateRoutes from "./ui/shared/PrivateRoute";
 import { useEffect, useState } from "react";
 import { getUser } from "./context/user/UserAction";
+import Spinner from "./ui/shared/Spinner";
+import RouteNotFound from "./ui/shared/RouteNotFound";
 
 export default function App() {
   const [isAdmin, setAdmin] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     const fetchData = async () => {
       const res = await getUser();
       if (res) {
+        console.log(res);
         setAdmin(res.isAdmin);
+        setIsLoading(false);
       } else {
         setAdmin(false);
+        setIsLoading(false);
       }
     };
     fetchData();
   }, []);
+
+  if (isLoading) {
+    return <Spinner isFull={true} />;
+  }
 
   return (
     <Router>
@@ -45,6 +55,7 @@ export default function App() {
                     <Route index element={<BakDoubListAdmin />} />
                     <Route path="/manageSubject" element={<ManageQuiz />} />
                     <Route path="/question" element={<ManageQuiz />} />
+                    <Route path="/*" element={<RouteNotFound />} />
                   </Route>
                 ) : (
                   <Route element={<UserAppLayout />}>
@@ -67,6 +78,7 @@ export default function App() {
                       path="/bakDoubAnswer"
                       element={<BakDoubListUser />}
                     />
+                    <Route path="/*" element={<RouteNotFound />} />
                   </Route>
                 )}
               </Routes>
