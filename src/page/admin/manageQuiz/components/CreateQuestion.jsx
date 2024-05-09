@@ -82,17 +82,27 @@ const CreateQuestion = ({ onRefresh, onClose }) => {
     setIsLoading(true);
     const { questionName, choices } = inputData;
 
-    const res = await createQuestion(
-      questionName,
-      categoryId,
-      userIdentity,
-      levelId,
-      choices
-    );
-    if (res) {
-      setIsLoading(false);
-      onRefresh();
-      alert("Create successful");
+    if (
+      (categoryId !== null 
+        || userIdentity !== null
+        || levelId !== null
+        ||questionName !== null
+        ||choices !== null)
+    ) {
+      const res = await createQuestion(
+        questionName,
+        categoryId,
+        userIdentity,
+        levelId,
+        choices
+      );
+      if (res) {
+        setIsLoading(false);
+        onRefresh();
+        alert("Create successful");
+      }
+    }else{
+      alert("Some filed are null please check!!")
     }
   };
 
@@ -213,7 +223,7 @@ const CreateQuestion = ({ onRefresh, onClose }) => {
           </button>
         </div>
         {isLoading ? (
-          <p>loading...</p>
+          <Spinner/>
         ) : (
           <Button type="submit" customClass="bg-white text-[#283d50]">
             Submit

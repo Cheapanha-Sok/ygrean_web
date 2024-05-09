@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Logo from "../../../../assets/Logo.png"
+import Logo from "../../../../assets/Logo.png";
 import { signup } from "../../../../context/user/UserAction";
-import Input from "../../../../ui/shared/Input"
+import Input from "../../../../ui/shared/Input";
 import Button from "../../../../ui/shared/Button";
 
 export default function SignUp({ setAuthOption }) {
@@ -32,7 +32,6 @@ export default function SignUp({ setAuthOption }) {
       navigate("/");
     }
   };
-
 
   return (
     <>
@@ -93,7 +92,12 @@ export default function SignUp({ setAuthOption }) {
 
         <div className="mt-6 text-black flex justify-between gap-2 items-center">
           <p>Already have an account ?</p>
-          <Button customClass="bg-[#283d50] text-white" onClick={() => setAuthOption("Sign In") }>Log in</Button>
+          <Button
+            customClass="bg-[#283d50] text-white"
+            onClick={() => setAuthOption("Sign In")}
+          >
+            Log in
+          </Button>
         </div>
       </div>
     </>

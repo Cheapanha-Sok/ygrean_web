@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { editUser, getUser, logOut } from "../../../context/user/UserAction";
 import Button from "../../../ui/shared/Button";
 import Input from "../../../ui/shared/Input";
@@ -7,15 +7,14 @@ import Logo from "../../../assets/Logo.png";
 import UserDataContext from "../../../context/user/UserContext";
 
 export default function Account() {
-
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const { dispatch, currentUser, loading } = useContext(UserDataContext);
 
   const handleLogout = async (e) => {
     e.preventDefault();
     const res = await logOut();
-    if(res){
-      navigate("/")
+    if (res) {
+      navigate("/");
     }
   };
 
@@ -31,7 +30,6 @@ export default function Account() {
   const [inputData, setInputData] = useState({
     username: "",
     identity: "",
-    userImage: "",
   });
 
   const onTextChange = (e) => {
@@ -42,23 +40,17 @@ export default function Account() {
     }));
   };
 
-  const onFileChange = (e) => {
-    const file = e.target.files[0];
-    setInputData((prevState) => ({
-      ...prevState,
-      userImage: file,
-    }));
-  };
-
   const handleEdit = async (e) => {
     e.preventDefault();
     const { username, identity } = inputData;
     const res = await editUser(currentUser.id, username, identity);
+    if(res){
+      alert("update succuessful")
+    }
   };
 
-
-  if (currentUser === null) {
-    navigate("authentication")
+  if (currentUser !== null) {
+    return <Navigate to="/" />;
   }
 
   return (

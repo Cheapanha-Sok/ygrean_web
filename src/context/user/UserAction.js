@@ -9,7 +9,7 @@ export const signin = async (email, password) => {
         password,
       });
       if (res.status === 200) {
-        console.log(res);
+        console.log(res.data)
         return true;
       }
     }
@@ -53,7 +53,7 @@ export const getUser = async () => {
 export const editUser = async (userId, username, isGraduate) => {
   try {
     const response = await apiClient(`api/user`, {
-      id : userId,
+      id: userId,
       name: username,
       isGraduate: isGraduate,
     });
@@ -66,7 +66,10 @@ export const editUser = async (userId, username, isGraduate) => {
 };
 export const logOut = async () => {
   try {
-    await apiClient.post("logout");
+    const res = await apiClient.post("logout");
+    if (res.status === 200) {
+      return true;
+    }
   } catch (error) {
     console.log(error);
   }

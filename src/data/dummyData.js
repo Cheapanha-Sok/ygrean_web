@@ -109,17 +109,17 @@ export const levels = [
   {
     id: 1,
     name: "easy",
-    point: 5,
+    point: 2,
   },
   {
     id: 2,
     name: "meduim",
-    point: 7,
+    point: 4,
   },
   {
     id: 3,
     name: "hard",
-    point: 10,
+    point: 6,
   },
 ];
 export const userIndentity = [
