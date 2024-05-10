@@ -5,6 +5,8 @@ import QuizDataContext from "../../../../context/quiz/QuizContext";
 import Choice from "./Choice";
 import Button from "../../../../ui/shared/Button";
 import DisplayResult from "./DisplayResult";
+import Spinner from "../../../../ui/shared/Spinner";
+import NotFound from "../../../../ui/shared/NotFound";
 
 export default function DoQuiz() {
   const { categoryId, levelId } = useParams();
@@ -14,7 +16,7 @@ export default function DoQuiz() {
   const [score, setScore] = useState(0);
   const { listQuestions, dispatch, loading } = useContext(QuizDataContext);
 
-  console.log(currentQuestion)
+  console.log(currentQuestion);
 
   useEffect(() => {
     dispatch({ type: "SET_LOADING" });
@@ -63,14 +65,14 @@ export default function DoQuiz() {
   return (
     <>
       {loading ? (
-        <p>loading.....</p>
+        <Spinner isFull={true} />
       ) : (
         <>
           {showPoint ? (
             <DisplayResult score={score} />
           ) : (
             <>
-              {totalQuestions > 0 && (
+              {totalQuestions > 0 ? (
                 <ul className="flex flex-col gap-2 p-5">
                   <label htmlFor="complete-question">Question</label>
                   <progress
@@ -108,6 +110,8 @@ export default function DoQuiz() {
                     )}
                   </div>
                 </ul>
+              ) : (
+                <NotFound />
               )}
             </>
           )}

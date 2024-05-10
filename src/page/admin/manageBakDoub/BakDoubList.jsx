@@ -1,14 +1,13 @@
 import { useContext, useEffect, useState } from "react";
 import BakDoubDataContext from "../../../context/bakDoub/BakDoubContext";
-import {
-  getAllBakDoubAnswer,
-  getAllBakDoubAnswerByType,
-} from "../../../context/bakDoub/BakDoubAction";
+import { getAllBakDoubAnswerByType } from "../../../context/bakDoub/BakDoubAction";
 import BakDoubItem from "./components/BakDoubItem";
 import SelectOption from "../../../ui/shared/SelectOption";
 import { types } from "../../../data/dummyData";
 import Button from "../../../ui/shared/Button";
 import CreateBakDoub from "./components/CreateBakDoub";
+import Spinner from "../../../ui/shared/Spinner";
+import NotFound from "../../../ui/shared/NotFound";
 
 export default function BakDoubList() {
   const { listBakDoubs, dispatch, loading } = useContext(BakDoubDataContext);
@@ -20,6 +19,7 @@ export default function BakDoubList() {
   };
 
   useEffect(() => {
+    dispatch({ type: "SET_LOADING" });
     fetchBakDoub(selectOption);
   }, [dispatch, selectOption]);
 
@@ -43,9 +43,15 @@ export default function BakDoubList() {
               New BakDoub
             </Button>
           </div>
-          {listBakDoubs.map((item) => (
-            <BakDoubItem data={item} key={item.id} />
-          ))}
+          {loading ? (
+            <Spinner isFull={true} />
+          ) : listBakDoubs.length ? (
+            listBakDoubs.map((item) => (
+              <BakDoubItem data={item} key={item.id} />
+            ))
+          ) : (
+            <NotFound />
+          )}
           {isOpen && (
             <CreateBakDoub
               onRefresh={() => fetchBakDoub()}

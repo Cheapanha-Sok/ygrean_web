@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
-import Logo from "../../assets/Logo.png"
-import account from "../../assets/svg/user.svg"
-import close from "../../assets/svg/close.svg"
+import Logo from "../../assets/Logo.png";
+import account from "../../assets/svg/user.svg";
+import close from "../../assets/svg/close.svg";
 import menu from "../../assets/svg/menu.svg";
 import Button from "../shared/Button";
 import { useEffect, useRef, useState } from "react";
@@ -30,9 +30,9 @@ export default function Navbar() {
   const Links = [
     { name: "quiz", link: "/quiz", image: "" },
     { name: "ranking", link: "/ranking", image: "" },
-    {name: "bakdoubAnswer", link: "/bakDoubAnswer", image: ""},
+    { name: "bakdoubAnswer", link: "/bakDoubAnswer", image: "" },
     { name: "scholarship", link: "/scholarship", image: "" },
-    { name: "account", link: "/account", image: account }
+    { name: "account", link: "/account", image: account },
   ];
   return (
     <nav className="bg-[#283d50] sticky top-0 z-30" ref={navRef}>

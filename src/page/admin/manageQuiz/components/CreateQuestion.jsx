@@ -12,7 +12,7 @@ import Spinner from "../../../../ui/shared/Spinner";
 import Input from "../../../../ui/shared/Input";
 import { createQuestion } from "../../../../context/quiz/QuizAction";
 
-const CreateQuestion = ({ onRefresh, onClose }) => {
+const CreateQuestion = ({ onClose }) => {
   const { listCategories, dispatch } = useContext(BakDoubDataContext);
   const [isLoading, setIsLoading] = useState(false);
   const [option, setOption] = useState(1);
@@ -79,30 +79,31 @@ const CreateQuestion = ({ onRefresh, onClose }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setIsLoading(true);
     const { questionName, choices } = inputData;
-
+    const isGraduate = userIdentity === 1 ? false : true
+    console.log(isGraduate)
     if (
-      (categoryId !== null 
-        || userIdentity !== null
-        || levelId !== null
-        ||questionName !== null
-        ||choices !== null)
+      categoryId !== null ||
+      userIdentity !== null ||
+      levelId !== null ||
+      questionName !== null ||
+      choices !== null
     ) {
       const res = await createQuestion(
         questionName,
         categoryId,
-        userIdentity,
+        isGraduate,
         levelId,
         choices
       );
       if (res) {
+        onClose();
         setIsLoading(false);
-        onRefresh();
         alert("Create successful");
+        location.reload();
       }
-    }else{
-      alert("Some filed are null please check!!")
+    } else {
+      alert("Some filed are null please check!!");
     }
   };
 
@@ -223,7 +224,7 @@ const CreateQuestion = ({ onRefresh, onClose }) => {
           </button>
         </div>
         {isLoading ? (
-          <Spinner/>
+          <Spinner />
         ) : (
           <Button type="submit" customClass="bg-white text-[#283d50]">
             Submit

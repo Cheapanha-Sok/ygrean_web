@@ -41,7 +41,7 @@ export default function ManageQuiz() {
     dispatch({ type: "SET_LOADING" });
 
     fetchData(option).then(() => getQuestion(categoryId, levelId));
-  }, [option, dispatch, categoryId, levelId]);
+  }, [option, dispatch, categoryId, levelId, userIdentity]);
 
   const getQuestion = async (categoryId, levelId) => {
     const data = await getQuestionByTypeAndCategory(categoryId, levelId);

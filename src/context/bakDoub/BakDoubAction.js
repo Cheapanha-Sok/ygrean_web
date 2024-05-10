@@ -105,7 +105,7 @@ export const getType = async (typeId) => {
     const res = await apiClient.get(`api/type/${typeId}`);
     if (res.status === 200) {
       const data = await res.data
-      return data.categories;
+      return data.data.categories;
     }
   } catch (error) {
     console.log(error);

@@ -45,7 +45,7 @@ export const getQuestionByTypeAndCategory = async (categoryId, levelId) => {
 export const createQuestion = async (
   questionName,
   categoryId,
-  userIdentity,
+  isGraduate,
   levelId,
   choices
 ) => {
@@ -53,11 +53,21 @@ export const createQuestion = async (
     const res = await apiClient.post("api/question", {
       name: questionName,
       category_id: categoryId,
-      isGraduate: userIdentity,
+      isGraduate,
       level_id: levelId,
       choices: choices,
     });
-    if (res === 200) {
+    if (res.status === 200) {
+      return true;
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+export const removeQuestionById = async (questionId) => {
+  try {
+    const res = await apiClient.delete(`api/question/${questionId}`);
+    if (res.status === 200) {
       return true;
     }
   } catch (error) {

@@ -65,7 +65,7 @@ export const editUser = async (userId, username, isGraduate) => {
 export const logOut = async () => {
   try {
     const res = await apiClient.post("logout");
-    if (res.status === 200) {
+    if (res.status === 204) {
       return true;
     }
   } catch (error) {

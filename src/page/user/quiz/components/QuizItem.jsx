@@ -1,32 +1,20 @@
-import { useContext, useEffect, useState } from "react";
+import { useState } from "react";
 import Modal from "../../../../ui/shared/Modal";
-import { getLevels } from "../../../../context/quiz/QuizAction";
-import QuizDataContext from "../../../../context/quiz/QuizContext";
 import { useNavigate } from "react-router-dom";
+import { levels } from "../../../../data/dummyData";
 
 export default function QuizItem({ data }) {
   const navigate = useNavigate();
 
-  const { listLevels, dispatch, loading } = useContext(QuizDataContext);
   const [isOpen, setOpen] = useState(false);
   const [category, setCategory] = useState(0);
-  useEffect(() => {
-    if (isOpen) {
-      fetchLevel();
-    }
-  }, [isOpen]);
-
-  const fetchLevel = async () => {
-    const data = await getLevels();
-    dispatch({ type: "SET_LEVELS", payload: data });
-  };
 
   const handleSelectChange = (id) => {
     setOpen(!isOpen);
     setCategory(id);
   };
   const handleSelectExamDate = (id) => {
-    navigate(`/quiz/${category}/${id}`);
+    navigate(`/question/${category}/${id}`);
   };
   return (
     <>
@@ -39,7 +27,7 @@ export default function QuizItem({ data }) {
       {isOpen && (
         <Modal title="Select a level" onClose={() => setOpen(!isOpen)}>
           <ul className="grid grid-cols-3 md:grid-cols-5 gap-5 p-5">
-            {listLevels.map((item) => (
+            {levels.map((item) => (
               <li
                 key={item.id}
                 className="p-5 text-white border border-white-2 rounded-md"

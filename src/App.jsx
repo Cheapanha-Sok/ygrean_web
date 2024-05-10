@@ -64,11 +64,12 @@ export default function App() {
                       <Route path="/ranking" element={<Ranking />} />
                       <Route path="/scholarship" element={<Scholarship />} />
                       <Route
-                        path="/quiz/:categoryId/:levelId"
+                        path="/question/:categoryId/:levelId"
                         element={<DoQuiz />}
                       />
+                      <Route path="/quiz" element={<QuizList />} />
                     </Route>
-                    <Route path="/question" element={<QuizList />} />
+
                     <Route path="/account" element={<Account />} />
                     <Route
                       path="/authentication"

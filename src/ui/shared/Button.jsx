@@ -1,6 +1,6 @@
 function Button({ children, onClick, customClass, type }) {
   const defaultClass =
-    "p-2 rounded-xl bg[#283d50] flex gap-2 items-center text-xs md:text-sm justify-center";
+    "p-2 rounded-xl bg[#283d50] flex gap-2 items-center text-xs justify-center";
   const buttonClass = customClass
     ? ` ${defaultClass} ${customClass}`
     : defaultClass;
