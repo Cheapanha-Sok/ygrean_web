@@ -80,30 +80,17 @@ const CreateQuestion = ({ onClose }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const { questionName, choices } = inputData;
-    const isGraduate = userIdentity === 1 ? false : true
-    console.log(isGraduate)
-    if (
-      categoryId !== null ||
-      userIdentity !== null ||
-      levelId !== null ||
-      questionName !== null ||
-      choices !== null
-    ) {
-      const res = await createQuestion(
-        questionName,
-        categoryId,
-        isGraduate,
-        levelId,
-        choices
-      );
-      if (res) {
-        onClose();
-        setIsLoading(false);
-        alert("Create successful");
-        location.reload();
-      }
-    } else {
-      alert("Some filed are null please check!!");
+    const isGraduate = userIdentity === 1 ? false : true;
+    const res = await createQuestion(
+      questionName,
+      categoryId,
+      isGraduate,
+      levelId,
+      choices
+    );
+    if (res) {
+      onClose();
+      setIsLoading(false);
     }
   };
 

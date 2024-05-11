@@ -1,3 +1,4 @@
+import { toast } from "react-toastify";
 import apiClient from "../../utils/apiClient/apiClient";
 
 export const signin = async (email, password) => {
@@ -9,6 +10,7 @@ export const signin = async (email, password) => {
         password,
       });
       if (res.status === 204) {
+        toast.success("welcome to our website");
         return true;
       }
     }
@@ -33,6 +35,7 @@ export const signup = async (
     });
 
     if (response.status === 204) {
+      toast.success("welcome to our website");
       return true;
     }
   } catch (error) {
@@ -42,9 +45,9 @@ export const signup = async (
 
 export const getUser = async () => {
   try {
-    const response = await apiClient.get(`api/user`);
+    const response = await apiClient.get(`api/currentUser`);
     const data = await response.data;
-    return data[0];
+    return data;
   } catch (error) {
     console.log(error);
   }
@@ -56,6 +59,7 @@ export const editUser = async (userId, username, isGraduate) => {
       isGraduate: isGraduate,
     });
     if (response.status === 200) {
+      toast.success("update succesful");
       return true;
     }
   } catch (error) {
@@ -66,6 +70,21 @@ export const logOut = async () => {
   try {
     const res = await apiClient.post("logout");
     if (res.status === 204) {
+      toast.success("logout successful");
+      return true;
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+export const savePointUser = async (point, category_id, level_id) => {
+  try {
+    const res = await apiClient.post("api/ranking", {
+      point,
+      category_id,
+      level_id,
+    });
+    if (res.status === 200) {
       return true;
     }
   } catch (error) {

@@ -8,10 +8,7 @@ export default function QuestionItem({ data }) {
   const [isView, setIsView] = useState(false);
 
   const removeQuestion = async (id) => {
-    const res = await removeQuestionById(id);
-    if (res) {
-      alert("remove question sucessful");
-    }
+    await removeQuestionById(id);
   };
 
   return (

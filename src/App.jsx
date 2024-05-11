@@ -1,4 +1,6 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import "./index.css";
+import "react-toastify/dist/ReactToastify.css";
 import Homepage from "./page/user/home/Homepage";
 import UserAppLayout from "./ui/user/AppLayout";
 import AdminAppLayout from "./ui/admin/Applayout";
@@ -20,6 +22,7 @@ import { useEffect, useState } from "react";
 import { getUser } from "./context/user/UserAction";
 import Spinner from "./ui/shared/Spinner";
 import RouteNotFound from "./ui/shared/RouteNotFound";
+import { ToastContainer } from "react-toastify";
 
 export default function App() {
   const [isAdmin, setAdmin] = useState(false);
@@ -87,6 +90,18 @@ export default function App() {
           </BakDoubDataProvider>
         </ScholarshipDataProvider>
       </UserDataProvider>
+      <ToastContainer
+        position="top-center"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
     </Router>
   );
 }

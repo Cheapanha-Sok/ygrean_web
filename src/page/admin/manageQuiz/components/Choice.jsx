@@ -1,8 +1,6 @@
-import React, { useState } from "react";
 import Modal from "../../../../ui/shared/Modal";
 
 export default function Choice({ data, onClose }) {
-  console.log(data);
   return (
     <Modal onClose={onClose} title="Choice">
       {data.map((item) => (

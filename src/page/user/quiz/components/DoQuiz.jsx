@@ -7,6 +7,7 @@ import Button from "../../../../ui/shared/Button";
 import DisplayResult from "./DisplayResult";
 import Spinner from "../../../../ui/shared/Spinner";
 import NotFound from "../../../../ui/shared/NotFound";
+import { savePointUser } from "../../../../context/user/UserAction";
 
 export default function DoQuiz() {
   const { categoryId, levelId } = useParams();
@@ -16,7 +17,9 @@ export default function DoQuiz() {
   const [score, setScore] = useState(0);
   const { listQuestions, dispatch, loading } = useContext(QuizDataContext);
 
-  console.log(currentQuestion);
+  const savePoint = async () => {
+    await savePointUser(score, categoryId, levelId);
+  };
 
   useEffect(() => {
     dispatch({ type: "SET_LOADING" });
@@ -30,93 +33,76 @@ export default function DoQuiz() {
   const totalQuestions = listQuestions.length;
 
   const handleNextQuestion = () => {
-    const correctAnswer = listQuestions[currentQuestion].choices.filter(
-      (item) => {
-        return item.is_correct === true;
-      }
+    // Check if there are any questions left
+    if (currentQuestion >= totalQuestions - 1) {
+      savePoint();
+      setShowPoint(true); // Show result when all questions are answered
+      return;
+    }
+
+    const correctAnswer = listQuestions[currentQuestion].choices.find(
+      (item) => item.is_correct === true
     );
-    if (choiceId == correctAnswer[0].id) {
+
+    // Check if the selected choice is correct
+    if (choiceId == correctAnswer.id) {
       setScore((prevScore) => prevScore + listQuestions[currentQuestion].point);
     }
-    if (currentQuestion < totalQuestions) {
-      setCurrentQuestion((prevQuestion) => prevQuestion + 1);
-      setChoiceId(0);
-    } else {
-      setShowPoint(true);
-      setCurrentQuestion(totalQuestions);
-    }
+
+    // Move to the next question
+    setCurrentQuestion((prevQuestion) => prevQuestion + 1);
+    setChoiceId(0);
   };
 
-  // const handelBackQuestion = () => {
-  //   if (currentQuestion > 0) {
-  //     setCurrentQuestion((prevQuestion) => prevQuestion - 1);
-  //     score > 0
-  //       ? setScore(
-  //           (prevScore) => prevScore - listQuestions[currentQuestion].point
-  //         )
-  //       : null;
-  //     setBackQuestion(true);
-  //     setAnswered(false);
-  //   } else {
-  //     setBackQuestion(false);
-  //   }
-  // };
+  if (loading) {
+    return <Spinner isFull={true} />;
+  }
+  if (totalQuestions === 0) {
+    return <NotFound />;
+  }
+  if (showPoint) {
+    return <DisplayResult score={score} />;
+  }
 
   return (
-    <>
-      {loading ? (
-        <Spinner isFull={true} />
-      ) : (
+    <ul className="flex flex-col gap-2 p-5">
+      <label htmlFor="complete-question">Question</label>
+      <progress
+        id="complete-question"
+        value={currentQuestion}
+        max={totalQuestions}
+        className="w-full"
+      ></progress>
+
+      {listQuestions[currentQuestion] && (
         <>
-          {showPoint ? (
-            <DisplayResult score={score} />
-          ) : (
-            <>
-              {totalQuestions > 0 ? (
-                <ul className="flex flex-col gap-2 p-5">
-                  <label htmlFor="complete-question">Question</label>
-                  <progress
-                    id="complete-question"
-                    value={currentQuestion}
-                    max={totalQuestions}
-                    className="w-full"
-                  ></progress>
-                  <div className="flex flex-row justify-between bg-slate-400 p-5">
-                    <p className="font-semibold capitalize">
-                      <p>{score}</p>
-                      {listQuestions[currentQuestion].name}
-                    </p>
-                    <p className="font-semibold capitalize">
-                      point : {listQuestions[currentQuestion].point}
-                    </p>
-                  </div>
+          <div className="flex flex-row justify-between bg-slate-400 p-5">
+            <p className="font-semibold capitalize">
+              <p>{score}</p>
+              {listQuestions[currentQuestion].name}
+            </p>
+            <p className="font-semibold capitalize">
+              point : {listQuestions[currentQuestion].point}
+            </p>
+          </div>
 
-                  {listQuestions[currentQuestion].choices.map((item) => (
-                    <Choice
-                      data={item}
-                      key={item.id}
-                      onSelect={(choiceId) => setChoiceId(choiceId)}
-                    />
-                  ))}
-
-                  <div className="flex flex-row justify-between">
-                    {choiceId !== 0 && (
-                      <Button
-                        customClass="bg-green-500"
-                        onClick={handleNextQuestion}
-                      >
-                        Next Question
-                      </Button>
-                    )}
-                  </div>
-                </ul>
-              ) : (
-                <NotFound />
-              )}
-            </>
-          )}
+          {listQuestions[currentQuestion].choices.map((item) => (
+            <Choice
+              data={item}
+              key={item.id}
+              onSelect={(choiceId) => setChoiceId(choiceId)}
+            />
+          ))}
         </>
       )}
-    </>
+
+      <div className="flex flex-row justify-between">
+        {choiceId !== 0 && (
+          <Button customClass="bg-green-500" onClick={handleNextQuestion}>
+            Next Question
+          </Button>
+        )}
+      </div>
+    </ul>
   );
 }

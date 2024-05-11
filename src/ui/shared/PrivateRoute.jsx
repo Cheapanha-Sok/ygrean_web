@@ -15,7 +15,7 @@ export default function PrivateRout() {
   }, []);
 
   if (isLogin === null) {
-    return <Spinner isFull/>;
+    return <Spinner isFull />;
   }
 
   return isLogin ? <Outlet /> : <Navigate to="/authentication" />;

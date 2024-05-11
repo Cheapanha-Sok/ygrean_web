@@ -49,7 +49,6 @@ export default function Account() {
     if (res) {
       fetchCurrentUser();
       setIsEdit(false);
-      alert("update succuessful");
     }
   };
 
