@@ -3,7 +3,6 @@ import BakDoubDataContext from "../../../context/bakDoub/BakDoubContext";
 import { getType } from "../../../context/bakDoub/BakDoubAction";
 import SelectOption from "../../../ui/shared/SelectOption";
 import { types } from "../../../data/dummyData";
-import ItemList from "../../../ui/user/ItemList";
 import QuizItem from "./components/QuizItem";
 
 export default function QuizList() {
