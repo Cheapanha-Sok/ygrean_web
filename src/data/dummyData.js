@@ -124,11 +124,11 @@ export const levels = [
 ];
 export const userIndentity = [
   {
-    id: 1,
+    id: 0,
     name: "notGraduate",
   },
   {
-    id: 2,
+    id: 1,
     name: "graduate",
   },
 ];

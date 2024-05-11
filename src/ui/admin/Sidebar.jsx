@@ -1,10 +1,13 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
 import Logo from "../../assets/Logo.png";
+import { logOut } from "../../context/user/UserAction";
+import Button from "../shared/Button";
 
 function SideBar() {
   const [isOpen, setIsOpen] = useState(false);
   const sidebarRef = useRef(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleOutsideClick = (event) => {
@@ -22,6 +25,13 @@ function SideBar() {
 
   const handleToggle = () => {
     setIsOpen(!isOpen);
+  };
+
+  const handleLogout = async () => {
+    const res = await logOut();
+    if (res) {
+      navigate("/");
+    }
   };
 
   return (
@@ -75,10 +85,23 @@ function SideBar() {
                 className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
               >
                 {/* <img src={""} alt="bookIcon" className="w-5 h-5" /> */}
-                <span className="flex-1 ms-3 whitespace-nowrap">Scholorship</span>
+                <span className="flex-1 ms-3 whitespace-nowrap">
+                  Scholorship
+                </span>
               </Link>
             </li>
-        
+            <li>
+              <Link
+                onClick={handleLogout}
+                className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+              >
+                {/* <img src={""} alt="bookIcon" className="w-5 h-5" /> */}
+                <span className="flex-1 ms-3 whitespace-nowrap">
+                  LogOut
+                </span>
+              </Link>
+            </li>
+            
           </ul>
         </div>
       </aside>

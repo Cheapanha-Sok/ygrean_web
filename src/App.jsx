@@ -4,7 +4,6 @@ import "react-toastify/dist/ReactToastify.css";
 import Homepage from "./page/user/home/Homepage";
 import UserAppLayout from "./ui/user/AppLayout";
 import AdminAppLayout from "./ui/admin/Applayout";
-import Ranking from "./page/user/ranking/Ranking";
 import Scholarship from "./page/user/scholarship/Scholarship";
 import Authentication from "./page/user/auth/Authentication";
 import Account from "./page/user/account/Account";
@@ -23,6 +22,8 @@ import { getUser } from "./context/user/UserAction";
 import Spinner from "./ui/shared/Spinner";
 import RouteNotFound from "./ui/shared/RouteNotFound";
 import { ToastContainer } from "react-toastify";
+import RankList from "./page/user/ranking/RankList";
+import { RankDataProvider } from "./context/rank/RankContext";
 
 export default function App() {
   const [isAdmin, setAdmin] = useState(false);
@@ -52,40 +53,42 @@ export default function App() {
         <ScholarshipDataProvider>
           <BakDoubDataProvider>
             <QuizDataProvider>
-              <Routes>
-                {isAdmin ? (
-                  <Route element={<AdminAppLayout />}>
-                    <Route index element={<BakDoubListAdmin />} />
-                    <Route path="/manageSubject" element={<ManageQuiz />} />
-                    <Route path="/question" element={<ManageQuiz />} />
-                    <Route path="/*" element={<RouteNotFound />} />
-                  </Route>
-                ) : (
-                  <Route element={<UserAppLayout />}>
-                    <Route index element={<Homepage />} />
-                    <Route element={<PrivateRoutes />}>
-                      <Route path="/ranking" element={<Ranking />} />
-                      <Route path="/scholarship" element={<Scholarship />} />
-                      <Route
-                        path="/question/:categoryId/:levelId"
-                        element={<DoQuiz />}
-                      />
-                      <Route path="/quiz" element={<QuizList />} />
+              <RankDataProvider>
+                <Routes>
+                  {isAdmin ? (
+                    <Route element={<AdminAppLayout />}>
+                      <Route index element={<BakDoubListAdmin />} />
+                      <Route path="/manageSubject" element={<ManageQuiz />} />
+                      <Route path="/question" element={<ManageQuiz />} />
+                      <Route path="/*" element={<RouteNotFound />} />
                     </Route>
+                  ) : (
+                    <Route element={<UserAppLayout />}>
+                      <Route index element={<Homepage />} />
+                      <Route element={<PrivateRoutes />}>
+                        <Route path="/ranking" element={<RankList />} />
+                        <Route path="/scholarship" element={<Scholarship />} />
+                        <Route
+                          path="/question/:categoryId/:levelId"
+                          element={<DoQuiz />}
+                        />
+                        <Route path="/quiz" element={<QuizList />} />
+                      </Route>
 
-                    <Route path="/account" element={<Account />} />
-                    <Route
-                      path="/authentication"
-                      element={<Authentication />}
-                    />
-                    <Route
-                      path="/bakDoubAnswer"
-                      element={<BakDoubListUser />}
-                    />
-                    <Route path="/*" element={<RouteNotFound />} />
-                  </Route>
-                )}
-              </Routes>
+                      <Route path="/account" element={<Account />} />
+                      <Route
+                        path="/authentication"
+                        element={<Authentication />}
+                      />
+                      <Route
+                        path="/bakDoubAnswer"
+                        element={<BakDoubListUser />}
+                      />
+                      <Route path="/*" element={<RouteNotFound />} />
+                    </Route>
+                  )}
+                </Routes>
+              </RankDataProvider>
             </QuizDataProvider>
           </BakDoubDataProvider>
         </ScholarshipDataProvider>
