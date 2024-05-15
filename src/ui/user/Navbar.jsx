@@ -4,6 +4,10 @@ import account from "../../assets/svg/user.svg";
 import close from "../../assets/svg/close.svg";
 import menu from "../../assets/svg/menu.svg";
 import Button from "../shared/Button";
+import ranking from "../../assets/img/ranking.png"
+import ideas from "../../assets/img/ideas.png"
+import school from "../../assets/img/school.png"
+import technology from "../../assets/img/technology.png"
 import { useEffect, useRef, useState } from "react";
 
 export default function Navbar() {
@@ -28,10 +32,10 @@ export default function Navbar() {
   }, []);
 
   const Links = [
-    { name: "quiz", link: "/quiz", image: "" },
-    { name: "ranking", link: "/ranking", image: "" },
-    { name: "bakdoubAnswer", link: "/bakDoubAnswer", image: "" },
-    { name: "scholarship", link: "/scholarship", image: "" },
+    { name: "quiz", link: "/quiz", image: ideas },
+    { name: "ranking", link: "/ranking", image: ranking },
+    { name: "bakdoubAnswer", link: "/bakDoubAnswer", image: technology },
+    { name: "scholarship", link: "/scholarship", image: school },
     { name: "account", link: "/account", image: account },
   ];
   return (

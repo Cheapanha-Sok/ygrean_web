@@ -34,11 +34,10 @@ export default function App() {
       const res = await getUser();
       if (res) {
         setAdmin(res.isAdmin);
-        setGraduate(res.isGraduate);
+        setGraduate(res.isGraduate)
         setIsLoading(false);
       } else {
         setAdmin(false);
-        setGraduate(res.isGraduate);
         setIsLoading(false);
       }
     };
@@ -48,6 +47,7 @@ export default function App() {
   if (isLoading) {
     return <Spinner isFull={true} />;
   }
+  console.log(isGraduate)
 
   return (
     <Router>
@@ -76,7 +76,7 @@ export default function App() {
                         />
                         <Route
                           path="/quiz"
-                          element={<QuizList />}
+                          element={<QuizList isGraduate={isGraduate}/>}
                           isGraduate={isGraduate}
                         />
                       </Route>
