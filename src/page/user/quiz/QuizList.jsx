@@ -5,7 +5,7 @@ import SelectOption from "../../../ui/shared/SelectOption";
 import { types } from "../../../data/dummyData";
 import QuizItem from "./components/QuizItem";
 
-export default function QuizList() {
+export default function QuizList({isGraduate}) {
   const [option, setOption] = useState(1);
 
   const handleSelectChange = (event) => {

@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import Input from "../../../../ui/shared/Input";
 
 export default function Choice({ data, onSelect }) {
@@ -12,7 +11,7 @@ export default function Choice({ data, onSelect }) {
         <label htmlFor={data.name}>{data.name}</label>
         <Input
           type="radio"
-          name={data.name}
+          name="choice"
           value={data.id}
           onChange={handleInputChange}
         />

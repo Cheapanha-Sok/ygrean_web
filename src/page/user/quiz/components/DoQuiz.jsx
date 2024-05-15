@@ -36,12 +36,12 @@ export default function DoQuiz() {
     // Check if there are any questions left
     if (currentQuestion >= totalQuestions - 1) {
       savePoint();
-      setShowPoint(true); // Show result when all questions are answered
+      setShowPoint(true);
       return;
     }
 
     const correctAnswer = listQuestions[currentQuestion].choices.find(
-      (item) => item.is_correct === true
+      (item) => item.isCorrect === true
     );
 
     // Check if the selected choice is correct
@@ -64,6 +64,8 @@ export default function DoQuiz() {
     return <DisplayResult score={score} />;
   }
 
+  console.log(listQuestions)
+
   return (
     <ul className="flex flex-col gap-2 p-5">
       <label htmlFor="complete-question">Question</label>
@@ -81,6 +83,7 @@ export default function DoQuiz() {
               <p>{score}</p>
               {listQuestions[currentQuestion].name}
             </p>
+
             <p className="font-semibold capitalize">
               point : {listQuestions[currentQuestion].point}
             </p>

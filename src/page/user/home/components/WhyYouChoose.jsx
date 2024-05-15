@@ -1,4 +1,3 @@
-import React from 'react'
 import test from "../../../../assets/img/test.png";
 
 export default function WhyYouChoose() {

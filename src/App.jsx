@@ -27,16 +27,18 @@ import { RankDataProvider } from "./context/rank/RankContext";
 
 export default function App() {
   const [isAdmin, setAdmin] = useState(false);
+  const [isGraduate, setGraduate] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     const fetchData = async () => {
       const res = await getUser();
       if (res) {
-        console.log(res);
         setAdmin(res.isAdmin);
+        setGraduate(res.isGraduate);
         setIsLoading(false);
       } else {
         setAdmin(false);
+        setGraduate(res.isGraduate);
         setIsLoading(false);
       }
     };
@@ -72,7 +74,11 @@ export default function App() {
                           path="/question/:categoryId/:levelId"
                           element={<DoQuiz />}
                         />
-                        <Route path="/quiz" element={<QuizList />} />
+                        <Route
+                          path="/quiz"
+                          element={<QuizList />}
+                          isGraduate={isGraduate}
+                        />
                       </Route>
 
                       <Route path="/account" element={<Account />} />

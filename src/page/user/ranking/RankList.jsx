@@ -28,21 +28,26 @@ export default function RankList() {
     return <Spinner isFull />;
   }
 
-  console.log(listRanks)
-
   return (
-    <ul className="flex flex-col gap-5 p-5">
-      <SelectOption
-        options={userIndentity}
-        onSelectChange={handleSelectChange}
-      />
-      {listRanks.length ? (
-        listRanks.map((item) => {
-          <RankItem data={item} key={item.id} />;
-        })
+    <div className="flex flex-col gap-5">
+      <div>
+        <SelectOption
+          options={userIndentity}
+          onSelectChange={handleSelectChange}
+        />
+      </div>
+
+      {loading ? (
+        <Spinner isFull />
+      ) : listRanks.length ? (
+        listRanks.map((item , id) => (
+          <ul className="flex flex-col gap-5" key={item.id}>
+            <RankItem data={item} id={id + 1} />
+          </ul>
+        ))
       ) : (
         <NotFound />
       )}
-    </ul>
+    </div>
   );
 }
