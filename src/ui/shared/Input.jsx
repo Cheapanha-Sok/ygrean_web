@@ -12,13 +12,11 @@ export default function Input({
   defaultValue,
   required,
   accept,
-  value,
   name,
 }) {
   return (
     <input
-    name={name}
-      value={value}
+      name={name}
       className={style}
       type={type}
       id={id}

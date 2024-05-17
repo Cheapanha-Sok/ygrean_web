@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Button from "../../../../ui/shared/Button";
 import Input from "../../../../ui/shared/Input";
 import Modal from "../../../../ui/shared/Modal";
@@ -11,7 +11,7 @@ import BakDoubDataContext from "../../../../context/bakDoub/BakDoubContext";
 import SelectOption from "../../../../ui/shared/SelectOption";
 import { types } from "../../../../data/dummyData";
 
-export default function UpdateInfo({ id, onClose ,pdfUrl }) {
+export default function UpdateInfo({ id, onClose, pdfUrl }) {
   const { listCategories, listExamDates, dispatch } =
     useContext(BakDoubDataContext);
 
@@ -23,12 +23,15 @@ export default function UpdateInfo({ id, onClose ,pdfUrl }) {
   useEffect(() => {
     const fetchData = async () => {
       const categories = await getType(selectOption);
-      const examDates = await getExamDate();
       dispatch({ type: "SET_CATEGORIES", payload: categories });
-      dispatch({ type: "SET_EXAMDATES", payload: examDates });
     };
-    fetchData();
+    fetchData().then(() => fetchExamDate());
   }, [dispatch, selectOption]);
+
+  const fetchExamDate = async () => {
+    const examDates = await getExamDate();
+    dispatch({ type: "SET_EXAMDATES", payload: examDates });
+  };
 
   const handleCategoryChange = (event) => {
     setSelectedCategory(parseInt(event.target.value));
@@ -47,15 +50,7 @@ export default function UpdateInfo({ id, onClose ,pdfUrl }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const res = await updateSubject(
-      file,
-      selectedCategory,
-      selectedExamDate,
-      id
-    );
-    if (res) {
-      alert("Updated success");
-    } else alert("Something when wrong!");
+    await updateSubject(file, selectedCategory, selectedExamDate, id);
   };
 
   return (

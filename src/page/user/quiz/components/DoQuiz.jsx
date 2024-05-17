@@ -17,8 +17,8 @@ export default function DoQuiz() {
   const [score, setScore] = useState(0);
   const { listQuestions, dispatch, loading } = useContext(QuizDataContext);
 
-  const savePoint = async () => {
-    await savePointUser(score, categoryId, levelId);
+  const savePoint = async (score, categoryId, levelId, listQuestions) => {
+    await savePointUser(score, categoryId, levelId, listQuestions);
   };
 
   useEffect(() => {
@@ -35,7 +35,7 @@ export default function DoQuiz() {
   const handleNextQuestion = () => {
     // Check if there are any questions left
     if (currentQuestion >= totalQuestions - 1) {
-      savePoint();
+      savePoint(score, categoryId, levelId, listQuestions);
       setShowPoint(true);
       return;
     }
@@ -64,7 +64,7 @@ export default function DoQuiz() {
     return <DisplayResult score={score} />;
   }
 
-  console.log(listQuestions)
+  console.log(listQuestions);
 
   return (
     <ul className="flex flex-col gap-2 p-5">

@@ -1,14 +1,16 @@
 import { useState } from "react";
-import Choice from "./Choice";
 import Button from "../../../../ui/shared/Button";
-import { removeQuestionById } from "../../../../context/quiz/QuizAction";
+import remove from "../../../../assets/svg/remove.svg";
+import edit from "../../../../assets/svg/edit.svg";
+import { removeQuestion } from "../../../../context/quiz/QuizAction";
+import UpdateQuestion from "./UpdateQuestion";
 
 export default function QuestionItem({ data }) {
-  const { level, name, category, point, choices, id } = data;
-  const [isView, setIsView] = useState(false);
+  const { name, point, choices, id } = data;
+  const [isUpdate, setUpdate] = useState(false);
 
-  const removeQuestion = async (id) => {
-    await removeQuestionById(id);
+  const handleRemove = async (id) => {
+    await removeQuestion(id);
   };
 
   return (
@@ -18,20 +20,25 @@ export default function QuestionItem({ data }) {
           <span>{id} . </span>
           <span>{name}</span>
         </div>
-        <div className="flex flex-row gap-5 font-medium capitalize">
-          <p>Category : {category}</p>
-          <p>Level : {level}</p>
+        <div className="font-medium capitalize">
           <p>Point : {point}</p>
         </div>
       </div>
-      <div className="flex flex-row gap-5">
-        <Button customClass="bg-red-500" onClick={() => removeQuestion(id)}>
-          Remove
+      <div className="flex flex-row gap-5 items-center">
+        <Button customClass="bg-green-500" onClick={() => setUpdate(true)}>
+          <img src={edit} alt="editIcon" className="w-3 md:w-4" />
+          Edit question
         </Button>
-        <Button customClass="bg-green-500" onClick={() => setIsView(true)}>
-          View Choice
+        <Button customClass="bg-red-500" onClick={() => handleRemove(id)}>
+          <img src={remove} alt="removeIcon" className="w-3 md:w-4" />
+          Delete question
         </Button>
-        {isView && <Choice data={choices} onClose={() => setIsView(false)} />}
+        {isUpdate && (
+          <UpdateQuestion
+            question={data} // Corrected prop name
+            onClose={() => setUpdate(false)}
+          />
+        )}
       </div>
     </div>
   );

@@ -54,7 +54,7 @@ export default function BakDoubList() {
           )}
           {isOpen && (
             <CreateBakDoub
-              onRefresh={() => fetchBakDoub()}
+              onRefresh={() => fetchBakDoub(selectOption)}
               onClose={() => setIsOpen(!isOpen)}
             />
           )}

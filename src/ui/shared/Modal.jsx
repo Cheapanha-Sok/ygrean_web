@@ -1,6 +1,6 @@
 import React from "react";
 import Button from "./Button";
-import closeModal from "../../assets/svg/close.svg";
+import closeModal from "../../assets/svg/closeModal.svg";
 
 export default function Modal({ children, onClose, title, content }) {
   return (

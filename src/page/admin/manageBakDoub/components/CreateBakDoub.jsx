@@ -10,12 +10,10 @@ import Button from "../../../../ui/shared/Button";
 import SelectOption from "../../../../ui/shared/SelectOption";
 import { types } from "../../../../data/dummyData";
 import BakDoubDataContext from "../../../../context/bakDoub/BakDoubContext";
-import Spinner from "../../../../ui/shared/Spinner";
 
 export default function CreateBakDoub({ onClose, onRefresh }) {
   const { listCategories, listExamDates, dispatch } =
     useContext(BakDoubDataContext);
-  const [isLoading, setIsLoading] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState(0);
   const [selectedExamDate, setSelectedExamDate] = useState(0);
   const [selectOption, setSelectOption] = useState(1);
@@ -24,12 +22,15 @@ export default function CreateBakDoub({ onClose, onRefresh }) {
   useEffect(() => {
     const fetchData = async () => {
       const categories = await getType(selectOption);
-      const examDates = await getExamDate();
       dispatch({ type: "SET_CATEGORIES", payload: categories });
-      dispatch({ type: "SET_EXAMDATES", payload: examDates });
     };
-    fetchData();
+    fetchData().then(() => fetchExamDate());
   }, [dispatch, selectOption]);
+
+  const fetchExamDate = async () => {
+    const examDates = await getExamDate();
+    dispatch({ type: "SET_EXAMDATES", payload: examDates });
+  };
 
   const handleCategoryChange = (event) => {
     setSelectedCategory(parseInt(event.target.value));
@@ -49,16 +50,9 @@ export default function CreateBakDoub({ onClose, onRefresh }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setIsLoading(true);
-    const res = await createNewBakDoub(
-      selectedCategory,
-      selectedExamDate,
-      selectFile
-    );
-    if (res === true) {
-      setIsLoading(false);
-      onRefresh();
-      alert("create successful");
+    const res = await createNewBakDoub(selectedCategory, selectedExamDate, selectFile);
+    if(res){
+      onRefresh()
     }
   };
 
@@ -77,13 +71,16 @@ export default function CreateBakDoub({ onClose, onRefresh }) {
               Type :
             </label>
             <SelectOption options={types} onSelectChange={handleTypeChange} />
+
             <label htmlFor="type" className="text-sm font-medium text-white">
               ExamDate:
             </label>
-            <SelectOption
-              options={listExamDates}
-              onSelectChange={handleExamDateChange}
-            />
+            {Array.isArray(listExamDates) && (
+              <SelectOption
+                options={listExamDates}
+                onSelectChange={handleExamDateChange}
+              />
+            )}
 
             <label
               htmlFor="category"
@@ -91,10 +88,12 @@ export default function CreateBakDoub({ onClose, onRefresh }) {
             >
               Category :
             </label>
-            <SelectOption
-              options={listCategories}
-              onSelectChange={handleCategoryChange}
-            />
+            {Array.isArray(listCategories) && (
+              <SelectOption
+                options={listCategories}
+                onSelectChange={handleCategoryChange}
+              />
+            )}
           </div>
           <label htmlFor="file" className="text-sm font-medium text-white">
             Pdf:
@@ -108,13 +107,9 @@ export default function CreateBakDoub({ onClose, onRefresh }) {
             />
           </label>
         </div>
-        {isLoading ? (
-          <Spinner />
-        ) : (
-          <Button type="submit" customClass="bg-white text-[#283d50] ">
-            Submit
-          </Button>
-        )}
+        <Button type="submit" customClass="bg-white text-[#283d50]">
+          Submit
+        </Button>
       </form>
     </Modal>
   );

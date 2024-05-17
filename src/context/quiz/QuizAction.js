@@ -1,11 +1,23 @@
-import { BASE_URL } from "../../utils/constant/Constant";
 import apiClient from "../../utils/apiClient/apiClient";
 import { toast } from "react-toastify";
 
 export const getQuestionByTypeAndCategory = async (categoryId, levelId) => {
   try {
     const response = await apiClient.get(
-      `${BASE_URL}question/${categoryId}/${levelId}`
+      `api/question/${categoryId}/${levelId}`
+    );
+    if (response.status === 200) {
+      return response.data.data;
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getQuestion = async (categoryId, levelId, isGraduate) => {
+  try {
+    const response = await apiClient.get(
+      `api/question/${categoryId}/${levelId}/${isGraduate}`
     );
     if (response.status === 200) {
       return response.data.data;
@@ -45,17 +57,44 @@ export const createQuestion = async (
       toast.error("Some field are null please check");
     }
   } catch (error) {
-    console.log(error);
+    if (error.response) {
+      const errorMessage = error.response.data.message || "An error occurred";
+      toast.error(`Error: ${errorMessage}`);
+    } else if (error.request) {
+      toast.error("No response received from server");
+    }
   }
 };
-export const removeQuestionById = async (questionId) => {
+export const removeQuestion = async (id) => {
   try {
-    const res = await apiClient.delete(`api/question/${questionId}`);
+    const res = await apiClient.delete(`api/question/${id}`);
     if (res.status === 200) {
-      toast.success("remove question success");
+      const message = await res.data.message;
+      toast.success(message);
       return true;
     }
   } catch (error) {
     console.log(error);
+  }
+};
+
+export const updateQuestion = async (questionId, updatedQuestion) => {
+  try {
+    const res = await apiClient.put(
+      `api/question/${questionId}`,
+      updatedQuestion
+    );
+    if (res.status === 200) {
+      console.log(res)
+      const message = res.data.message
+      toast.success(message);
+    }
+  } catch (error) {
+    if (error.response) {
+      const errorMessage = error.response.data.message || "An error occurred";
+      toast.error(`Error: ${errorMessage}`);
+    } else if (error.request) {
+      toast.error("No response received from server");
+    }
   }
 };

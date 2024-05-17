@@ -77,13 +77,18 @@ export const logOut = async () => {
     console.log(error);
   }
 };
-export const savePointUser = async (point, category_id, level_id) => {
+export const savePointUser = async (point, category_id, level_id, listQuestions) => {
   try {
-    const res = await apiClient.post("api/ranking", {
+    // Extract question IDs from the listQuestions array
+    const questions = listQuestions.map(question => question.id);
+    
+    const res = await apiClient.post("api/rank", {
       point,
       category_id,
       level_id,
+      questions // Send only the IDs to the backend
     });
+
     if (res.status === 200) {
       return true;
     }
@@ -91,3 +96,4 @@ export const savePointUser = async (point, category_id, level_id) => {
     console.log(error);
   }
 };
+

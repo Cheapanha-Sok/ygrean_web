@@ -51,7 +51,7 @@ export default function ManageQuiz() {
     <ul className="flex flex-col gap-5 p-5">
       <>
         <div className="flex flex-row gap-5">
-          {userIdentity === 1 && (
+          {userIdentity === 0 && (
             <SelectOption options={types} onSelectChange={handleTypeChange} />
           )}
 

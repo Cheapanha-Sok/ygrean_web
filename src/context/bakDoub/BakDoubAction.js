@@ -1,13 +1,11 @@
 import apiClient from "../../utils/apiClient/apiClient";
-import { BASE_URL } from "../../utils/constant/Constant";
+import { toast } from "react-toastify";
 
 export const getBakDoubAnswer = async (examDateId, categoriesId) => {
   try {
-    const res = await fetch(`${BASE_URL}pdf/${examDateId}/${categoriesId}`, {
-      method: "GET",
-    });
+    const res = await apiClient.get(`api/pdf/${examDateId}/${categoriesId}`);
     if (res.ok) {
-      const data = await res.json();
+      const data = await res.data.data;
       return data;
     }
   } catch (error) {
@@ -17,45 +15,35 @@ export const getBakDoubAnswer = async (examDateId, categoriesId) => {
 export const createNewBakDoub = async (categoryId, examDateId, file) => {
   try {
     const formData = new FormData();
-    formData.append("categoryId", parseInt(categoryId));
-    formData.append("examDateId", parseInt(examDateId));
+    formData.append("category_id", parseInt(categoryId));
+    formData.append("exam_date_id", parseInt(examDateId));
     formData.append("file", file);
 
-    const res = await fetch(`${BASE_URL}pdf`, {
-      method: "POST",
-      body: formData,
+    const res = await apiClient.post(`api/subject`, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
     });
 
     if (res.status === 200) {
-      const responseData = await res.json();
-      console.log(responseData);
+      toast.success("subject created successfully!");
       return true;
     }
   } catch (error) {
-    console.error("Error:", error);
-  }
-};
-export const getAllBakDoubAnswer = async () => {
-  try {
-    const res = await fetch(`${BASE_URL}pdf`, {
-      method: "GET",
-    });
-    if (res.status === 200) {
-      const data = await res.json();
-      return data;
+    if (error.response) {
+      const errorMessage = error.response.data.message || "An error occurred";
+      toast.error(`Error: ${errorMessage}`);
+    } else if (error.request) {
+      toast.error("No response received from server");
     }
-  } catch (error) {
-    console.log(error);
   }
 };
 
 export const getAllBakDoubAnswerByType = async (typeId) => {
   try {
-    const res = await fetch(`${BASE_URL}pdfType/${typeId}`, {
-      method: "GET",
-    });
+    const res = await apiClient.get(`api/subject/${typeId}`);
     if (res.status === 200) {
-      const data = await res.json();
+      const data = await res.data.data;
       return data;
     }
   } catch (error) {
@@ -75,25 +63,30 @@ export const updateSubject = async (
     formData.append("subjectId", parseInt(id));
     formData.append("examDateId", parseInt(selectedExamDate));
     formData.append("file", file);
-    const res = await fetch(`${BASE_URL}pdf`, {
-      method: "PUT",
-      body: formData,
+    const res = await apiClient.post(`api/subject`, {
+      formData,
     });
 
     if (res === 200) {
       return true;
     }
   } catch (error) {
-    console.log(error);
+    if (error.response) {
+      const errorMessage = error.response.data.message || "An error occurred";
+      toast.error(`Error: ${errorMessage}`);
+    } else if (error.request) {
+      toast.error("No response received from server");
+    }
   }
 };
 
 export const removeBakDoubAnswer = async (id) => {
   try {
-    const res = await fetch(`${BASE_URL}pdf/${id}`, {
-      method: "DELETE",
-    });
-    if (res.ok) {
+    const res = await apiClient.delete(`api/subject/${id}`);
+    if (res.status === 200) {
+      console.log(res);
+      const message = await res.data.message;
+      toast.success(message);
       return true;
     }
   } catch (error) {
@@ -104,8 +97,8 @@ export const getType = async (typeId) => {
   try {
     const res = await apiClient.get(`api/type/${typeId}`);
     if (res.status === 200) {
-      const data = await res.data
-      return data.data.categories;
+      const data = await res.data.data.categories;
+      return data
     }
   } catch (error) {
     console.log(error);
@@ -114,12 +107,9 @@ export const getType = async (typeId) => {
 
 export const getExamDate = async () => {
   try {
-    const res = await fetch(`${BASE_URL}examDate`, {
-      method: "GET",
-    });
+    const res = await apiClient.get(`api/examDate`);
     if (res.status === 200) {
-      const data = await res.json();
-      console.log(data);
+      const data = await res.data.data;
       return data;
     }
   } catch (error) {
@@ -131,9 +121,8 @@ export const getCategory = async () => {
   try {
     const res = await apiClient("api/category");
     if (res.status === 200) {
-      const data = await res.data;
-      console.log(data);
-      return data.data;
+      const data = await res.data.data
+      return data;
     }
   } catch (error) {
     console.log(error);
