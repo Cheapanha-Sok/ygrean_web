@@ -79,6 +79,8 @@ export const removeQuestion = async (id) => {
 };
 
 export const updateQuestion = async (questionId, updatedQuestion) => {
+
+  console.log(updatedQuestion)
   try {
     const res = await apiClient.put(
       `api/question/${questionId}`,

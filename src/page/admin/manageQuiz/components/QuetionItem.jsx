@@ -6,7 +6,7 @@ import { removeQuestion } from "../../../../context/quiz/QuizAction";
 import UpdateQuestion from "./UpdateQuestion";
 
 export default function QuestionItem({ data }) {
-  const { name, point, choices, id } = data;
+  const { name, point, id } = data;
   const [isUpdate, setUpdate] = useState(false);
 
   const handleRemove = async (id) => {
@@ -35,7 +35,7 @@ export default function QuestionItem({ data }) {
         </Button>
         {isUpdate && (
           <UpdateQuestion
-            question={data} // Corrected prop name
+            question={data}
             onClose={() => setUpdate(false)}
           />
         )}

@@ -4,7 +4,7 @@ import "react-toastify/dist/ReactToastify.css";
 import Homepage from "./page/user/home/Homepage";
 import UserAppLayout from "./ui/user/AppLayout";
 import AdminAppLayout from "./ui/admin/Applayout";
-import Scholarship from "./page/user/scholarship/Scholarship";
+import Scholarship from "./page/user/scholarship/ScholarshipList";
 import Authentication from "./page/user/auth/Authentication";
 import Account from "./page/user/account/Account";
 import { UserDataProvider } from "./context/user/UserContext";
@@ -24,6 +24,7 @@ import RouteNotFound from "./ui/shared/RouteNotFound";
 import { ToastContainer } from "react-toastify";
 import RankList from "./page/user/ranking/RankList";
 import { RankDataProvider } from "./context/rank/RankContext";
+import ScholarshipList from "./page/admin/managmentScholarship/ScholarshipList";
 
 export default function App() {
   const [isAdmin, setAdmin] = useState(false);
@@ -34,7 +35,7 @@ export default function App() {
       const res = await getUser();
       if (res) {
         setAdmin(res.isAdmin);
-        setGraduate(res.isGraduate)
+        setGraduate(res.isGraduate);
         setIsLoading(false);
       } else {
         setAdmin(false);
@@ -47,7 +48,6 @@ export default function App() {
   if (isLoading) {
     return <Spinner isFull={true} />;
   }
-  console.log(isGraduate)
 
   return (
     <Router>
@@ -60,8 +60,12 @@ export default function App() {
                   {isAdmin ? (
                     <Route element={<AdminAppLayout />}>
                       <Route index element={<BakDoubListAdmin />} />
-                      <Route path="/manageSubject" element={<ManageQuiz />} />
+                      <Route path="/subject" element={<ManageQuiz />} />
                       <Route path="/question" element={<ManageQuiz />} />
+                      <Route
+                        path="/scholarship"
+                        element={<ScholarshipList />}
+                      />
                       <Route path="/*" element={<RouteNotFound />} />
                     </Route>
                   ) : (
@@ -69,17 +73,17 @@ export default function App() {
                       <Route index element={<Homepage />} />
                       <Route element={<PrivateRoutes />}>
                         <Route path="/ranking" element={<RankList />} />
-                        <Route path="/scholarship" element={<Scholarship />} />
                         <Route
                           path="/question/:categoryId/:levelId"
                           element={<DoQuiz />}
                         />
                         <Route
                           path="/quiz"
-                          element={<QuizList isGraduate={isGraduate}/>}
+                          element={<QuizList isGraduate={isGraduate} />}
                           isGraduate={isGraduate}
                         />
                       </Route>
+                      <Route path="/scholarship" element={<Scholarship />} />
 
                       <Route path="/account" element={<Account />} />
                       <Route
