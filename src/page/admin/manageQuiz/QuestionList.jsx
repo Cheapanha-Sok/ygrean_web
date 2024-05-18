@@ -3,14 +3,14 @@ import SelectOption from "../../../ui/shared/SelectOption";
 import { levels, types, userIndentity } from "../../../data/dummyData";
 import { getType, getCategory } from "../../../context/bakDoub/BakDoubAction";
 import BakDoubDataContext from "../../../context/bakDoub/BakDoubContext";
-import { getQuestionByTypeAndCategory } from "../../../context/quiz/QuizAction";
+import {listQuestion } from "../../../context/quiz/QuizAction";
 import Button from "../../../ui/shared/Button";
 import QuestionItem from "./components/QuetionItem";
 import NotFound from "../../../ui/shared/NotFound";
 import Spinner from "../../../ui/shared/Spinner";
 import CreateQuestion from "./components/CreateQuestion";
 
-export default function ManageQuiz() {
+export default function QuestionList() {
   const { listCategories, listQuestons, dispatch, loading } =
     useContext(BakDoubDataContext);
   const [isCreate, setIsCreate] = useState(false);
@@ -44,7 +44,7 @@ export default function ManageQuiz() {
   }, [option, dispatch, categoryId, levelId, userIdentity]);
 
   const getQuestion = async (categoryId, levelId) => {
-    const data = await getQuestionByTypeAndCategory(categoryId, levelId);
+    const data = await listQuestion(categoryId, levelId);
     dispatch({ type: "SET_QUESTIONS", payload: data });
   };
   return (

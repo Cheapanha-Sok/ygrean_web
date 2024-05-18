@@ -10,7 +10,6 @@ import Account from "./page/user/account/Account";
 import { UserDataProvider } from "./context/user/UserContext";
 import { ScholarshipDataProvider } from "./context/scholarship/ScholarshipContext";
 import { BakDoubDataProvider } from "./context/bakDoub/BakDoubContext";
-import ManageQuiz from "./page/admin/manageQuiz/ManageQuiz";
 import BakDoubListAdmin from "./page/admin/manageBakDoub/BakDoubList";
 import QuizList from "./page/user/quiz/QuizList";
 import { QuizDataProvider } from "./context/quiz/QuizContext";
@@ -24,7 +23,8 @@ import RouteNotFound from "./ui/shared/RouteNotFound";
 import { ToastContainer } from "react-toastify";
 import RankList from "./page/user/ranking/RankList";
 import { RankDataProvider } from "./context/rank/RankContext";
-import ScholarshipList from "./page/admin/managmentScholarship/ScholarshipList";
+import QuestionList from "./page/admin/manageQuiz/QuestionList";
+import ScholarshipList from "./page/admin/manageScholarship/ScholarshipList";
 
 export default function App() {
   const [isAdmin, setAdmin] = useState(false);
@@ -60,10 +60,9 @@ export default function App() {
                   {isAdmin ? (
                     <Route element={<AdminAppLayout />}>
                       <Route index element={<BakDoubListAdmin />} />
-                      <Route path="/subject" element={<ManageQuiz />} />
-                      <Route path="/question" element={<ManageQuiz />} />
+                      <Route path="/manageQuestion" element={<QuestionList />} />
                       <Route
-                        path="/scholarship"
+                        path="/manageScholarship"
                         element={<ScholarshipList />}
                       />
                       <Route path="/*" element={<RouteNotFound />} />

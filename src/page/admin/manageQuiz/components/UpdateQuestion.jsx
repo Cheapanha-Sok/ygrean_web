@@ -17,6 +17,8 @@ export default function UpdateQuestion({ question, onClose }) {
     })),
   });
 
+  console.log(question)
+
   const handleInputChange = (index, field, value) => {
     const newChoices = [...questionData.choices];
     newChoices[index][field] = value;
@@ -73,7 +75,7 @@ export default function UpdateQuestion({ question, onClose }) {
                   required
                 />
                 <label className="text-sm font-medium text-white">
-                  IsCorrect: {item.is_correct ? "True" : "False"}
+                  IsCorrect: {item.isCorrect ? "True" : "False"}
                 </label>
               </div>
             </div>

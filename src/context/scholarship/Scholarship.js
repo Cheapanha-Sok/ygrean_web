@@ -4,7 +4,7 @@ import axios from "axios";
 
 export const createScholarship = async (data, link) => {
   try {
-    console.log(link)
+    console.log(link);
     const res = await apiClient.post("api/scholarship", {
       description: data.message,
       post_at: data.created_time,
@@ -75,5 +75,18 @@ const extractFacebookIds = (url) => {
     return { pageId: pageIdMatch[1], postId: postIdMatch[1] };
   } else {
     return null;
+  }
+};
+
+export const removeScholarship = async (id) => {
+  try {
+    const res = await apiClient.delete(`api/scholarship/${id}`);
+    if (res.status === 200) {
+      const message = await res.data.message;
+      toast.success(message);
+      return true;
+    }
+  } catch (error) {
+    console.log(error);
   }
 };

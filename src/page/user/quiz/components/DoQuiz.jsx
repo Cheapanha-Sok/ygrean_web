@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getQuestionByTypeAndCategory } from "../../../../context/quiz/QuizAction";
+import { getQuestion } from "../../../../context/quiz/QuizAction";
 import QuizDataContext from "../../../../context/quiz/QuizContext";
 import Choice from "./Choice";
 import Button from "../../../../ui/shared/Button";
@@ -24,7 +24,7 @@ export default function DoQuiz() {
   useEffect(() => {
     dispatch({ type: "SET_LOADING" });
     const fetchQuiz = async (categoryId, levelId) => {
-      const data = await getQuestionByTypeAndCategory(categoryId, levelId);
+      const data = await getQuestion(categoryId, levelId);
       dispatch({ type: "SET_QUESTIONS", payload: data });
     };
     fetchQuiz(categoryId, levelId);

@@ -15,7 +15,12 @@ export const signin = async (email, password) => {
       }
     }
   } catch (error) {
-    console.log(error);
+    if (error.response) {
+      const errorMessage = error.response.data.message || "An error occurred";
+      toast.error(`Error: ${errorMessage}`);
+    } else if (error.request) {
+      toast.error("No response received from server");
+    }
   }
 };
 
@@ -39,7 +44,12 @@ export const signup = async (
       return true;
     }
   } catch (error) {
-    console.log(error);
+    if (error.response) {
+      const errorMessage = error.response.data.message || "An error occurred";
+      toast.error(`Error: ${errorMessage}`);
+    } else if (error.request) {
+      toast.error("No response received from server");
+    }
   }
 };
 
@@ -77,16 +87,21 @@ export const logOut = async () => {
     console.log(error);
   }
 };
-export const savePointUser = async (point, category_id, level_id, listQuestions) => {
+export const savePointUser = async (
+  point,
+  category_id,
+  level_id,
+  listQuestions
+) => {
   try {
     // Extract question IDs from the listQuestions array
-    const questions = listQuestions.map(question => question.id);
-    
+    const questions = listQuestions.map((question) => question.id);
+
     const res = await apiClient.post("api/rank", {
       point,
       category_id,
       level_id,
-      questions // Send only the IDs to the backend
+      questions, // Send only the IDs to the backend
     });
 
     if (res.status === 200) {
@@ -96,4 +111,3 @@ export const savePointUser = async (point, category_id, level_id, listQuestions)
     console.log(error);
   }
 };
-

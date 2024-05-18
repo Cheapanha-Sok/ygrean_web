@@ -39,14 +39,14 @@ export default function ScholarshipList() {
       <ul className="flex flex-col gap-5">
         {listScholarship.length ? (
           listScholarship.map((item) => (
-            <ScholarshipItem data={item} key={item.id} />
+            <ScholarshipItem data={item} key={item.id} onRefresh={()=>fetchScholarship()} />
           ))
         ) : (
           <NotFound />
         )}
       </ul>
 
-      {isCreate && <CreateScholarship onClose={() => setCreate(false)} />}
+      {isCreate && <CreateScholarship onClose={() => setCreate(false)}  />}
     </div>
   );
 }

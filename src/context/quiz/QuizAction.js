@@ -1,26 +1,28 @@
 import apiClient from "../../utils/apiClient/apiClient";
 import { toast } from "react-toastify";
 
-export const getQuestionByTypeAndCategory = async (categoryId, levelId) => {
+export const getQuestion = async (categoryId, levelId) => {
   try {
-    const response = await apiClient.get(
+    const res = await apiClient.get(
       `api/question/${categoryId}/${levelId}`
     );
-    if (response.status === 200) {
-      return response.data.data;
+    if (res.status === 200) {
+      const data = await res.data.data
+      return data
     }
   } catch (error) {
     console.log(error);
   }
 };
 
-export const getQuestion = async (categoryId, levelId, isGraduate) => {
+export const listQuestion = async (categoryId, levelId) => {
   try {
-    const response = await apiClient.get(
-      `api/question/${categoryId}/${levelId}/${isGraduate}`
+    const res = await apiClient.get(
+      `api/quesionList/${categoryId}/${levelId}`
     );
-    if (response.status === 200) {
-      return response.data.data;
+    if (res.status === 200) {
+      const data = await res.data.data;
+      return data;
     }
   } catch (error) {
     console.log(error);
@@ -79,16 +81,15 @@ export const removeQuestion = async (id) => {
 };
 
 export const updateQuestion = async (questionId, updatedQuestion) => {
-
-  console.log(updatedQuestion)
+  console.log(updatedQuestion);
   try {
     const res = await apiClient.put(
       `api/question/${questionId}`,
       updatedQuestion
     );
     if (res.status === 200) {
-      console.log(res)
-      const message = res.data.message
+      console.log(res);
+      const message = res.data.message;
       toast.success(message);
     }
   } catch (error) {

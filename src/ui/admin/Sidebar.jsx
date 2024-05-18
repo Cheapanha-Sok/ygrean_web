@@ -2,7 +2,6 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
 import Logo from "../../assets/Logo.png";
 import { logOut } from "../../context/user/UserAction";
-import Button from "../shared/Button";
 
 function SideBar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -72,7 +71,7 @@ function SideBar() {
 
             <li>
               <Link
-                to="/question"
+                to="/manageQuestion"
                 className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
               >
                 {/* <img src={""} alt="bookIcon" className="w-5 h-5" /> */}
@@ -81,7 +80,7 @@ function SideBar() {
             </li>
             <li>
               <Link
-                to="/scholarship"
+                to="/manageScholarship"
                 className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
               >
                 {/* <img src={""} alt="bookIcon" className="w-5 h-5" /> */}
