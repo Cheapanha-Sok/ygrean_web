@@ -3,7 +3,7 @@ import SelectOption from "../../../ui/shared/SelectOption";
 import { levels, types, userIndentity } from "../../../data/dummyData";
 import { getType, getCategory } from "../../../context/bakDoub/BakDoubAction";
 import BakDoubDataContext from "../../../context/bakDoub/BakDoubContext";
-import {listQuestion } from "../../../context/quiz/QuizAction";
+import { listQuestion } from "../../../context/quiz/QuizAction";
 import Button from "../../../ui/shared/Button";
 import QuestionItem from "./components/QuetionItem";
 import NotFound from "../../../ui/shared/NotFound";
@@ -17,7 +17,7 @@ export default function QuestionList() {
   const [option, setOption] = useState(1);
   const [categoryId, setCategoryId] = useState(1);
   const [levelId, setLevelId] = useState(1);
-  const [userIdentity, setUserIdentity] = useState(1);
+  const [userIdentity, setUserIdentity] = useState(0);
 
   const handleTypeChange = (event) => {
     setOption(parseInt(event.target.value));
@@ -33,20 +33,24 @@ export default function QuestionList() {
   };
   const fetchData = async (option) => {
     const category =
-      userIdentity === 1 ? await getType(option) : await getCategory();
+      userIdentity === 0 ? await getType(option) : await getCategory();
     dispatch({ type: "SET_CATEGORIES", payload: category });
   };
 
   useEffect(() => {
     dispatch({ type: "SET_LOADING" });
 
-    fetchData(option).then(() => getQuestion(categoryId, levelId));
-  }, [option, dispatch, categoryId, levelId, userIdentity]);
+    fetchData(option).then(() => getQuestion());
+  }, [dispatch, levelId, option, categoryId, userIdentity]);
 
-  const getQuestion = async (categoryId, levelId) => {
-    const data = await listQuestion(categoryId, levelId);
+  const getQuestion = async () => {
+    const data = await listQuestion(categoryId, levelId, userIdentity);
     dispatch({ type: "SET_QUESTIONS", payload: data });
   };
+
+  if (loading) {
+    return <Spinner isFull />;
+  }
   return (
     <ul className="flex flex-col gap-5 p-5">
       <>
@@ -72,13 +76,15 @@ export default function QuestionList() {
           </Button>
         </div>
 
-        {loading ? (
-          <Spinner isFull />
-        ) : listQuestons.length ? (
-          listQuestons.map((item) => <QuestionItem data={item} key={item.id} />)
-        ) : (
-          <NotFound />
-        )}
+        <ul className="flex flex-col gap-5">
+          {listQuestons.length ? (
+            listQuestons.map((item) => (
+              <QuestionItem data={item} key={item.id} />
+            ))
+          ) : (
+            <NotFound />
+          )}
+        </ul>
 
         {isCreate && (
           <CreateQuestion

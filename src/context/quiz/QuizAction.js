@@ -15,10 +15,10 @@ export const getQuestion = async (categoryId, levelId) => {
   }
 };
 
-export const listQuestion = async (categoryId, levelId) => {
+export const listQuestion = async (categoryId, levelId , isGraduate) => {
   try {
     const res = await apiClient.get(
-      `api/quesionList/${categoryId}/${levelId}`
+      `api/quesionList/${categoryId}/${levelId}/${isGraduate}`
     );
     if (res.status === 200) {
       const data = await res.data.data;

@@ -18,7 +18,7 @@ const CreateQuestion = ({ onClose }) => {
   const [option, setOption] = useState(1);
   const [categoryId, setCategoryId] = useState(1);
   const [levelId, setLevelId] = useState(1);
-  const [userIdentity, setUserIdentity] = useState(1);
+  const [userIdentity, setUserIdentity] = useState(0);
   const [inputData, setInputData] = useState({
     questionName: "",
     choices: [{ name: "", is_correct: false }],
@@ -27,7 +27,7 @@ const CreateQuestion = ({ onClose }) => {
   useEffect(() => {
     const fetchData = async () => {
       const category =
-        userIdentity === 1 ? await getType(option) : await getCategory();
+        userIdentity === 0 ? await getType(option) : await getCategory();
       dispatch({ type: "SET_CATEGORIES", payload: category });
     };
     fetchData();
@@ -112,7 +112,7 @@ const CreateQuestion = ({ onClose }) => {
               options={userIndentity}
               onSelectChange={handleChangeUserIdentity}
             />
-            {userIdentity === 1 && (
+            {userIdentity === 0 && (
               <>
                 <label
                   htmlFor="category"
