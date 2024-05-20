@@ -1,8 +1,8 @@
 import { useContext, useEffect, useState } from "react";
 import SelectOption from "../../../ui/shared/SelectOption";
 import { levels, types, userIndentity } from "../../../data/dummyData";
-import { getType, getCategory } from "../../../context/bakDoub/BakDoubAction";
-import BakDoubDataContext from "../../../context/bakDoub/BakDoubContext";
+import { getType, getCategory } from "../../../context/subject/SubjectAction";
+import BakDoubDataContext from "../../../context/subject/SubjectContext";
 import { listQuestion } from "../../../context/quiz/QuizAction";
 import Button from "../../../ui/shared/Button";
 import QuestionItem from "./components/QuetionItem";

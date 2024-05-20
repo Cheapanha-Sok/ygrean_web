@@ -1,13 +1,13 @@
 import { useContext, useEffect, useState } from "react";
 import Modal from "../../../../ui/shared/Modal";
 import Button from "../../../../ui/shared/Button";
-import BakDoubDataContext from "../../../../context/bakDoub/BakDoubContext";
+import BakDoubDataContext from "../../../../context/subject/SubjectContext";
 import SelectOption from "../../../../ui/shared/SelectOption";
 import { levels, types, userIndentity } from "../../../../data/dummyData";
 import {
   getCategory,
   getType,
-} from "../../../../context/bakDoub/BakDoubAction";
+} from "../../../../context/subject/SubjectAction";
 import Spinner from "../../../../ui/shared/Spinner";
 import Input from "../../../../ui/shared/Input";
 import { createQuestion } from "../../../../context/quiz/QuizAction";

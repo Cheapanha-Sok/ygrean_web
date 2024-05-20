@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { removeBakDoubAnswer } from "../../../../context/bakDoub/BakDoubAction";
+import { removeSubject } from "../../../../context/subject/SubjectAction";
 import Button from "../../../../ui/shared/Button";
 import UpdateInfo from "./UpdateInfo";
 
@@ -7,13 +7,10 @@ export default function BakDoubItem({ data, onRefresh }) {
   const { category, examdate, id } = data;
   const [isUpdate, setIsUpdate] = useState(false);
 
-  console.log(data)
-
   const removeBakDoub = async (id) => {
-    const res = await removeBakDoubAnswer(id);
+    const res = await removeSubject(id);
     if (res === true) {
       onRefresh();
-      alert("remove successful");
     }
   };
   return (

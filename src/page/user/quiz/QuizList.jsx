@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
-import BakDoubDataContext from "../../../context/bakDoub/BakDoubContext";
-import { getCategory, getType } from "../../../context/bakDoub/BakDoubAction";
+import BakDoubDataContext from "../../../context/subject/SubjectContext";
+import { getCategory, getType } from "../../../context/subject/SubjectAction";
 import SelectOption from "../../../ui/shared/SelectOption";
 import { types } from "../../../data/dummyData";
 import QuizItem from "./components/QuizItem";

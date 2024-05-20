@@ -1,15 +1,15 @@
 import { useContext, useEffect, useState } from "react";
 import {
-  createNewBakDoub,
+  createSubject,
   getExamDate,
   getType,
-} from "../../../../context/bakDoub/BakDoubAction";
+} from "../../../../context/subject/SubjectAction";
 import Modal from "../../../../ui/shared/Modal";
 import Input from "../../../../ui/shared/Input";
 import Button from "../../../../ui/shared/Button";
 import SelectOption from "../../../../ui/shared/SelectOption";
 import { types } from "../../../../data/dummyData";
-import BakDoubDataContext from "../../../../context/bakDoub/BakDoubContext";
+import BakDoubDataContext from "../../../../context/subject/SubjectContext";
 
 export default function CreateBakDoub({ onClose, onRefresh }) {
   const { listCategories, listExamDates, dispatch } =
@@ -22,14 +22,14 @@ export default function CreateBakDoub({ onClose, onRefresh }) {
   useEffect(() => {
     const fetchData = async () => {
       const categories = await getType(selectOption);
-      dispatch({ type: "SET_CATEGORIES", payload: categories });
+      dispatch({ type: "SET_CATEGORY", payload: categories });
     };
     fetchData().then(() => fetchExamDate());
   }, [dispatch, selectOption]);
 
   const fetchExamDate = async () => {
     const examDates = await getExamDate();
-    dispatch({ type: "SET_EXAMDATES", payload: examDates });
+    dispatch({ type: "SET_EXAMDATE", payload: examDates });
   };
 
   const handleCategoryChange = (event) => {
@@ -50,7 +50,7 @@ export default function CreateBakDoub({ onClose, onRefresh }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const res = await createNewBakDoub(selectedCategory, selectedExamDate, selectFile);
+    const res = await createSubject(selectedCategory, selectedExamDate, selectFile);
     if(res){
       onRefresh()
     }

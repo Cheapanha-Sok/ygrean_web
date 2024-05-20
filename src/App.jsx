@@ -9,8 +9,7 @@ import Authentication from "./page/user/auth/Authentication";
 import Account from "./page/user/account/Account";
 import { UserDataProvider } from "./context/user/UserContext";
 import { ScholarshipDataProvider } from "./context/scholarship/ScholarshipContext";
-import { BakDoubDataProvider } from "./context/bakDoub/BakDoubContext";
-import BakDoubListAdmin from "./page/admin/manageBakDoub/BakDoubList";
+import { SubjectDataProvider } from "./context/subject/SubjectContext";
 import QuizList from "./page/user/quiz/QuizList";
 import { QuizDataProvider } from "./context/quiz/QuizContext";
 import BakDoubListUser from "./page/user/bakDoub/BakDoubList";
@@ -25,6 +24,8 @@ import RankList from "./page/user/ranking/RankList";
 import { RankDataProvider } from "./context/rank/RankContext";
 import QuestionList from "./page/admin/manageQuiz/QuestionList";
 import ScholarshipList from "./page/admin/manageScholarship/ScholarshipList";
+import ViewPdf from "./page/user/bakDoub/ViewPdf";
+import SubjectList from "./page/admin/manageSubject/SubjectList";
 
 export default function App() {
   const [isAdmin, setAdmin] = useState(false);
@@ -53,13 +54,13 @@ export default function App() {
     <Router>
       <UserDataProvider>
         <ScholarshipDataProvider>
-          <BakDoubDataProvider>
+          <SubjectDataProvider>
             <QuizDataProvider>
               <RankDataProvider>
                 <Routes>
                   {isAdmin ? (
                     <Route element={<AdminAppLayout />}>
-                      <Route index element={<BakDoubListAdmin />} />
+                      <Route index element={<SubjectList />} />
                       <Route path="/manageQuestion" element={<QuestionList />} />
                       <Route
                         path="/manageScholarship"
@@ -83,6 +84,7 @@ export default function App() {
                         />
                       </Route>
                       <Route path="/scholarship" element={<Scholarship />} />
+                      <Route path="/pdf/:categoryId/:examDateId" element={<ViewPdf/>}/>
 
                       <Route path="/account" element={<Account />} />
                       <Route
@@ -99,7 +101,7 @@ export default function App() {
                 </Routes>
               </RankDataProvider>
             </QuizDataProvider>
-          </BakDoubDataProvider>
+          </SubjectDataProvider>
         </ScholarshipDataProvider>
       </UserDataProvider>
       <ToastContainer

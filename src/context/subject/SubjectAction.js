@@ -1,18 +1,18 @@
 import apiClient from "../../utils/apiClient/apiClient";
 import { toast } from "react-toastify";
 
-export const getBakDoubAnswer = async (examDateId, categoriesId) => {
+export const getSubjectPdf = async (examDateId, categoryId) => {
   try {
-    const res = await apiClient.get(`api/pdf/${examDateId}/${categoriesId}`);
-    if (res.ok) {
-      const data = await res.data.data;
+    const res = await apiClient.get(`api/pdf/${examDateId}/${categoryId}`);
+    if (res.status === 200) {
+      const data = await res.data;
       return data;
     }
   } catch (error) {
     console.log(error);
   }
 };
-export const createNewBakDoub = async (categoryId, examDateId, file) => {
+export const createSubject = async (categoryId, examDateId, file) => {
   try {
     const formData = new FormData();
     formData.append("category_id", parseInt(categoryId));
@@ -39,9 +39,9 @@ export const createNewBakDoub = async (categoryId, examDateId, file) => {
   }
 };
 
-export const getAllBakDoubAnswerByType = async (typeId) => {
+export const getSubject = async (typeId, examDateId) => {
   try {
-    const res = await apiClient.get(`api/subject/${typeId}`);
+    const res = await apiClient.get(`api/subject/${typeId}/${examDateId}`);
     if (res.status === 200) {
       const data = await res.data.data;
       return data;
@@ -80,7 +80,7 @@ export const updateSubject = async (
   }
 };
 
-export const removeBakDoubAnswer = async (id) => {
+export const removeSubject = async (id) => {
   try {
     const res = await apiClient.delete(`api/subject/${id}`);
     if (res.status === 200) {
@@ -98,7 +98,7 @@ export const getType = async (typeId) => {
     const res = await apiClient.get(`api/type/${typeId}`);
     if (res.status === 200) {
       const data = await res.data.data.categories;
-      return data
+      return data;
     }
   } catch (error) {
     console.log(error);
@@ -121,7 +121,7 @@ export const getCategory = async () => {
   try {
     const res = await apiClient("api/category");
     if (res.status === 200) {
-      const data = await res.data.data
+      const data = await res.data.data;
       return data;
     }
   } catch (error) {

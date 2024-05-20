@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { getExamDate } from "../../../../context/bakDoub/BakDoubAction";
+import { getExamDate } from "../../../../context/subject/SubjectAction";
 import Modal from "../../../../ui/shared/Modal";
 
 export default function BakDoubItem({ data }) {
@@ -14,7 +14,7 @@ export default function BakDoubItem({ data }) {
     setCategoryId(id);
   };
   const handleSelectExamDate = (id) => {
-    navigate(`/answer/${categoryId}/${id}`);
+    navigate(`/pdf/${categoryId}/${id}`);
   };
 
   useEffect(() => {

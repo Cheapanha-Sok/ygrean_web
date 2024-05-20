@@ -6,8 +6,8 @@ import {
   getExamDate,
   getType,
   updateSubject,
-} from "../../../../context/bakDoub/BakDoubAction";
-import BakDoubDataContext from "../../../../context/bakDoub/BakDoubContext";
+} from "../../../../context/subject/SubjectAction";
+import BakDoubDataContext from "../../../../context/subject/SubjectContext";
 import SelectOption from "../../../../ui/shared/SelectOption";
 import { types } from "../../../../data/dummyData";
 
