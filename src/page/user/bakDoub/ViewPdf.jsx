@@ -16,7 +16,7 @@ export default function ViewPdf() {
       if (data.statusCode === 404) {
         dispatch({ type: "SET_PDF", payload: null });
       } else {
-        dispatch({ type: "SET_PDF", payload: data });
+        dispatch({ type: "SET_PDF", payload: data.data });
       }
     };
     fetchData(examDateId, categoryId);
@@ -30,18 +30,22 @@ export default function ViewPdf() {
     return <NotFound />;
   }
 
-  const { pdfUrl, category, examDate } = subject;
+  const { pdfUrl, category, examdate } = subject;
 
   return (
     <div className="flex flex-col gap-5">
-      <>
-        <h1 className="text-3xl font-semibold uppercase">Subject PDF</h1>
-        <div className="flex gap-5">
-          <p className="uppercase text-xl">Subject: {category.name}</p>
-          <p className="uppercase text-xl">Exam Date: {examDate.name}</p>
-        </div>
-        <iframe src={pdfUrl} height="1200px" width="100%"></iframe>
-      </>
+      {subject ? (
+        <>
+          <h1 className="text-3xl font-semibold uppercase">Subject PDF</h1>
+          <div className="flex gap-5">
+            <p className="uppercase text-xl">Subject: {category.name}</p>
+            <p className="uppercase text-xl">Exam Date: {examdate.name}</p>
+          </div>
+          <iframe src={pdfUrl} height="1200px" width="100%"></iframe>{" "}
+        </>
+      ) : (
+        <NotFound />
+      )}
     </div>
   );
 }
