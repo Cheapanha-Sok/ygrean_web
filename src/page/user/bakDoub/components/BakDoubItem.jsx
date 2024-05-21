@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getExamDate } from "../../../../context/subject/SubjectAction";
 import Modal from "../../../../ui/shared/Modal";

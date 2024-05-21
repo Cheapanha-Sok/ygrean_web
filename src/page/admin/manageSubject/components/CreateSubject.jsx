@@ -8,12 +8,12 @@ import Modal from "../../../../ui/shared/Modal";
 import Input from "../../../../ui/shared/Input";
 import Button from "../../../../ui/shared/Button";
 import SelectOption from "../../../../ui/shared/SelectOption";
-import { types } from "../../../../data/dummyData";
-import BakDoubDataContext from "../../../../context/subject/SubjectContext";
+import { types } from "../../../../data/dummyData"
+import SubjectContext from "../../../../context/subject/SubjectContext";
 
 export default function CreateBakDoub({ onClose, onRefresh }) {
-  const { listCategories, listExamDates, dispatch } =
-    useContext(BakDoubDataContext);
+  const { listCategory, listExamDate, dispatch } =
+    useContext(SubjectContext);
   const [selectedCategory, setSelectedCategory] = useState(0);
   const [selectedExamDate, setSelectedExamDate] = useState(0);
   const [selectOption, setSelectOption] = useState(1);
@@ -75,9 +75,9 @@ export default function CreateBakDoub({ onClose, onRefresh }) {
             <label htmlFor="type" className="text-sm font-medium text-white">
               ExamDate:
             </label>
-            {Array.isArray(listExamDates) && (
+            {Array.isArray(listExamDate) && (
               <SelectOption
-                options={listExamDates}
+                options={listExamDate}
                 onSelectChange={handleExamDateChange}
               />
             )}
@@ -88,9 +88,9 @@ export default function CreateBakDoub({ onClose, onRefresh }) {
             >
               Category :
             </label>
-            {Array.isArray(listCategories) && (
+            {Array.isArray(listCategory) && (
               <SelectOption
-                options={listCategories}
+                options={listCategory}
                 onSelectChange={handleCategoryChange}
               />
             )}

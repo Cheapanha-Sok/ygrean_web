@@ -14,10 +14,6 @@ export default function BakDoubList() {
   };
 
   const { listCategory, dispatch } = useContext(SubjectContext);
-
-  console.log(listCategory)
-
-  console.log(option)
   useEffect(() => {
     const getCategory = async (option) => {
       const data = await getType(option);
