@@ -82,11 +82,10 @@ export default function App() {
                           element={<QuizList isGraduate={isGraduate} />}
                           isGraduate={isGraduate}
                         />
+                        <Route path="/account" element={<Account />} />
                       </Route>
                       <Route path="/scholarship" element={<Scholarship />} />
                       <Route path="/pdf/:categoryId/:examDateId" element={<ViewPdf/>}/>
-
-                      <Route path="/account" element={<Account />} />
                       <Route
                         path="/authentication"
                         element={<Authentication />}

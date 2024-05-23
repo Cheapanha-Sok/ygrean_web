@@ -5,16 +5,22 @@ export const QuizReducer = (state, action) => {
         ...state,
         loading: true,
       };
-    case "SET_QUESTIONS":
+    case "SET_QUESTION":
       return {
         ...state,
-        listQuestions: action.payload,
+        listQuestion: action.payload,
         loading: false,
       };
-    case "SET_LEVELS":
+    case "SET_CATEGORY":
       return {
         ...state,
-        listLevels: action.payload,
+        listCategory : action.payload,
+        loading : false
+      }
+    case "SET_LEVEL":
+      return {
+        ...state,
+        listLevel: action.payload,
         loading: false,
       };
   }

@@ -4,8 +4,8 @@ import { editUser, getUser, logOut } from "../../../context/user/UserAction";
 import Button from "../../../ui/shared/Button";
 import Input from "../../../ui/shared/Input";
 import Logo from "../../../assets/Logo.png";
-import edit from "../../../assets/svg/edit.svg"
-import close from "../../../assets/svg/close.svg"
+import edit from "../../../assets/svg/edit.svg";
+import close from "../../../assets/svg/close.svg";
 import UserDataContext from "../../../context/user/UserContext";
 
 export default function Account() {
@@ -21,6 +21,7 @@ export default function Account() {
       navigate("/");
     }
   };
+
   const fetchCurrentUser = async () => {
     const data = await getUser();
     dispatch({ type: "SET_USER", payload: data });
@@ -44,13 +45,38 @@ export default function Account() {
     }));
   };
 
+  useEffect(() => {
+    if (currentUser) {
+      setInputData({
+        username: currentUser.name,
+        identity: currentUser.isGraduate ? "Graduate" : "Under Graduate",
+      });
+    }
+  }, [currentUser]);
+
   const handleEdit = async (e) => {
     e.preventDefault();
     const { username } = inputData;
-    const res = await editUser(currentUser.id, username, isGraduate);
-    if (res) {
-      fetchCurrentUser();
-      setIsEdit(false);
+    if (isGraduate !== currentUser.isGraduate) {
+      if (
+        confirm(
+          "Are you sure to to change the identity? Your score will be reset to zero."
+        )
+      ) {
+        const res = await editUser(currentUser.id, username, isGraduate);
+        if (res) {
+          fetchCurrentUser();
+          setIsEdit(false);
+        }
+      } else {
+        console.log("Cancel edit");
+      }
+    } else {
+      const res = await editUser(currentUser.id, username, isGraduate);
+      if (res) {
+        fetchCurrentUser();
+        setIsEdit(false);
+      }
     }
   };
 
@@ -86,7 +112,11 @@ export default function Account() {
                   />
                 </div>
                 <Button onClick={() => setIsEdit(!isEdit)} type="button">
-                  <img src={isEdit ? close : edit} alt="editBtn" className="w-5 h-5" />
+                  <img
+                    src={isEdit ? close : edit}
+                    alt="editBtn"
+                    className="w-5 h-5"
+                  />
                 </Button>
               </div>
 
@@ -105,6 +135,7 @@ export default function Account() {
                     <Input
                       type="text"
                       id="username"
+                      value={inputData.username}
                       style="px-3 py-1 border-1 rounded-md bg-slate-200"
                       onChange={onTextChange}
                     />

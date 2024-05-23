@@ -13,6 +13,7 @@ export default function Input({
   required,
   accept,
   name,
+  value
 }) {
   return (
     <input
@@ -24,6 +25,7 @@ export default function Input({
       placeholder={placeholder}
       autoComplete={autoComplete}
       onClick={onClick}
+      value={value}
       checked={checked}
       defaultValue={defaultValue}
       required={required}

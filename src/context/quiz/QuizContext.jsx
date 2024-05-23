@@ -1,19 +1,20 @@
 import { createContext, useReducer } from "react";
 import { QuizReducer } from "./QuizReducer";
 
-const QuizDataContext = createContext();
+const QuizContext = createContext();
 export const QuizDataProvider = ({ children }) => {
   const initialState = {
-    listLevels: [],
-    listQuestions :[],
+    listLevel: [],
+    listQuestion :[],
+    listCategory :[],
     loading: false,
   };
   const [state, dispatch] = useReducer(QuizReducer, initialState);
 
   return (
-    <QuizDataContext.Provider value={{ ...state, dispatch }}>
+    <QuizContext.Provider value={{ ...state, dispatch }}>
       {children}
-    </QuizDataContext.Provider>
+    </QuizContext.Provider>
   );
 };
-export default QuizDataContext;
+export default QuizContext;

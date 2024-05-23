@@ -62,11 +62,11 @@ export const getUser = async () => {
     console.log(error);
   }
 };
-export const editUser = async (userId, username, isGraduate) => {
+export const editUser = async (userId , username, isGraduate) => {
   try {
     const response = await apiClient.put(`api/user/${userId}`, {
       name: username,
-      isGraduate: isGraduate,
+      isGraduate,
     });
     if (response.status === 200) {
       toast.success("update succesful");
@@ -96,7 +96,6 @@ export const savePointUser = async (
   try {
     // Extract question IDs from the listQuestions array
     const questions = listQuestions.map((question) => question.id);
-
     const res = await apiClient.post("api/rank", {
       point,
       category_id,

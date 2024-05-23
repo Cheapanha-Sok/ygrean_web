@@ -1,9 +1,9 @@
 import { useContext, useEffect, useState } from "react";
-import BakDoubDataContext from "../../../context/subject/SubjectContext";
 import { getCategory, getType } from "../../../context/subject/SubjectAction";
 import SelectOption from "../../../ui/shared/SelectOption";
 import { types } from "../../../data/dummyData";
 import QuizItem from "./components/QuizItem";
+import QuizContext from "../../../context/quiz/QuizContext";
 
 export default function QuizList({ isGraduate }) {
   const [option, setOption] = useState(1);
@@ -13,12 +13,12 @@ export default function QuizList({ isGraduate }) {
     setOption(selectedOption);
   };
 
-  const { listCategories, dispatch } = useContext(BakDoubDataContext);
+  const { listCategory, dispatch } = useContext(QuizContext);
 
   useEffect(() => {
     const fetchData = async (option) => {
       const data = isGraduate ? await getCategory() : await getType(option);
-      dispatch({ type: "SET_CATEGORIES", payload: data });
+      dispatch({ type: "SET_CATEGORY", payload: data });
     };
     fetchData(option);
   }, [option, dispatch, isGraduate]);
@@ -33,7 +33,7 @@ export default function QuizList({ isGraduate }) {
       )}
 
       <div className="gap-5 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 text-sm md:text-l">
-        {listCategories.map((item) => (
+        {listCategory.map((item) => (
           <QuizItem data={item} key={item.id} />
         ))}
       </div>
