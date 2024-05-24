@@ -61,7 +61,10 @@ export default function App() {
                   {isAdmin ? (
                     <Route element={<AdminAppLayout />}>
                       <Route index element={<SubjectList />} />
-                      <Route path="/manageQuestion" element={<QuestionList />} />
+                      <Route
+                        path="/manageQuestion"
+                        element={<QuestionList />}
+                      />
                       <Route
                         path="/manageScholarship"
                         element={<ScholarshipList />}
@@ -72,7 +75,6 @@ export default function App() {
                     <Route element={<UserAppLayout />}>
                       <Route index element={<Homepage />} />
                       <Route element={<PrivateRoutes />}>
-                        <Route path="/ranking" element={<RankList />} />
                         <Route
                           path="/question/:categoryId/:levelId"
                           element={<DoQuiz />}
@@ -85,7 +87,10 @@ export default function App() {
                         <Route path="/account" element={<Account />} />
                       </Route>
                       <Route path="/scholarship" element={<Scholarship />} />
-                      <Route path="/pdf/:categoryId/:examDateId" element={<ViewPdf/>}/>
+                      <Route
+                        path="/pdf/:categoryId/:examDateId"
+                        element={<ViewPdf />}
+                      />
                       <Route
                         path="/authentication"
                         element={<Authentication />}
@@ -94,6 +99,7 @@ export default function App() {
                         path="/bakDoubAnswer"
                         element={<BakDoubListUser />}
                       />
+                      <Route path="/ranking" element={<RankList />} />
                       <Route path="/*" element={<RouteNotFound />} />
                     </Route>
                   )}
