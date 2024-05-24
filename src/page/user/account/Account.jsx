@@ -4,7 +4,7 @@ import { editUser, getUser, logOut } from "../../../context/user/UserAction";
 import Button from "../../../ui/shared/Button";
 import Input from "../../../ui/shared/Input";
 import Logo from "../../../assets/Logo.png";
-import edit from "../../../assets/svg/edit.svg";
+import editUserIcon from "../../../assets/svg/editUser.svg";
 import close from "../../../assets/svg/close.svg";
 import UserDataContext from "../../../context/user/UserContext";
 
@@ -113,7 +113,7 @@ export default function Account() {
                 </div>
                 <Button onClick={() => setIsEdit(!isEdit)} type="button">
                   <img
-                    src={isEdit ? close : edit}
+                    src={isEdit ? close : editUserIcon}
                     alt="editBtn"
                     className="w-5 h-5"
                   />

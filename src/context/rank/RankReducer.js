@@ -11,5 +11,10 @@ export const RankReducer = (state, action) => {
         listRanks: action.payload,
         loading: false,
       };
+    case "SET_CATEGORY":
+      return {
+        ...state,
+        listCategory: action.payload,
+      };
   }
 };

@@ -5,6 +5,7 @@ const RankDataContext = createContext();
 export const RankDataProvider = ({ children }) => {
   const initialState = {
     listRanks: [],
+    listCategory : [],
     loading: false,
   };
   const [state, dispatch] = useReducer(RankReducer, initialState);

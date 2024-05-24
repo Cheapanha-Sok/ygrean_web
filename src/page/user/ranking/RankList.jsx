@@ -5,44 +5,62 @@ import RankItem from "./components/RankItem";
 import NotFound from "../../../ui/shared/NotFound";
 import { getRank } from "../../../context/rank/RankAction";
 import SelectOption from "../../../ui/shared/SelectOption";
-import { userIndentity } from "../../../data/dummyData";
-import Button from "../../../ui/shared/Button";
+import { types, userIndentity } from "../../../data/dummyData";
+import { getCategory, getType } from "../../../context/subject/SubjectAction";
 
 export default function RankList() {
+  const { listRanks, listCategory, loading, dispatch } =
+    useContext(RankDataContext);
   const [isGraduate, setGraduate] = useState(0);
-  const { listRanks, loading, dispatch } = useContext(RankDataContext);
+  const [type, setType] = useState(1);
+  const [category, setCategory] = useState(
+    listCategory.length ? listCategory[0].id : 1
+  );
 
   const handleSelectChange = (event) => {
     const selectedOption = parseInt(event.target.value);
     setGraduate(selectedOption);
   };
 
+  const handleChangeType = (e) => {
+    const selectedType = parseInt(e.target.value);
+    setType(selectedType);
+  };
+
+  const handleChangeCategory = (e) => {
+    const selectedCategory = parseInt(e.target.value);
+    setCategory(selectedCategory);
+  };
+
   useEffect(() => {
-    const fetchRank = async () => {
-      const data = await getRank(isGraduate);
-      dispatch({ type: "SET_RANKS", payload: data });
+    dispatch({ type: "SET_LOADING" });
+    const fetchData = async () => {
+      const data = isGraduate ? await getCategory() : await getType(type);
+      dispatch({ type: "SET_CATEGORY", payload: data });
     };
-    fetchRank();
-  }, [dispatch, isGraduate]);
+    fetchData().then(() => fetchRank());
+  }, [dispatch, isGraduate, category, type]);
+
+  const fetchRank = async () => {
+    const data = await getRank(category, isGraduate);
+    dispatch({ type: "SET_RANKS", payload: data });
+  };
 
   if (loading) {
     return <Spinner isFull />;
   }
 
-  const handleShareToFaceBook = (contentUrl) => {
-    const appId = 'weLearn'; // Replace with your Facebook App ID
-    const url = `https://www.facebook.com/dialog/share?app_id=${appId}&display=popup&href=${encodeURIComponent(contentUrl)}&redirect_uri=${encodeURIComponent(window.location.href)}`;
-
-    // Open the URL in a new window
-    window.open(url, "_blank");
-  };
-
   return (
     <div className="flex flex-col gap-5">
-      <div>
+      <div className="flex flex-row gap-2">
         <SelectOption
           options={userIndentity}
           onSelectChange={handleSelectChange}
+        />
+        <SelectOption options={types} onSelectChange={handleChangeType} />
+        <SelectOption
+          options={listCategory}
+          onSelectChange={handleChangeCategory}
         />
       </div>
 
@@ -57,7 +75,6 @@ export default function RankList() {
       ) : (
         <NotFound />
       )}
-      <Button onClick={() => handleShareToFaceBook("http://localhost:5173/ranking")}>Share to Facebook</Button>
     </div>
   );
 }
