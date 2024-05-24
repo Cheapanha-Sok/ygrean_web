@@ -1,1 +1,1 @@
-export const AUTH_URL = "http://ygrean.site/"
+export const AUTH_URL = "https://ygrean.site/"
