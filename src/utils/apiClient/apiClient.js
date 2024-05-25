@@ -1,8 +1,8 @@
 import axios from "axios";
-import { AUTH_URL } from "../constant/Constant";
+const { REACT_APP_API_ENDPOINT } = process.env;
 
 const apiClient = axios.create({
-  baseURL: AUTH_URL,
+  baseURL: REACT_APP_API_ENDPOINT,
   headers: {
     "X-Requested-With": "XMLHttpRequest",
     Accept: "application/json",
