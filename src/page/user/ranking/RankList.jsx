@@ -7,6 +7,7 @@ import { getRank } from "../../../context/rank/RankAction";
 import SelectOption from "../../../ui/shared/SelectOption";
 import { types, userIndentity } from "../../../data/dummyData";
 import { getCategory, getType } from "../../../context/subject/SubjectAction";
+import ShareButton from "./components/ShareButtonComponent";
 
 export default function RankList() {
   const { listRanks, listCategory, loading, dispatch } =
@@ -74,6 +75,12 @@ export default function RankList() {
         ))
       ) : (
         <NotFound />
+      )}
+
+       {listRanks.length > 0 && (
+        <div className="flex justify-end">
+          <ShareButton />
+        </div>
       )}
     </div>
   );
