@@ -2,17 +2,17 @@ import { useContext, useEffect, useState } from "react";
 import SelectOption from "../../../ui/shared/SelectOption";
 import { levels, types, userIndentity } from "../../../data/dummyData";
 import { getType, getCategory } from "../../../context/subject/SubjectAction";
-import BakDoubDataContext from "../../../context/subject/SubjectContext";
-import { listQuestion } from "../../../context/quiz/QuizAction";
+import { listQuestion as fetchQuestion } from "../../../context/quiz/QuizAction";
 import Button from "../../../ui/shared/Button";
 import QuestionItem from "./components/QuetionItem";
 import NotFound from "../../../ui/shared/NotFound";
 import Spinner from "../../../ui/shared/Spinner";
 import CreateQuestion from "./components/CreateQuestion";
+import QuizContext from "../../../context/quiz/QuizContext";
 
 export default function QuestionList() {
-  const { listCategories, listQuestons, dispatch, loading } =
-    useContext(BakDoubDataContext);
+  const { listCategory, listQuestion, dispatch, loading } =
+    useContext(QuizContext);
   const [isCreate, setIsCreate] = useState(false);
   const [option, setOption] = useState(1);
   const [categoryId, setCategoryId] = useState(1);
@@ -34,7 +34,7 @@ export default function QuestionList() {
   const fetchData = async (option) => {
     const category =
       userIdentity === 0 ? await getType(option) : await getCategory();
-    dispatch({ type: "SET_CATEGORIES", payload: category });
+    dispatch({ type: "SET_CATEGORY", payload: category });
   };
 
   useEffect(() => {
@@ -44,8 +44,8 @@ export default function QuestionList() {
   }, [dispatch, levelId, option, categoryId, userIdentity]);
 
   const getQuestion = async () => {
-    const data = await listQuestion(categoryId, levelId, userIdentity);
-    dispatch({ type: "SET_QUESTIONS", payload: data });
+    const data = await fetchQuestion(categoryId, levelId, userIdentity);
+    dispatch({ type: "SET_QUESTION", payload: data });
   };
 
   if (loading) {
@@ -64,7 +64,7 @@ export default function QuestionList() {
             onSelectChange={handleChangeUserIdentity}
           />
           <SelectOption
-            options={listCategories}
+            options={listCategory}
             onSelectChange={handleChangeCategory}
           />
           <SelectOption options={levels} onSelectChange={handleChangeLevel} />
@@ -77,8 +77,8 @@ export default function QuestionList() {
         </div>
 
         <ul className="flex flex-col gap-5">
-          {listQuestons.length ? (
-            listQuestons.map((item) => (
+          {listQuestion.length ? (
+            listQuestion.map((item) => (
               <QuestionItem data={item} key={item.id} />
             ))
           ) : (
