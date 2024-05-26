@@ -1,7 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import Modal from "../../../../ui/shared/Modal";
 import Button from "../../../../ui/shared/Button";
-import BakDoubDataContext from "../../../../context/subject/SubjectContext";
 import SelectOption from "../../../../ui/shared/SelectOption";
 import { levels, types, userIndentity } from "../../../../data/dummyData";
 import {
@@ -11,9 +10,10 @@ import {
 import Spinner from "../../../../ui/shared/Spinner";
 import Input from "../../../../ui/shared/Input";
 import { createQuestion } from "../../../../context/quiz/QuizAction";
+import QuizContext from "../../../../context/quiz/QuizContext";
 
 const CreateQuestion = ({ onClose }) => {
-  const { listCategories, dispatch } = useContext(BakDoubDataContext);
+  const { listCategory, dispatch } = useContext(QuizContext);
   const [isLoading, setIsLoading] = useState(false);
   const [option, setOption] = useState(1);
   const [categoryId, setCategoryId] = useState(1);
@@ -28,7 +28,7 @@ const CreateQuestion = ({ onClose }) => {
     const fetchData = async () => {
       const category =
         userIdentity === 0 ? await getType(option) : await getCategory();
-      dispatch({ type: "SET_CATEGORIES", payload: category });
+      dispatch({ type: "SET_CATEGORY", payload: category });
     };
     fetchData();
   }, [dispatch, option, userIdentity]);
@@ -133,7 +133,7 @@ const CreateQuestion = ({ onClose }) => {
               Category:
             </label>
             <SelectOption
-              options={listCategories}
+              options={listCategory}
               onSelectChange={handleChangeCategory}
             />
           </div>
@@ -202,13 +202,15 @@ const CreateQuestion = ({ onClose }) => {
               </button>
             </div>
           ))}
-          <button
-            type="button"
-            onClick={addChoice}
-            className="text-sm font-medium text-white"
-          >
-            Add Choice
-          </button>
+          {inputData.choices.length <= 2 && (
+            <button
+              type="button"
+              onClick={addChoice}
+              className="text-sm font-medium text-white"
+            >
+              Add Choice
+            </button>
+          )}
         </div>
         {isLoading ? (
           <Spinner />
