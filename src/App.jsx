@@ -84,10 +84,7 @@ export default function App() {
                           element={<QuizList isGraduate={isGraduate} />}
                           isGraduate={isGraduate}
                         />
-                        <Route
-                          path="/manageQuestion"
-                          element={<QuestionList />}
-                        />
+                        
                         <Route path="/account" element={<Account />} />
                       </Route>
                       <Route path="/scholarship" element={<Scholarship />} />
@@ -99,6 +96,10 @@ export default function App() {
                         path="/authentication"
                         element={<Authentication />}
                       />
+                      <Route
+                          path="/manageQuestion"
+                          element={<QuestionList />}
+                        />
                       <Route
                         path="/bakDoubAnswer"
                         element={<BakDoubListUser />}
