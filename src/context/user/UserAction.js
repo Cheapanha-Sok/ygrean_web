@@ -9,6 +9,7 @@ export const signin = async (email, password) => {
         email,
         password,
       });
+      console.log(res)
       if (res.status === 204) {
         toast.success("welcome to our website");
         return true;
