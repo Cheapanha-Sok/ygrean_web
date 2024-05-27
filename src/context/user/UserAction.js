@@ -4,19 +4,25 @@ import apiClient from "../../utils/apiClient/apiClient";
 export const signin = async (email, password) => {
   try {
     if (email.length > 0 && password.length > 0) {
-      await apiClient.get(`sanctum/csrf-cookie`);
+      const csrfUrl = `${process.env.REACT_APP_API_ENDPOINT}/sanctum/csrf-cookie`;
+      console.log(`Fetching CSRF token from: ${csrfUrl}`);
+      await apiClient.get(`/sanctum/csrf-cookie`);
+      
+      const loginUrl = `${process.env.REACT_APP_API_ENDPOINT}/login`;
+      console.log(`Posting login data to: ${loginUrl}`);
       const res = await apiClient.post(`login`, {
         email,
         password,
       });
-      console.log(res)
+
       if (res.status === 204) {
-        toast.success("welcome to our website");
+        toast.success("Welcome to our website");
         return true;
       }
     }
   } catch (error) {
     if (error.response) {
+      console.log(error.response);
       const errorMessage = error.response.data.message || "An error occurred";
       toast.error(`Error: ${errorMessage}`);
     } else if (error.request) {
@@ -25,6 +31,7 @@ export const signin = async (email, password) => {
   }
 };
 
+
 export const signup = async (
   username,
   email,
@@ -32,7 +39,7 @@ export const signup = async (
   confirmPassword
 ) => {
   try {
-    await apiClient.get(`sanctum/csrf-cookie`);
+    await apiClient.get(`/sanctum/csrf-cookie`);
     const response = await apiClient.post(`register`, {
       name: username,
       email,
