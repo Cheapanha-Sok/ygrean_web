@@ -55,7 +55,7 @@ export const signup = async (
 
 export const getUser = async () => {
   try {
-    const response = await apiClient.get(`api/currentUser`);
+    const response = await apiClient.get(`api/user`);
     const data = await response.data;
     return data;
   } catch (error) {
