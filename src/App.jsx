@@ -61,10 +61,10 @@ export default function App() {
                   {isAdmin ? (
                     <Route element={<AdminAppLayout />}>
                       <Route index element={<SubjectList />} />
-                      {/* <Route
+                      <Route
                         path="/manageQuestion"
                         element={<QuestionList />}
-                      /> */}
+                      />
                       <Route
                         path="/manageScholarship"
                         element={<ScholarshipList />}
@@ -84,7 +84,7 @@ export default function App() {
                           element={<QuizList isGraduate={isGraduate} />}
                           isGraduate={isGraduate}
                         />
-                        
+
                         <Route path="/account" element={<Account />} />
                       </Route>
                       <Route path="/scholarship" element={<Scholarship />} />
@@ -96,10 +96,6 @@ export default function App() {
                         path="/authentication"
                         element={<Authentication />}
                       />
-                      <Route
-                          path="/manageQuestion"
-                          element={<QuestionList />}
-                        />
                       <Route
                         path="/bakDoubAnswer"
                         element={<BakDoubListUser />}
