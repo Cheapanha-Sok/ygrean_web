@@ -109,6 +109,11 @@ export const savePointUser = async (
       return true;
     }
   } catch (error) {
-    console.log(error);
+    if (error.response) {
+      const errorMessage = error.response.data.message || "An error occurred";
+      toast.error(`Error: ${errorMessage}`);
+    } else if (error.request) {
+      toast.error("No response received from server");
+    }
   }
-};
+}

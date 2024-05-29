@@ -41,7 +41,7 @@ export default function Navbar() {
   return (
     <nav className="bg-[#283d50] sticky top-0 z-30" ref={navRef}>
       <div className="max-w-7xl mx-auto flex justify-between p-4 xl:px-10">
-        <Link href="/">
+        <Link to="/">
           <img src={Logo} alt="Logo" className="w-[50px] md:w-[50px]" />
         </Link>
         <div className="flex gap-5 items-center">

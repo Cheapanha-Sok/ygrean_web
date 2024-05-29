@@ -4,7 +4,10 @@ import Button from "../../../../ui/shared/Button";
 import Input from "../../../../ui/shared/Input";
 import Modal from "../../../../ui/shared/Modal";
 import QuizContext from "../../../../context/quiz/QuizContext";
-import { getCategory, getType } from "../../../../context/subject/SubjectAction";
+import {
+  getCategory,
+  getType,
+} from "../../../../context/subject/SubjectAction";
 import SelectOption from "../../../../ui/shared/SelectOption";
 import { levels, types, userIndentity } from "../../../../data/dummyData";
 
@@ -30,7 +33,8 @@ export default function UpdateQuestion({ question, onClose }) {
 
   useEffect(() => {
     const fetchData = async () => {
-      const categoryData = userIdentity === 0 ? await getType(type) : await getCategory();
+      const categoryData =
+        userIdentity === 0 ? await getType(type) : await getCategory();
       dispatch({ type: "SET_CATEGORY", payload: categoryData });
     };
     fetchData();
@@ -46,8 +50,10 @@ export default function UpdateQuestion({ question, onClose }) {
   }, [category, level, userIdentity]);
 
   const handleTypeChange = (event) => setType(parseInt(event.target.value));
-  const handleUserIdentityChange = (event) => setUserIdentity(parseInt(event.target.value));
-  const handleCategoryChange = (event) => setCategory(parseInt(event.target.value));
+  const handleUserIdentityChange = (event) =>
+    setUserIdentity(parseInt(event.target.value));
+  const handleCategoryChange = (event) =>
+    setCategory(parseInt(event.target.value));
   const handleLevelChange = (event) => setLevel(parseInt(event.target.value));
   const handleInputChange = (index, field, value) => {
     setQuestionData((prevData) => {
@@ -70,12 +76,21 @@ export default function UpdateQuestion({ question, onClose }) {
 
   return (
     <Modal title="Update Question" onClose={onClose}>
-      <form onSubmit={handleSubmit} className="p-4 md:p-5 space-y-2 md:space-y-5">
+      <form
+        onSubmit={handleSubmit}
+        className="p-4 md:p-5 space-y-2 md:space-y-5"
+      >
         <div className="flex flex-col md:flex-row gap-2 md:items-center">
-          <label htmlFor="userIdentity" className="text-sm font-medium text-white">
+          <label
+            htmlFor="userIdentity"
+            className="text-sm font-medium text-white"
+          >
             Question Identity:
           </label>
-          <SelectOption options={userIndentity} onSelectChange={handleUserIdentityChange} />
+          <SelectOption
+            options={userIndentity}
+            onSelectChange={handleUserIdentityChange}
+          />
 
           {userIdentity === 0 && (
             <>
@@ -89,12 +104,18 @@ export default function UpdateQuestion({ question, onClose }) {
           <label htmlFor="category" className="text-sm font-medium text-white">
             Category:
           </label>
-          <SelectOption options={listCategory} onSelectChange={handleCategoryChange} />
+          <SelectOption
+            options={listCategory}
+            onSelectChange={handleCategoryChange}
+          />
         </div>
 
         <div className="flex flex-col gap-2 md:gap-5">
           <div className="flex flex-row gap-2 items-center">
-            <label htmlFor="questionName" className="text-sm font-medium text-white">
+            <label
+              htmlFor="questionName"
+              className="text-sm font-medium text-white"
+            >
               Question Name:
             </label>
             <Input
@@ -123,7 +144,9 @@ export default function UpdateQuestion({ question, onClose }) {
                   style="px-5 py-2 rounded-lg border-2 text-[#283d50]"
                   type="text"
                   defaultValue={choice.name}
-                  onChange={(e) => handleInputChange(index, "name", e.target.value)}
+                  onChange={(e) =>
+                    handleInputChange(index, "name", e.target.value)
+                  }
                   required
                 />
                 <label className="text-sm font-medium text-white">

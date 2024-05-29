@@ -11,6 +11,7 @@ import QuizContext from "../../../../context/quiz/QuizContext";
 
 export default function DoQuiz() {
   const { categoryId, levelId } = useParams();
+  const [isSaved, setSaved] = useState(false);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [showPoint, setShowPoint] = useState(false);
   const [choiceId, setChoiceId] = useState(0);
@@ -19,7 +20,13 @@ export default function DoQuiz() {
   const { listQuestion, dispatch, loading } = useContext(QuizContext);
 
   const savePoint = async (score, categoryId, levelId, listQuestions) => {
-    await savePointUser(score, categoryId, levelId, listQuestions);
+    setSaved(true);
+    const res = await savePointUser(score, categoryId, levelId, listQuestions);
+    if (res) {
+      setSaved(false);
+      setShowPoint(true);
+      return;
+    }
   };
 
   useEffect(() => {
@@ -41,8 +48,6 @@ export default function DoQuiz() {
   const handleNextQuestion = () => {
     if (currentQuestion >= totalQuestions - 1) {
       savePoint(score, categoryId, levelId, listQuestion);
-      setShowPoint(true);
-      return;
     }
 
     const correctAnswer = listQuestion[currentQuestion].choices.find(
@@ -61,6 +66,9 @@ export default function DoQuiz() {
     setCurrentQuestion((prevQuestion) => prevQuestion + 1);
     setChoiceId(0);
   };
+  if (isSaved) {
+    return <Spinner isFull={true} />;
+  }
 
   if (loading) {
     return <Spinner isFull={true} />;
@@ -81,7 +89,12 @@ export default function DoQuiz() {
   return (
     <div className="p-6 bg-gray-50 rounded-lg shadow-md">
       <h2 className="text-2xl font-bold mb-4">Quiz</h2>
-      <label htmlFor="complete-question" className="block text-lg font-medium mb-2">Question Progress</label>
+      <label
+        htmlFor="complete-question"
+        className="block text-lg font-medium mb-2"
+      >
+        Question Progress
+      </label>
       <progress
         id="complete-question"
         value={currentQuestion}
@@ -110,7 +123,10 @@ export default function DoQuiz() {
 
       {choiceId !== 0 && (
         <div className="mt-4 flex justify-end">
-          <Button customClass="bg-green-500 hover:bg-green-600" onClick={handleNextQuestion}>
+          <Button
+            customClass="bg-green-500 hover:bg-green-600"
+            onClick={handleNextQuestion}
+          >
             Next Question
           </Button>
         </div>

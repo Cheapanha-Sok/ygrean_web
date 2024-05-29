@@ -7,12 +7,13 @@ import Logo from "../../../assets/Logo.png";
 import editUserIcon from "../../../assets/svg/editUser.svg";
 import close from "../../../assets/svg/close.svg";
 import UserDataContext from "../../../context/user/UserContext";
+import Spinner from "../../../ui/shared/Spinner";
 
 export default function Account() {
   const navigate = useNavigate();
   const { dispatch, currentUser, loading } = useContext(UserDataContext);
-
-  const [isGraduate, setGraduate] = useState(false);
+  const [isGraduate, setGraduate] = useState(null);
+  const [isEdit, setIsEdit] = useState(false);
 
   const handleLogout = async (e) => {
     e.preventDefault();
@@ -25,13 +26,13 @@ export default function Account() {
   const fetchCurrentUser = async () => {
     const data = await getUser();
     dispatch({ type: "SET_USER", payload: data });
+    setGraduate(data.isGraduate);
   };
 
   useEffect(() => {
     fetchCurrentUser();
   }, [dispatch]);
 
-  const [isEdit, setIsEdit] = useState(false);
   const [inputData, setInputData] = useState({
     username: "",
     identity: "",
@@ -44,15 +45,6 @@ export default function Account() {
       [id]: value,
     }));
   };
-
-  useEffect(() => {
-    if (currentUser) {
-      setInputData({
-        username: currentUser.name,
-        identity: currentUser.isGraduate ? "Graduate" : "Under Graduate",
-      });
-    }
-  }, [currentUser]);
 
   const handleEdit = async (e) => {
     e.preventDefault();
@@ -79,6 +71,10 @@ export default function Account() {
       }
     }
   };
+
+  if (loading) {
+    return <Spinner />;
+  }
 
   if (currentUser === undefined) {
     return <Navigate to="/authentication" />;
@@ -135,7 +131,7 @@ export default function Account() {
                     <Input
                       type="text"
                       id="username"
-                      value={inputData.username}
+                      defaultValue={currentUser.name}
                       style="px-3 py-1 border-1 rounded-md bg-slate-200"
                       onChange={onTextChange}
                     />
