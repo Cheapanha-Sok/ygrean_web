@@ -4,12 +4,7 @@ import apiClient from "../../utils/apiClient/apiClient";
 export const signin = async (email, password) => {
   try {
     if (email.length > 0 && password.length > 0) {
-      const csrfUrl = `${process.env.REACT_APP_API_ENDPOINT}/sanctum/csrf-cookie`;
-      console.log(`Fetching CSRF token from: ${csrfUrl}`);
       await apiClient.get(`/sanctum/csrf-cookie`);
-      
-      const loginUrl = `${process.env.REACT_APP_API_ENDPOINT}/login`;
-      console.log(`Posting login data to: ${loginUrl}`);
       const res = await apiClient.post(`login`, {
         email,
         password,
@@ -63,7 +58,7 @@ export const signup = async (
 
 export const getUser = async () => {
   try {
-    const response = await apiClient.get(`api/user`);
+    const response = await apiClient.get(`api/curretUser`);
     const data = await response.data;
     return data;
   } catch (error) {
