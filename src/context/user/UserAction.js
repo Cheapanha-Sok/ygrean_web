@@ -25,10 +25,10 @@ export const signin = async (email, password) => {
   }
 };
 
-
 export const signup = async (
   username,
   email,
+  isGraduate,
   currentPassword,
   confirmPassword
 ) => {
@@ -37,6 +37,7 @@ export const signup = async (
     const response = await apiClient.post(`register`, {
       name: username,
       email,
+      is_graduate: isGraduate,
       password: currentPassword,
       password_confirmation: confirmPassword,
     });
@@ -58,17 +59,17 @@ export const signup = async (
 export const getUser = async () => {
   try {
     const response = await apiClient.get(`api/currentUser`);
-    const data = await response.data;
+    const data = await response.data.data;
     return data;
   } catch (error) {
     console.log(error);
   }
 };
-export const editUser = async (userId , username, isGraduate) => {
+export const editUser = async (userId, username, isGraduate) => {
   try {
     const response = await apiClient.put(`api/user/${userId}`, {
       name: username,
-      isGraduate,
+      is_graduate : isGraduate,
     });
     if (response.status === 200) {
       toast.success("update succesful");
@@ -102,7 +103,7 @@ export const savePointUser = async (
       point,
       category_id,
       level_id,
-      questions, // Send only the IDs to the backend
+      questions,
     });
 
     if (res.status === 200) {
@@ -116,4 +117,4 @@ export const savePointUser = async (
       toast.error("No response received from server");
     }
   }
-}
+};

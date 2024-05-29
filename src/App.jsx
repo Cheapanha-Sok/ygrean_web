@@ -31,6 +31,7 @@ export default function App() {
   const [isAdmin, setAdmin] = useState(false);
   const [isGraduate, setGraduate] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+
   useEffect(() => {
     const fetchData = async () => {
       const res = await getUser();

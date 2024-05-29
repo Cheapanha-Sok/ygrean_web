@@ -4,15 +4,22 @@ import Logo from "../../../../assets/Logo.png";
 import { signup } from "../../../../context/user/UserAction";
 import Input from "../../../../ui/shared/Input";
 import Button from "../../../../ui/shared/Button";
+import SelectOption from "../../../../ui/shared/SelectOption";
+import { userIndentity } from "../../../../data/dummyData";
 
 export default function SignUp({ setAuthOption }) {
   const navigate = useNavigate();
+  const [isGraduate, setGraduate] = useState(0);
   const [inputData, setInputData] = useState({
     email: "",
     currentPassword: "",
     username: "",
     confirmPassword: "",
   });
+  const handleSelectChange = (event) => {
+    const selectedOption = parseInt(event.target.value);
+    setGraduate(selectedOption);
+  };
   const onChange = (e) => {
     setInputData((prevState) => ({
       ...prevState,
@@ -25,6 +32,7 @@ export default function SignUp({ setAuthOption }) {
     const signUpStatus = await signup(
       username,
       email,
+      isGraduate,
       currentPassword,
       confirmPassword
     );
@@ -80,6 +88,14 @@ export default function SignUp({ setAuthOption }) {
             autoComplete="off"
             required
           />
+          <div>
+            <label htmlFor="userIndetity">Identity : </label>
+            <SelectOption
+              options={userIndentity}
+              onSelectChange={handleSelectChange}
+            />
+          </div>
+
           <Button type="submit" customClass="bg-[#283d50] text-white">
             Sign Up
           </Button>
