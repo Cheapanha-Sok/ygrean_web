@@ -51,7 +51,7 @@ export default function DoQuiz() {
     }
 
     const correctAnswer = listQuestion[currentQuestion].choices.find(
-      (item) => item.isCorrect === true
+      (item) => item.isCorrect === 1
     );
 
     if (choiceId === correctAnswer.id) {

@@ -152,7 +152,7 @@ export default function Account() {
                           type="checkbox"
                           id="notGraduate"
                           style="px-3 py-1 border-1 rounded-md bg-slate-200"
-                          onClick={() => setGraduate(false)}
+                          onClick={() => setGraduate(0)}
                         />
                       </div>
                     ) : (
@@ -162,7 +162,7 @@ export default function Account() {
                           type="checkbox"
                           id="graduate"
                           style="px-3 py-1 border-1 rounded-md bg-slate-200"
-                          onClick={() => setGraduate(true)}
+                          onClick={() => setGraduate(1)}
                         />
                       </div>
                     )
