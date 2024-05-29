@@ -53,31 +53,45 @@ export default function RankList() {
 
   return (
     <div className="flex flex-col gap-5">
-      <div className="flex flex-row gap-2">
-        <SelectOption
-          options={userIndentity}
-          onSelectChange={handleSelectChange}
-        />
-        <SelectOption options={types} onSelectChange={handleChangeType} />
-        <SelectOption
-          options={listCategory}
-          onSelectChange={handleChangeCategory}
-        />
+      <div className="flex flex-col md:flex-row gap-2">
+        <div className="flex flex-row gap-2">
+          <SelectOption
+            options={userIndentity}
+            onSelectChange={handleSelectChange}
+          />
+          <SelectOption options={types} onSelectChange={handleChangeType} />
+        </div>
+        <div>
+          <SelectOption
+            options={listCategory}
+            onSelectChange={handleChangeCategory}
+          />
+        </div>
       </div>
 
       {loading ? (
         <Spinner isFull />
       ) : listRanks.length ? (
-        listRanks.map((item, id) => (
-          <ul className="flex flex-col gap-5" key={item.id}>
-            <RankItem data={item} id={id + 1} />
-          </ul>
-        ))
+        <table className="relative overflow-x-auto bg-white ">
+          <thead className="uppercase bg-[#283d50] text-white">
+            <tr>
+              <th className="py-2">#</th>
+              <th className="py-2">Username</th>
+              <th className="py-2">Identity</th>
+              <th className="py-2">Total Points</th>
+            </tr>
+          </thead>
+          <tbody>
+            {listRanks.map((item, id) => (
+              <RankItem data={item} id={id + 1} key={item.id} />
+            ))}
+          </tbody>
+        </table>
       ) : (
         <NotFound />
       )}
 
-       {listRanks.length > 0 && (
+      {listRanks.length > 0 && (
         <div className="flex justify-end">
           <ShareButton />
         </div>

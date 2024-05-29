@@ -1,5 +1,3 @@
-import PropTypes from "prop-types";
-
 export default function Input({
   style,
   type,
@@ -33,17 +31,3 @@ export default function Input({
     />
   );
 }
-
-Input.propTypes = {
-  style: PropTypes.string,
-  type: PropTypes.string,
-  id: PropTypes.string,
-  onChange: PropTypes.func,
-  placeholder: PropTypes.string,
-  autoComplete: PropTypes.string,
-  onClick: PropTypes.func,
-  checked: PropTypes.bool,
-  defaultValue: PropTypes.any,
-  required: PropTypes.bool,
-  accept: PropTypes.string,
-};

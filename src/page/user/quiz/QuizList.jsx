@@ -2,8 +2,8 @@ import { useContext, useEffect, useState } from "react";
 import { getCategory, getType } from "../../../context/subject/SubjectAction";
 import SelectOption from "../../../ui/shared/SelectOption";
 import { types } from "../../../data/dummyData";
-import QuizItem from "./components/QuizItem";
 import QuizContext from "../../../context/quiz/QuizContext";
+import LevelPopUp from "./components/LevelPopUp";
 
 export default function QuizList({ isGraduate }) {
   const [option, setOption] = useState(1);
@@ -24,17 +24,16 @@ export default function QuizList({ isGraduate }) {
   }, [option, dispatch, isGraduate]);
 
   return (
-    <div className="flex flex-col gap-5">
-      <h1 className="text-xl font-semibold">Quiz</h1>
-      {isGraduate ? null : (
-        <div>
+    <div className="flex flex-col gap-5 p-5 bg-gray-50">
+      <h1 className="text-2xl font-bold text-gray-700">Quiz</h1>
+      {!isGraduate && (
+        <div className="mb-4">
           <SelectOption options={types} onSelectChange={handleSelectChange} />
         </div>
       )}
-
-      <div className="gap-5 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 text-sm md:text-l">
+      <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
         {listCategory.map((item) => (
-          <QuizItem data={item} key={item.id} />
+          <LevelPopUp data={item} key={item.id} />
         ))}
       </div>
     </div>

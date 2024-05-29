@@ -29,12 +29,12 @@ export default function BakDoubItem({ data }) {
 
   return (
     <>
-      <div
+      <li
         onClick={() => handleSelectChange(data.id)} // Pass data.id to the function
-        className="p-5 space-y-5 w-full bg-white shadow-md border-gray-200 md:duration-500 md:hover:scale-105 md:hover:shadow-xl"
+        className="flex flex-col gap-3 p-5 bg-white shadow-md rounded-lg border border-gray-200 hover:shadow-lg transition-shadow duration-300"
       >
-        <h1 className="text-center text-xl capitalize">{data.name}</h1>
-      </div>
+        <h1 className="text-center text-xl font-semibold text-gray-800 capitalize">{data.name}</h1>
+      </li>
       {isOpen && (
         <Modal title="Select a year" onClose={() => setOpen(!isOpen)}>
           <ul className="grid grid-cols-3 md:grid-cols-5 gap-5 p-5">

@@ -14,14 +14,13 @@ export default function DoQuiz() {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [showPoint, setShowPoint] = useState(false);
   const [choiceId, setChoiceId] = useState(0);
-  const [userChoices, setUserChoices] = useState([]); 
+  const [userChoices, setUserChoices] = useState([]);
   const [score, setScore] = useState(0);
   const { listQuestion, dispatch, loading } = useContext(QuizContext);
 
   const savePoint = async (score, categoryId, levelId, listQuestions) => {
     await savePointUser(score, categoryId, levelId, listQuestions);
   };
-  console.log(choiceId)
 
   useEffect(() => {
     dispatch({ type: "SET_LOADING" });
@@ -34,10 +33,10 @@ export default function DoQuiz() {
 
   const totalQuestions = listQuestion.length;
 
-  const handleChangeChoice = (e) =>{
-    const chocieId = parseInt(e.target.value)
-    setChoiceId(chocieId)
-  }
+  const handleChangeChoice = (e) => {
+    const choiceId = parseInt(e.target.value);
+    setChoiceId(choiceId);
+  };
 
   const handleNextQuestion = () => {
     if (currentQuestion >= totalQuestions - 1) {
@@ -54,11 +53,14 @@ export default function DoQuiz() {
       setScore((prevScore) => prevScore + listQuestion[currentQuestion].point);
     }
 
-    setUserChoices([...userChoices, { questionId: listQuestion[currentQuestion].id, choiceId }]); // Store user choice
+    setUserChoices([
+      ...userChoices,
+      { questionId: listQuestion[currentQuestion].id, choiceId },
+    ]);
 
     setCurrentQuestion((prevQuestion) => prevQuestion + 1);
     setChoiceId(0);
-  }
+  };
 
   if (loading) {
     return <Spinner isFull={true} />;
@@ -68,52 +70,51 @@ export default function DoQuiz() {
   }
   if (showPoint) {
     return (
-      <DisplayResult score={score} listQuestion={listQuestion} userChoices={userChoices} />
+      <DisplayResult
+        score={score}
+        listQuestion={listQuestion}
+        userChoices={userChoices}
+      />
     );
   }
 
-  console.log(listQuestion);
-
   return (
-    <ul className="flex flex-col gap-2 p-5">
-      <label htmlFor="complete-question">Question</label>
+    <div className="p-6 bg-gray-50 rounded-lg shadow-md">
+      <h2 className="text-2xl font-bold mb-4">Quiz</h2>
+      <label htmlFor="complete-question" className="block text-lg font-medium mb-2">Question Progress</label>
       <progress
         id="complete-question"
         value={currentQuestion}
         max={totalQuestions}
-        className="w-full"
+        className="w-full mb-4 h-4 bg-green-200 rounded"
       ></progress>
 
       {listQuestion[currentQuestion] && (
         <>
-          <div className="flex flex-row justify-between bg-slate-400 p-5">
-            <p className="font-semibold capitalize">
-              <p>{score}</p>
+          <div className="flex flex-col md:flex-row justify-between items-center bg-blue-100 p-4 rounded-lg mb-4 shadow-sm">
+            <p className="font-semibold text-gray-700">
               {listQuestion[currentQuestion].name}
             </p>
-
-            <p className="font-semibold capitalize">
-              point : {listQuestion[currentQuestion].point}
+            <p className="font-semibold text-gray-700">
+              Points: {listQuestion[currentQuestion].point}
             </p>
           </div>
 
-          {listQuestion[currentQuestion].choices.map((item) => (
-            <Choice
-              data={item}
-              key={item.id}
-              onSelect={handleChangeChoice}
-            />
-          ))}
+          <ul className="space-y-4">
+            {listQuestion[currentQuestion].choices.map((item) => (
+              <Choice data={item} key={item.id} onSelect={handleChangeChoice} />
+            ))}
+          </ul>
         </>
       )}
 
-      <div className="flex flex-row justify-between">
-        {choiceId !== 0 && (
-          <Button customClass="bg-green-500" onClick={handleNextQuestion}>
+      {choiceId !== 0 && (
+        <div className="mt-4 flex justify-end">
+          <Button customClass="bg-green-500 hover:bg-green-600" onClick={handleNextQuestion}>
             Next Question
           </Button>
-        )}
-      </div>
-    </ul>
+        </div>
+      )}
+    </div>
   );
 }

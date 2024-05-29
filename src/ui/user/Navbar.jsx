@@ -4,10 +4,10 @@ import account from "../../assets/svg/user.svg";
 import close from "../../assets/svg/close.svg";
 import menu from "../../assets/svg/menu.svg";
 import Button from "../shared/Button";
-import ranking from "../../assets/img/ranking.png"
-import ideas from "../../assets/img/ideas.png"
-import school from "../../assets/img/school.png"
-import technology from "../../assets/img/technology.png"
+import ranking from "../../assets/img/ranking.png";
+import ideas from "../../assets/img/ideas.png";
+import school from "../../assets/img/school.png";
+import technology from "../../assets/img/technology.png";
 import { useEffect, useRef, useState } from "react";
 
 export default function Navbar() {
@@ -40,14 +40,14 @@ export default function Navbar() {
   ];
   return (
     <nav className="bg-[#283d50] sticky top-0 z-30" ref={navRef}>
-      <div className="flex justify-between p-3">
-        <Link to="/" className="flex items-center justify-center">
-          <img src={Logo} alt="Logo" className="w-[30px] md:w-[40px]" />
+      <div className="max-w-7xl mx-auto flex justify-between p-4 xl:px-10">
+        <Link href="/">
+          <img src={Logo} alt="Logo" className="w-[50px] md:w-[50px]" />
         </Link>
         <div className="flex gap-5 items-center">
           <ul className="hidden md:inline-flex">
             {Links.map((link) => (
-              <li key={link.name} className="flex p-4 uppercase items-center">
+              <li key={link.name} className="flex px-2 uppercase items-center">
                 <img className="h-5 w-5 mr-2" src={link.image} alt="" />
                 <Link
                   to={link.link}

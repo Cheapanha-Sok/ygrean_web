@@ -17,7 +17,6 @@ export const signin = async (email, password) => {
     }
   } catch (error) {
     if (error.response) {
-      console.log(error.response);
       const errorMessage = error.response.data.message || "An error occurred";
       toast.error(`Error: ${errorMessage}`);
     } else if (error.request) {

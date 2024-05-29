@@ -23,16 +23,16 @@ export default function BakDoubList() {
   }, [option, dispatch]);
 
   return (
-    <div className="flex flex-col gap-5">
-      <h1 className="text-xl font-semibold">BakDoub Answer</h1>
+    <div className="flex flex-col gap-5 p-6 bg-gray-50 rounded-lg shadow-md">
+      <h1 className="text-2xl font-bold text-gray-700">BakDoub Answer</h1>
       <div>
         <SelectOption options={types} onSelectChange={handleSelectChange} />
       </div>
-      <div className="gap-5 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 text-sm md:text-l">
+      <ul className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
         {listCategory.map((item) => (
           <BakDoubItem data={item} key={item.id} />
         ))}
-      </div>
+      </ul>
     </div>
   );
 }

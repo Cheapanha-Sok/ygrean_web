@@ -3,7 +3,7 @@ import Modal from "../../../../ui/shared/Modal";
 import { useNavigate } from "react-router-dom";
 import { levels } from "../../../../data/dummyData";
 
-export default function QuizItem({ data }) {
+export default function LevelPopUp({ data }) {
   const navigate = useNavigate();
 
   const [isOpen, setOpen] = useState(false);
@@ -20,9 +20,11 @@ export default function QuizItem({ data }) {
     <>
       <div
         onClick={() => handleSelectChange(data.id)}
-        className="p-5 space-y-5 w-full bg-white shadow-md border-gray-200 md:duration-500 md:hover:scale-105 md:hover:shadow-xl"
+        className="p-5 space-y-5 bg-white shadow-md border border-gray-200 rounded-lg cursor-pointer hover:scale-105 transition-transform duration-300"
       >
-        <h1 className="text-center text-xl capitalize">{data.name}</h1>
+        <h1 className="text-center text-xl font-semibold text-gray-800 capitalize">
+          {data.name}
+        </h1>
       </div>
       {isOpen && (
         <Modal title="Select a level" onClose={() => setOpen(!isOpen)}>
@@ -31,8 +33,9 @@ export default function QuizItem({ data }) {
               <li
                 key={item.id}
                 className="p-5 text-white border border-white-2 rounded-md"
+                onClick={() => handleSelectExamDate(item.id)}
               >
-                <p onClick={() => handleSelectExamDate(item.id)}>{item.name}</p>
+                {item.name}
               </li>
             ))}
           </ul>

@@ -5,7 +5,6 @@ export const getRank = async (category_id , isGraduate) => {
     const res = await apiClient.get(`api/rank/${category_id}/${isGraduate}`);
     if (res.status === 200) {
       const data = await res.data.data;
-      console.log(data)
       return data;
     }
   } catch (error) {
