@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 export const getQuestion = async (categoryId, levelId) => {
   try {
     const res = await apiClient.get(
-      `api/question/${categoryId}/${levelId}`
+      `/api/question/${categoryId}/${levelId}`
     );
     if (res.status === 200) {
       const data = await res.data.data
@@ -18,7 +18,7 @@ export const getQuestion = async (categoryId, levelId) => {
 export const listQuestion = async (categoryId, levelId , isGraduate) => {
   try {
     const res = await apiClient.get(
-      `api/quesionList/${categoryId}/${levelId}/${isGraduate}`
+      `/api/quesionList/${categoryId}/${levelId}/${isGraduate}`
     );
     if (res.status === 200) {
       const data = await res.data.data;
@@ -44,7 +44,7 @@ export const createQuestion = async (
       questionName !== null ||
       choices !== null
     ) {
-      const res = await apiClient.post("api/question", {
+      const res = await apiClient.post("/api/question", {
         name: questionName,
         category_id: categoryId,
         isGraduate,
@@ -69,7 +69,7 @@ export const createQuestion = async (
 };
 export const removeQuestion = async (id) => {
   try {
-    const res = await apiClient.delete(`api/question/${id}`);
+    const res = await apiClient.delete(`/api/question/${id}`);
     if (res.status === 200) {
       const message = await res.data.message;
       toast.success(message);
@@ -84,7 +84,7 @@ export const updateQuestion = async (questionId, updatedQuestion) => {
   console.log(updatedQuestion);
   try {
     const res = await apiClient.put(
-      `api/question/${questionId}`,
+      `/api/question/${questionId}`,
       updatedQuestion
     );
     if (res.status === 200) {

@@ -3,7 +3,7 @@ import { toast } from "react-toastify";
 
 export const getSubjectPdf = async (examDateId, categoryId) => {
   try {
-    const res = await apiClient.get(`api/pdf/${examDateId}/${categoryId}`);
+    const res = await apiClient.get(`/api/pdf/${examDateId}/${categoryId}`);
     if (res.status === 200) {
       const data = await res.data;
       return data;
@@ -19,7 +19,7 @@ export const createSubject = async (categoryId, examDateId, file) => {
     formData.append("exam_date_id", parseInt(examDateId));
     formData.append("file", file);
 
-    const res = await apiClient.post(`api/subject`, formData, {
+    const res = await apiClient.post(`/api/subject`, formData, {
       headers: {
         "Content-Type": "multipart/form-data",
       },
@@ -41,7 +41,7 @@ export const createSubject = async (categoryId, examDateId, file) => {
 
 export const getSubject = async (typeId, examDateId) => {
   try {
-    const res = await apiClient.get(`api/subject/${typeId}/${examDateId}`);
+    const res = await apiClient.get(`/api/subject/${typeId}/${examDateId}`);
     if (res.status === 200) {
       const data = await res.data.data;
       return data;
@@ -63,7 +63,7 @@ export const updateSubject = async (
     formData.append("subjectId", parseInt(id));
     formData.append("examDateId", parseInt(selectedExamDate));
     formData.append("file", file);
-    const res = await apiClient.post(`api/subject`, {
+    const res = await apiClient.post(`/api/subject`, {
       formData,
     });
 
@@ -82,7 +82,7 @@ export const updateSubject = async (
 
 export const removeSubject = async (id) => {
   try {
-    const res = await apiClient.delete(`api/subject/${id}`);
+    const res = await apiClient.delete(`/api/subject/${id}`);
     if (res.status === 200) {
       console.log(res);
       const message = await res.data.message;
@@ -95,7 +95,7 @@ export const removeSubject = async (id) => {
 };
 export const getType = async (typeId) => {
   try {
-    const res = await apiClient.get(`api/type/${typeId}`);
+    const res = await apiClient.get(`/api/type/${typeId}`);
     if (res.status === 200) {
       const data = await res.data.data.categories;
       return data;
@@ -107,7 +107,7 @@ export const getType = async (typeId) => {
 
 export const getExamDate = async () => {
   try {
-    const res = await apiClient.get(`api/examDate`);
+    const res = await apiClient.get(`/api/examDate`);
     if (res.status === 200) {
       const data = await res.data.data;
       return data;
@@ -119,7 +119,7 @@ export const getExamDate = async () => {
 
 export const getCategory = async () => {
   try {
-    const res = await apiClient("api/category");
+    const res = await apiClient("/api/category");
     if (res.status === 200) {
       const data = await res.data.data;
       return data;

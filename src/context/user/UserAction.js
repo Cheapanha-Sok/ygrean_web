@@ -5,7 +5,7 @@ export const signin = async (email, password) => {
   try {
     if (email.length > 0 && password.length > 0) {
       await apiClient.get(`/sanctum/csrf-cookie`);
-      const res = await apiClient.post(`login`, {
+      const res = await apiClient.post(`/login`, {
         email,
         password,
       });
@@ -35,7 +35,7 @@ export const signup = async (
 ) => {
   try {
     await apiClient.get(`/sanctum/csrf-cookie`);
-    const response = await apiClient.post(`register`, {
+    const response = await apiClient.post(`/register`, {
       name: username,
       email,
       password: currentPassword,
@@ -58,7 +58,7 @@ export const signup = async (
 
 export const getUser = async () => {
   try {
-    const response = await apiClient.get(`api/curretUser`);
+    const response = await apiClient.get(`/api/curretUser`);
     const data = await response.data;
     return data;
   } catch (error) {
@@ -67,7 +67,7 @@ export const getUser = async () => {
 };
 export const editUser = async (userId , username, isGraduate) => {
   try {
-    const response = await apiClient.put(`api/user/${userId}`, {
+    const response = await apiClient.put(`/api/user/${userId}`, {
       name: username,
       isGraduate,
     });
@@ -81,7 +81,7 @@ export const editUser = async (userId , username, isGraduate) => {
 };
 export const logOut = async () => {
   try {
-    const res = await apiClient.post("logout");
+    const res = await apiClient.post("/logout");
     if (res.status === 204) {
       toast.success("logout successful");
       return true;
@@ -99,7 +99,7 @@ export const savePointUser = async (
   try {
     // Extract question IDs from the listQuestions array
     const questions = listQuestions.map((question) => question.id);
-    const res = await apiClient.post("api/rank", {
+    const res = await apiClient.post("/api/rank", {
       point,
       category_id,
       level_id,
