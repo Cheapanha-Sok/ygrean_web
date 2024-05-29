@@ -1,5 +1,5 @@
 import axios from "axios";
-const { REACT_APP_API_ENDPOINT } = process.env;
+import { REACT_APP_API_ENDPOINT } from "../base/baseUrl";
 
 const apiClient = axios.create({
   baseURL: REACT_APP_API_ENDPOINT,
