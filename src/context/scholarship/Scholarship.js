@@ -4,10 +4,11 @@ import axios from "axios";
 
 export const createScholarship = async (data, link) => {
   try {
-    console.log(link);
+    const createdTime = new Date(data.created_time);
+    const formattedDate = `${createdTime.getFullYear()}-${String(createdTime.getMonth() + 1).padStart(2, '0')}-${String(createdTime.getDate()).padStart(2, '0')} ${String(createdTime.getHours()).padStart(2, '0')}:${String(createdTime.getMinutes()).padStart(2, '0')}:${String(createdTime.getSeconds()).padStart(2, '0')}`;
     const res = await apiClient.post("api/scholarship", {
       description: data.message,
-      post_at: data.created_time,
+      post_at: formattedDate,
       link,
     });
 
@@ -49,7 +50,6 @@ export const scrabData = async (accessToken, link) => {
 
     if (res.status === 200) {
       const data = res.data;
-      console.log("trov in function");
       return data;
     }
   } catch (error) {
