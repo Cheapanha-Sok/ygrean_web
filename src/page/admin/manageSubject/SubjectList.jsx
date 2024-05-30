@@ -30,7 +30,7 @@ export default function SubjectList() {
   useEffect(() => {
     dispatch({ type: "SET_LOADING" });
     fetchExamDate().then(() => fetchSubject());
-  }, [dispatch, selectOption, selectExamDate]);
+  }, [dispatch]);
 
   const fetchSubject = async () => {
     const data = await getSubject(selectOption, selectExamDate);
@@ -53,6 +53,9 @@ export default function SubjectList() {
           options={listExamDate}
           onSelectChange={handleExamDateChange}
         />
+        <Button customClass="border-2" onClick={() => fetchSubject()}>
+          Search
+        </Button>
         <Button
           customClass="bg-green-500 text-white"
           onClick={() => setIsOpen(true)}

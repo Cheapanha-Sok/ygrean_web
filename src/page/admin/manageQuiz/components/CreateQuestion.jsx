@@ -80,11 +80,10 @@ const CreateQuestion = ({ onClose }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const { questionName, choices } = inputData;
-    const isGraduate = userIdentity === 1 ? false : true;
     const res = await createQuestion(
       questionName,
       categoryId,
-      isGraduate,
+      userIdentity,
       levelId,
       choices
     );

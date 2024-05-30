@@ -23,7 +23,7 @@ export default function UpdateQuestion({ question, onClose }) {
     name: question.name,
     category_id: category,
     level_id: level,
-    isGraduate: userIdentity,
+    is_graduate: userIdentity,
     choices: question.choices.map((choice) => ({
       id: choice.id,
       name: choice.name,
@@ -45,7 +45,7 @@ export default function UpdateQuestion({ question, onClose }) {
       ...prevData,
       category_id: category,
       level_id: level,
-      isGraduate: userIdentity,
+      is_graduate: userIdentity ? 1 : 0,
     }));
   }, [category, level, userIdentity]);
 

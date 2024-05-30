@@ -47,7 +47,7 @@ export const createQuestion = async (
       const res = await apiClient.post("api/question", {
         name: questionName,
         category_id: categoryId,
-        isGraduate,
+        is_graduate : isGraduate,
         level_id: levelId,
         choices: choices,
       });
@@ -81,7 +81,6 @@ export const removeQuestion = async (id) => {
 };
 
 export const updateQuestion = async (questionId, updatedQuestion) => {
-  console.log(updatedQuestion);
   try {
     const res = await apiClient.put(
       `api/question/${questionId}`,
