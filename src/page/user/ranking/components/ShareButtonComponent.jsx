@@ -23,7 +23,7 @@ const ShareButton = () => {
       window.FB.ui({
         display: 'popup',
         method: 'share',
-        href: 'https://tosan.vercel.app/book/horror/kZObOI637G22HCvJKtkt',
+        href: 'https://ygrean.site',
       }, function(response){
         // Handle response here
         console.log(response);
