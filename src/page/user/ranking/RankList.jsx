@@ -7,7 +7,6 @@ import { getRank } from "../../../context/rank/RankAction";
 import SelectOption from "../../../ui/shared/SelectOption";
 import { types, userIndentity } from "../../../data/dummyData";
 import { getCategory, getType } from "../../../context/subject/SubjectAction";
-import ShareButton from "./components/ShareButtonComponent";
 import Button from "../../../ui/shared/Button";
 
 export default function RankList() {
@@ -91,12 +90,6 @@ export default function RankList() {
         </table>
       ) : (
         <NotFound />
-      )}
-
-      {listRanks.length > 0 && (
-        <div className="flex justify-end">
-          <ShareButton />
-        </div>
       )}
     </div>
   );

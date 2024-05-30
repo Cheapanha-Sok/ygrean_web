@@ -1,3 +1,5 @@
+import ShareButton from "./ShareButtonComponent";
+
 export default function DisplayResult({ score, listQuestion, userChoices }) {
   return (
     <div className="p-5 bg-gray-50">
@@ -45,6 +47,7 @@ export default function DisplayResult({ score, listQuestion, userChoices }) {
           );
         })}
       </ul>
+      <ShareButton/>
     </div>
   );
 }
