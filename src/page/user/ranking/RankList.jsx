@@ -8,15 +8,14 @@ import SelectOption from "../../../ui/shared/SelectOption";
 import { types, userIndentity } from "../../../data/dummyData";
 import { getCategory, getType } from "../../../context/subject/SubjectAction";
 import ShareButton from "./components/ShareButtonComponent";
+import Button from "../../../ui/shared/Button";
 
 export default function RankList() {
   const { listRanks, listCategory, loading, dispatch } =
     useContext(RankDataContext);
   const [isGraduate, setGraduate] = useState(0);
   const [type, setType] = useState(1);
-  const [category, setCategory] = useState(
-    listCategory.length ? listCategory[0].id : 1
-  );
+  const [category, setCategory] = useState(1);
 
   const handleSelectChange = (event) => {
     const selectedOption = parseInt(event.target.value);
@@ -40,7 +39,7 @@ export default function RankList() {
       dispatch({ type: "SET_CATEGORY", payload: data });
     };
     fetchData().then(() => fetchRank());
-  }, [dispatch, isGraduate, category, type]);
+  }, [dispatch, type , isGraduate]);
 
   const fetchRank = async () => {
     const data = await getRank(category, isGraduate);
@@ -59,13 +58,16 @@ export default function RankList() {
             options={userIndentity}
             onSelectChange={handleSelectChange}
           />
-          <SelectOption options={types} onSelectChange={handleChangeType} />
+          {isGraduate === 0 && (
+            <SelectOption options={types} onSelectChange={handleChangeType} />
+          )}
         </div>
-        <div>
+        <div className="flex flex-row gap-2">
           <SelectOption
             options={listCategory}
             onSelectChange={handleChangeCategory}
           />
+          <Button customClass="border-2" onClick={() => fetchRank()}>Search</Button>
         </div>
       </div>
 

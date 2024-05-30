@@ -10,8 +10,8 @@ export default function ViewPdf() {
   const { subject, dispatch, loading } = useContext(SubjectContext);
 
   useEffect(() => {
+    dispatch({ type: "SET_LOADING" });
     const fetchData = async (examDateId, categoryId) => {
-      dispatch({ type: "SET_LOADING" });
       const data = await getSubjectPdf(examDateId, categoryId);
       if (data.statusCode === 404) {
         dispatch({ type: "SET_PDF", payload: null });

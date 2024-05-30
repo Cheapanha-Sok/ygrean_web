@@ -16,6 +16,7 @@ export default function QuizList({ isGraduate }) {
   const { listCategory, dispatch } = useContext(QuizContext);
 
   useEffect(() => {
+    dispatch({ type: "SET_LOADING" });
     const fetchData = async (option) => {
       const data = isGraduate ? await getCategory() : await getType(option);
       dispatch({ type: "SET_CATEGORY", payload: data });

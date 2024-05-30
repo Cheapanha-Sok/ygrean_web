@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import { useContext, useEffect } from "react";
 import ScholarshipDataContext from "../../../context/scholarship/ScholarshipContext";
 import { getScholarship } from "../../../context/scholarship/Scholarship";
 import ScholarshipItem from "./components/ScholarshipItem";
@@ -9,6 +9,7 @@ export default function ScholarshipList() {
   const { listScholarship, dispatch, loading } = useContext(ScholarshipDataContext);
 
   useEffect(() => {
+    dispatch({ type: "SET_LOADING" });
     const fetchData = async () => {
       const data = await getScholarship();
       dispatch({ type: "SET_SCHOLARSHIP", payload: data });
