@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { removeSubject } from "../../../../context/subject/SubjectAction";
 import Button from "../../../../ui/shared/Button";
-import UpdateInfo from "./UpdateInfo";
 
 export default function BakDoubItem({ data, onRefresh }) {
   const { category, examdate, id } = data;
@@ -26,20 +25,7 @@ export default function BakDoubItem({ data, onRefresh }) {
         >
           Remove
         </Button>
-        <Button
-          customClass="bg-green-500 text-white"
-          onClick={() => setIsUpdate(!isUpdate)}
-        >
-          Edit
-        </Button>
       </div>
-      {isUpdate && (
-        <UpdateInfo
-          onClose={() => setIsUpdate(false)}
-          pdfUrl={data.pdfUrl}
-          id={id}
-        />
-      )}
     </li>
   );
 }

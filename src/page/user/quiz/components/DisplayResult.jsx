@@ -2,7 +2,7 @@ import ShareButton from "./ShareButtonComponent";
 
 export default function DisplayResult({ score, listQuestion, userChoices }) {
   return (
-    <div className="p-5 bg-gray-50">
+    <div className="flex flex-col gap-5 p-5 bg-gray-50 ">
       <h2 className="text-2xl font-bold bg-slate-400 text-center p-3 rounded-md mb-5">
         Your Score is: {score}
       </h2>
